@@ -11,6 +11,17 @@ import SnapKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    var toggle: Bool?
+    let productView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemYellow
+        return view
+    }()
+    let todoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
     var collectionView: UICollectionView!
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -29,21 +40,24 @@ class HomeViewController: UIViewController {
     typealias Item = ProfileInfo
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
-    let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔"]
+    let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.cellId)
-        tableView.separatorInset = .zero
-        tableView.separatorStyle = .none
-//        tableView.sectionHeaderTopPadding = .zero
         setupView()
+        self.toggle = false
     }
     
     private func setupView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.cellId)
+        tableView.register(TodayTodoCell.self, forCellReuseIdentifier: TodayTodoCell.cellId)
+        tableView.separatorInset = .zero
+        tableView.separatorStyle = .none
+        tableView.sectionHeaderTopPadding = .zero
+        
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200))
         tableView.tableHeaderView = headerView
         
@@ -91,6 +105,20 @@ class HomeViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    @objc func productButtonTapped(_ sender: UIButton) {
+        toggle = false
+        productView.backgroundColor = .systemYellow
+        todoView.backgroundColor = .clear
+        self.tableView.reloadData()
+    }
+    
+    @objc func todoButtonTapped(_ sender: UIButton) {
+        toggle = true
+        productView.backgroundColor = .clear
+        todoView.backgroundColor = .systemYellow
+        self.tableView.reloadData()
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -99,62 +127,75 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath)
-//        cell.textLabel?.text = dummyData[indexPath.row]
         
-        return cell
+        if toggle == false {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodayTodoCell.cellId, for: indexPath)
+            return cell
+        }
     }
 }
 
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        if toggle == false {
+            return 95
+        } else {
+            return 45
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 45
+        return 35
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = .systemGray2
-        headerView.layer.cornerRadius = 10
-        headerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        headerView.backgroundColor = .white
+//        headerView.layer.cornerRadius = 10
+//        headerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+//        headerView.layer.borderWidth = 1
+//        headerView.layer.borderColor = UIColor.systemGray3.cgColor
 
-        
         let productButton = UIButton()
-        productButton.setTitle("제품", for: .normal)
+        productButton.setTitle("임박 제품", for: .normal)
+        productButton.setTitleColor(.black, for: .normal)
+        productButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         headerView.addSubview(productButton)
         productButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview()
             make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(44)
+            make.height.equalTo(34)
         }
+        productButton.addTarget(self, action: #selector(productButtonTapped), for: .touchUpInside)
         
         let todoButton = UIButton()
-        todoButton.setTitle("할일", for: .normal)
+        todoButton.setTitle("오늘 일정", for: .normal)
+        todoButton.setTitleColor(.black, for: .normal)
+        todoButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         headerView.addSubview(todoButton)
         todoButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview()
             make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(44)
+            make.height.equalTo(34)
         }
+        todoButton.addTarget(self, action: #selector(todoButtonTapped), for: .touchUpInside)
         
         let seperatedView = UIView()
-        seperatedView.backgroundColor = .black
+        seperatedView.backgroundColor = .lightGray
         headerView.addSubview(seperatedView)
         seperatedView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(0.8)
             make.width.equalToSuperview()
         }
         
-        let productView = UIView()
-        productView.backgroundColor = .systemBlue
         headerView.addSubview(productView)
         productView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
@@ -164,8 +205,6 @@ extension HomeViewController: UITableViewDelegate {
             make.width.equalTo(productButton.snp.width).dividedBy(2)
         }
         
-        let todoView = UIView()
-//        todoView.backgroundColor = .systemBlue
         headerView.addSubview(todoView)
         todoView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
@@ -174,7 +213,6 @@ extension HomeViewController: UITableViewDelegate {
             make.height.equalTo(3)
             make.width.equalTo(todoButton.snp.width).dividedBy(2)
         }
-        
         
         return headerView
     }

@@ -14,6 +14,7 @@
 		1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */; };
 		1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E728AF216900A8AA7B /* HomeViewController.swift */; };
 		1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */; };
+		1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1005C3DD28AF1CB200A8AA7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005C3E728AF216900A8AA7B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				1005C3E328AF1F5A00A8AA7B /* Model */,
 				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
 				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
+				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
@@ -183,6 +186,7 @@
 			files = (
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
+				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 			);

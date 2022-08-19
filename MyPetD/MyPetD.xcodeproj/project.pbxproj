@@ -12,6 +12,8 @@
 		1005C3D728AF1CB000A8AA7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1005C3D528AF1CB000A8AA7B /* Main.storyboard */; };
 		1005C3D928AF1CB200A8AA7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1005C3D828AF1CB200A8AA7B /* Assets.xcassets */; };
 		1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */; };
+		1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E728AF216900A8AA7B /* HomeViewController.swift */; };
+		1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		1005C3D828AF1CB200A8AA7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1005C3DB28AF1CB200A8AA7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1005C3DD28AF1CB200A8AA7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1005C3E728AF216900A8AA7B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,56 @@
 		1005C3CE28AF1CB000A8AA7B /* MyPetD */ = {
 			isa = PBXGroup;
 			children = (
+				1005C3EB28AF220E00A8AA7B /* TabBar */,
+				1005C3E328AF1F5A00A8AA7B /* Model */,
 				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
 				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
-				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
 			);
 			path = MyPetD;
+			sourceTree = "<group>";
+		};
+		1005C3E328AF1F5A00A8AA7B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1005C3E428AF1F6800A8AA7B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1005C3E528AF1F6F00A8AA7B /* Box */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Box;
+			sourceTree = "<group>";
+		};
+		1005C3E628AF209C00A8AA7B /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		1005C3EB28AF220E00A8AA7B /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
+				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
+				1005C3E428AF1F6800A8AA7B /* Home */,
+				1005C3E528AF1F6F00A8AA7B /* Box */,
+				1005C3E628AF209C00A8AA7B /* Todo */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +182,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
+				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
+				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

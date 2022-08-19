@@ -16,6 +16,7 @@
 		1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */; };
 		1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */; };
 		1005C3F028AF771200A8AA7B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1005C3EF28AF771200A8AA7B /* SnapKit */; };
+		1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F128AF7DB000A8AA7B /* ProductCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		1005C3E728AF216900A8AA7B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarItem.swift; sourceTree = "<group>"; };
+		1005C3F128AF7DB000A8AA7B /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
+				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
+				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 			);

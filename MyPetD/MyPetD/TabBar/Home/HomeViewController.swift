@@ -10,9 +10,24 @@ import SnapKit
 
 class HomeViewController: UIViewController {
 
-    
     @IBOutlet weak var tableView: UITableView!
     var collectionView: UICollectionView!
+    lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.allowsContinuousInteraction = false
+        pageControl.pageIndicatorTintColor = .systemGray6
+        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.numberOfPages = profileInfos.count
+        pageControl.currentPage = .zero
+        return pageControl
+    }()
+
+    enum Section {
+        case main
+    }
+    let profileInfos: [ProfileInfo] = ProfileInfo.list
+    typealias Item = ProfileInfo
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔", "츄르", "건조간식", "사료", "캔"]
     
@@ -31,14 +46,35 @@ class HomeViewController: UIViewController {
     private func setupView() {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200))
         tableView.tableHeaderView = headerView
-        headerView.backgroundColor = .systemOrange
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
-        collectionView.backgroundColor = .systemBlue
+        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.cellId)
         headerView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        headerView.addSubview(pageControl)
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(6)
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+            collectionView: collectionView,
+            cellProvider: { collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.cellId, for: indexPath) as? ProfileCell else { return nil }
+            cell.configure(item)
+            return cell
+        })
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(profileInfos, toSection: .main)
+        dataSource.apply(snapshot)
+        
+        collectionView.collectionViewLayout = collectionViewLayout()
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -47,6 +83,11 @@ class HomeViewController: UIViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        section.visibleItemsInvalidationHandler = { (item, offset, env) in
+            let index = Int((offset.x / env.container.contentSize.width).rounded(.up))
+            self.pageControl.currentPage = index
+        }
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }

@@ -20,6 +20,8 @@
 		1005C3F428AF9A2200A8AA7B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */; };
 		1005C3F628AFA04C00A8AA7B /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */; };
 		1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */; };
+		1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */; };
+		1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTodoCell.swift; sourceTree = "<group>"; };
+		1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailViewController.swift; sourceTree = "<group>"; };
+		1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
+				1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */,
+				1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */,
 				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
 				1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */,
 				1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */,
@@ -204,9 +210,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */,
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
 				1005C3F628AFA04C00A8AA7B /* ProfileInfo.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
+				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
 				1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */,
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,

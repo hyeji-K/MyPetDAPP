@@ -63,6 +63,7 @@ class HomeViewController: UIViewController {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.cellId)
+        collectionView.delegate = self
         headerView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -215,5 +216,15 @@ extension HomeViewController: UITableViewDelegate {
         }
         
         return headerView
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = profileInfos[indexPath.item]
+        print("item -> \(item)")
+        
+        let petDetailViewController = PetDetailViewController()
+        self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
 }

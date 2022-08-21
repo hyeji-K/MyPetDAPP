@@ -22,6 +22,7 @@
 		1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */; };
 		1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */; };
 		1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */; };
+		1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTodoCell.swift; sourceTree = "<group>"; };
 		1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailViewController.swift; sourceTree = "<group>"; };
 		1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfoCell.swift; sourceTree = "<group>"; };
+		1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				1005C3E328AF1F5A00A8AA7B /* Model */,
 				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
 				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
+				1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */,
 				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
@@ -216,6 +219,7 @@
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
+				1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */,
 				1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */,
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,

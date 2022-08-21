@@ -24,8 +24,8 @@ class MainTabBarViewController: UITabBarController {
     private func updateNavigationItem(viewController: UIViewController) {
         switch viewController {
         case is HomeViewController:
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationItem.title = "LargeTitles"
+//            navigationController?.navigationBar.prefersLargeTitles = true
+//            navigationItem.title = "LargeTitles"
 //            let image = UIImage(systemName: "sun.max")
 //            navigationController?.navigationBar.setBackgroundImage(image, for: .default)
 //            navigationController?.navigationBar.backgroundColor = .clear
@@ -45,7 +45,7 @@ class MainTabBarViewController: UITabBarController {
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [addItem, notificationItem]
-            
+            navigationItem.backButtonDisplayMode = .minimal
             
         default:
             print("")

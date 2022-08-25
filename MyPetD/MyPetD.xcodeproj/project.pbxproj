@@ -27,6 +27,7 @@
 		1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40528B73E1300A8AA7B /* BoxViewController.swift */; };
 		1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40728B741AB00A8AA7B /* BoxCell.swift */; };
 		1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40928B778B300A8AA7B /* ProductInfo.swift */; };
+		1005C40C28B77FAA00A8AA7B /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		1005C40528B73E1300A8AA7B /* BoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
 		1005C40728B741AB00A8AA7B /* BoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxCell.swift; sourceTree = "<group>"; };
 		1005C40928B778B300A8AA7B /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
+		1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			children = (
 				1005C40528B73E1300A8AA7B /* BoxViewController.swift */,
 				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
+				1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				1005C3F628AFA04C00A8AA7B /* ProfileInfo.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
+				1005C40C28B77FAA00A8AA7B /* AddProductViewController.swift in Sources */,
 				1005C40028B2702F00A8AA7B /* AddItemViewController.swift in Sources */,
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
 				1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */,

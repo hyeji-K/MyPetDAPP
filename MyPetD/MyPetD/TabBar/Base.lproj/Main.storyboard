@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,23 +41,48 @@
             </objects>
             <point key="canvasLocation" x="-359.4202898550725" y="859.82142857142856"/>
         </scene>
-        <!--Item-->
+        <!--Box-->
         <scene sceneID="iy9-at-z6U">
             <objects>
-                <viewController id="FEJ-KU-1DH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BoxViewController" id="FEJ-KU-1DH" customClass="BoxViewController" customModule="MyPetD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dQm-x7-wxf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-su-iyU">
-                                <rect key="frame" x="130" y="159" width="110" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zXM-cE-QGk">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Pyk-JB-YDv">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BoxCell" id="9ro-uh-txL" customClass="BoxCell" customModule="MyPetD" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uBO-xk-780">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="82l-gO-8Vz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="82l-gO-8Vz" firstAttribute="trailing" secondItem="zXM-cE-QGk" secondAttribute="trailing" id="8kB-Jy-m6T"/>
+                            <constraint firstItem="zXM-cE-QGk" firstAttribute="leading" secondItem="82l-gO-8Vz" secondAttribute="leading" id="YvW-z8-YdB"/>
+                            <constraint firstItem="zXM-cE-QGk" firstAttribute="top" secondItem="82l-gO-8Vz" secondAttribute="top" id="mX5-Dz-xza"/>
+                            <constraint firstItem="82l-gO-8Vz" firstAttribute="bottom" secondItem="zXM-cE-QGk" secondAttribute="bottom" id="rwc-yT-cRZ"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="U7H-3i-COl"/>
+                    <tabBarItem key="tabBarItem" title="Box" image="shippingbox" catalog="system" id="U7H-3i-COl"/>
+                    <connections>
+                        <outlet property="collectionView" destination="zXM-cE-QGk" id="FJl-Zb-tEz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3H-is-1W8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -121,6 +147,7 @@
     </scenes>
     <resources>
         <image name="pentagon" catalog="system" width="128" height="113"/>
+        <image name="shippingbox" catalog="system" width="128" height="124"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

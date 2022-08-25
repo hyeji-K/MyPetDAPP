@@ -24,6 +24,9 @@
 		1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */; };
 		1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */; };
 		1005C40028B2702F00A8AA7B /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FF28B2702F00A8AA7B /* AddItemViewController.swift */; };
+		1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40528B73E1300A8AA7B /* BoxViewController.swift */; };
+		1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40728B741AB00A8AA7B /* BoxCell.swift */; };
+		1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40928B778B300A8AA7B /* ProductInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfoCell.swift; sourceTree = "<group>"; };
 		1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		1005C3FF28B2702F00A8AA7B /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		1005C40528B73E1300A8AA7B /* BoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
+		1005C40728B741AB00A8AA7B /* BoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxCell.swift; sourceTree = "<group>"; };
+		1005C40928B778B300A8AA7B /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */,
+				1005C40928B778B300A8AA7B /* ProductInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,6 +123,8 @@
 		1005C3E528AF1F6F00A8AA7B /* Box */ = {
 			isa = PBXGroup;
 			children = (
+				1005C40528B73E1300A8AA7B /* BoxViewController.swift */,
+				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -225,9 +234,12 @@
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
 				1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */,
 				1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */,
+				1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */,
+				1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */,
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
+				1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */,
 				1005C3F428AF9A2200A8AA7B /* ProfileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

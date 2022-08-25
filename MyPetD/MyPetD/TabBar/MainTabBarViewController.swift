@@ -42,6 +42,25 @@ class MainTabBarViewController: UITabBarController {
             let notificationItem = UIBarButtonItem.generate(with: notificationConfig, width: 30)
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
+                let addItemViewController = AddItemViewController()
+                addItemViewController.modalTransitionStyle = .crossDissolve
+                addItemViewController.modalPresentationStyle = .overFullScreen
+                self.present(addItemViewController, animated: true, completion: nil)
+                
+//                let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+//                alert.modalPresentationStyle = .overFullScreen
+//                let action1 = UIAlertAction(title: "나의 반려동물 추가하기", style: .default, handler: nil)
+//                alert.addAction(action1)
+//
+//                let action2 = UIAlertAction(title: "제품 추가하기", style: .default, handler: nil)
+//                alert.addAction(action2)
+//
+//                let action3 = UIAlertAction(title: "일정 추가하기", style: .default, handler: nil)
+//                alert.addAction(action3)
+//
+//                let action4 = UIAlertAction(title: "취소", style: .destructive)
+//                alert.addAction(action4)
+//                self.present(alert, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [addItem, notificationItem]

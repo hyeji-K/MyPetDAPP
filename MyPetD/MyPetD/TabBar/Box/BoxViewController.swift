@@ -24,6 +24,7 @@ class BoxViewController: UIViewController {
     }
     
     private func setupView() {
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemMint
         self.collectionView.register(BoxCell.self, forCellWithReuseIdentifier: BoxCell.identifier)
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, item in
@@ -53,3 +54,12 @@ class BoxViewController: UIViewController {
     }
 }
 // 
+
+extension BoxViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = indexPath.item
+        print(item)
+        let productDetailViewController = ProductDetailViewController()
+        self.navigationController?.pushViewController(productDetailViewController, animated: true)
+    }
+}

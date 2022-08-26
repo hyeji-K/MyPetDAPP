@@ -66,6 +66,20 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.rightBarButtonItems = [addItem, notificationItem]
             navigationItem.backButtonDisplayMode = .minimal
             
+        case is BoxViewController:
+            let titleConfig = CustomBarItemConfiguration(title: "BoxView", action: { print("title tapped") })
+            let titleItem = UIBarButtonItem.generate(with: titleConfig)
+            navigationItem.leftBarButtonItem = titleItem
+            
+            let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+                print("plus button tapped")
+                let addProductViewController = AddProductViewController()
+                self.present(addProductViewController, animated: true, completion: nil)
+            }
+            let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+            navigationItem.rightBarButtonItems = [addItem]
+            navigationItem.backButtonDisplayMode = .minimal
+            
         default:
             print("")
         }

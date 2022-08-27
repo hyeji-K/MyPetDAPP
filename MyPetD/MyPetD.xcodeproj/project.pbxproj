@@ -29,6 +29,7 @@
 		1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40928B778B300A8AA7B /* ProductInfo.swift */; };
 		1005C40C28B77FAA00A8AA7B /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */; };
 		1005C40E28B7B65800A8AA7B /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40D28B7B65800A8AA7B /* ProductDetailViewController.swift */; };
+		1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		1005C40928B778B300A8AA7B /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
 		1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		1005C40D28B7B65800A8AA7B /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				1005C40528B73E1300A8AA7B /* BoxViewController.swift */,
 				1005C40D28B7B65800A8AA7B /* ProductDetailViewController.swift */,
+				1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */,
 				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
 				1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */,
 			);
@@ -246,6 +249,7 @@
 				1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */,
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
+				1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 				1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */,
 				1005C3F428AF9A2200A8AA7B /* ProfileCell.swift in Sources */,

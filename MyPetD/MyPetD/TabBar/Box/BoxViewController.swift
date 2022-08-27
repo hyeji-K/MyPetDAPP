@@ -59,7 +59,12 @@ extension BoxViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = indexPath.item
         print(item)
-        let productDetailViewController = ProductDetailViewController()
-        self.navigationController?.pushViewController(productDetailViewController, animated: true)
+//        let productDetailViewController = ProductDetailViewController()
+//        self.navigationController?.pushViewController(productDetailViewController, animated: true)
+        
+        let itemDetailViewController = ItemDetailViewController()
+        itemDetailViewController.modalTransitionStyle = .crossDissolve
+        itemDetailViewController.modalPresentationStyle = .overFullScreen
+        self.present(itemDetailViewController, animated: true, completion: nil)
     }
 }

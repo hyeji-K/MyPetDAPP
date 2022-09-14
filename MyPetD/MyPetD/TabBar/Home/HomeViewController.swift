@@ -53,7 +53,7 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.cellId)
-        tableView.register(TodayTodoCell.self, forCellReuseIdentifier: TodayTodoCell.cellId)
+        tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.cellId)
         tableView.separatorInset = .zero
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = .zero
@@ -133,7 +133,7 @@ extension HomeViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TodayTodoCell.cellId, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.cellId, for: indexPath)
             return cell
         }
     }
@@ -145,7 +145,7 @@ extension HomeViewController: UITableViewDelegate {
         if toggle == false {
             return 95
         } else {
-            return 45
+            return 60
         }
     }
     

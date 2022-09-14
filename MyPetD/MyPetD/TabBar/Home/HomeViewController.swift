@@ -131,9 +131,11 @@ extension HomeViewController: UITableViewDataSource {
         
         if toggle == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath)
+            cell.selectionStyle = .none
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.cellId, for: indexPath)
+            cell.selectionStyle = .none
             return cell
         }
     }

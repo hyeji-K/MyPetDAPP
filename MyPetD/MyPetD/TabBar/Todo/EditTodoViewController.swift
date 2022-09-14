@@ -1,13 +1,13 @@
 //
-//  AddTodoViewController.swift
+//  EditTodoViewController.swift
 //  MyPetD
 //
-//  Created by heyji on 2022/08/27.
+//  Created by heyji on 2022/09/14.
 //
 
 import UIKit
 
-final class AddTodoViewController: UIViewController {
+final class EditTodoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ final class AddTodoViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
         let saveButton = UIButton()
-        saveButton.setTitle("추가", for: .normal)
+        saveButton.setTitle("저장", for: .normal)
         saveButton.setTitleColor(.black, for: .normal)
         navigationBar.addSubview(saveButton)
         saveButton.snp.makeConstraints { make in
@@ -110,7 +110,7 @@ final class AddTodoViewController: UIViewController {
     }
 }
 
-extension AddTodoViewController: UICollectionViewDelegate {
+extension EditTodoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? RepeatCell else { return }
         cell.titleLabel.textColor = .systemOrange

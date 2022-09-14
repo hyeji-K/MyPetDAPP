@@ -17,6 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // 탭바가 세번쨰 탭에서 투명해짐 (iOS 15부터 해줘야할 것)
+        if #available(iOS 15.0, *) {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

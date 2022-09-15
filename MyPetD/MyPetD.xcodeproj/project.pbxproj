@@ -37,6 +37,7 @@
 		1048DF1728D1A143009C87AD /* RepeatButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1628D1A143009C87AD /* RepeatButtonView.swift */; };
 		1048DF1928D1B944009C87AD /* CustomRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1828D1B944009C87AD /* CustomRepeatView.swift */; };
 		1048DF1B28D1D43D009C87AD /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1A28D1D43D009C87AD /* EditTodoViewController.swift */; };
+		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
 		10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEC28C20E3E0019C477 /* MonthView.swift */; };
 		10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEE28C2428F0019C477 /* WeekDaysView.swift */; };
 		10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AF028C2439D0019C477 /* CalenderView.swift */; };
@@ -76,6 +77,7 @@
 		1048DF1628D1A143009C87AD /* RepeatButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatButtonView.swift; sourceTree = "<group>"; };
 		1048DF1828D1B944009C87AD /* CustomRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRepeatView.swift; sourceTree = "<group>"; };
 		1048DF1A28D1D43D009C87AD /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
+		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		10F59AEC28C20E3E0019C477 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		10F59AEE28C2428F0019C477 /* WeekDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysView.swift; sourceTree = "<group>"; };
 		10F59AF028C2439D0019C477 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */,
 				1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */,
 				1005C3FF28B2702F00A8AA7B /* AddItemViewController.swift */,
+				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				10F59AF328C24C080019C477 /* TodoView.swift in Sources */,
 				10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */,
 				1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */,
+				1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */,
 				10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */,
 				1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */,
 				1048DF1328D0A597009C87AD /* Extension.swift in Sources */,

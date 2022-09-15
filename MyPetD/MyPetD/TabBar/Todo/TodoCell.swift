@@ -51,6 +51,16 @@ class TodoCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    @objc private func checkButtonTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let isDone = sender.isSelected
+        if isDone {
+            sender.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            sender.setImage(UIImage(systemName: "circle"), for: .normal)
+        }
+    }
 
     private func setupCell() {
         contentView.addSubview(checkButton)
@@ -59,6 +69,7 @@ class TodoCell: UITableViewCell {
             make.left.equalToSuperview()
             make.width.height.equalTo(30)
         }
+        checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         contentView.addSubview(todoLabel)
         todoLabel.snp.makeConstraints { make in
             make.centerY.equalTo(checkButton.snp.centerY)

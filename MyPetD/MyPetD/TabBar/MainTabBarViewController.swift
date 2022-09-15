@@ -36,10 +36,12 @@ class MainTabBarViewController: UITabBarController {
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
-            let notificationConfig = CustomBarItemConfiguration(image: UIImage(systemName: "bell")) {
-                print("bell button tapped")
+            let settingsConfig = CustomBarItemConfiguration(image: UIImage(systemName: "gearshape")) {
+                print("setting button tapped")
+                let settingViewController = SettingViewController()
+                self.navigationController?.pushViewController(settingViewController, animated: true)
             }
-            let notificationItem = UIBarButtonItem.generate(with: notificationConfig, width: 30)
+            let settingsItem = UIBarButtonItem.generate(with: settingsConfig, width: 30)
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
                 let addItemViewController = AddItemViewController()
@@ -63,7 +65,7 @@ class MainTabBarViewController: UITabBarController {
 //                self.present(alert, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
-            navigationItem.rightBarButtonItems = [addItem, notificationItem]
+            navigationItem.rightBarButtonItems = [settingsItem, addItem]
             navigationItem.backButtonDisplayMode = .minimal
             
         case is BoxViewController:

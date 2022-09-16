@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import FirebaseCore
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -47,6 +49,13 @@ class HomeViewController: UIViewController {
         
         setupView()
         self.toggle = false
+        
+        Auth.auth().signInAnonymously { authResult, error in
+            guard let user = authResult?.user else { return }
+            let isAnonymous = user.isAnonymous  // true
+            let uid = user.uid
+            print("isAnonymous: \(isAnonymous), uid: \(uid)")
+        }
     }
     
     private func setupView() {

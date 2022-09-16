@@ -39,10 +39,8 @@
 		1048DF1B28D1D43D009C87AD /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1A28D1D43D009C87AD /* EditTodoViewController.swift */; };
 		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
 		1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1048DF2028D37214009C87AD /* GoogleService-Info.plist */; };
-		1048DF2428D3760C009C87AD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2328D3760C009C87AD /* FirebaseAnalytics */; };
-		1048DF2628D3760C009C87AD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2528D3760C009C87AD /* FirebaseAuth */; };
-		1048DF2828D3760C009C87AD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2728D3760C009C87AD /* FirebaseDatabase */; };
-		1048DF2A28D3760C009C87AD /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2928D3760C009C87AD /* FirebaseInAppMessaging-Beta */; };
+		1048DF2D28D46062009C87AD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2C28D46062009C87AD /* FirebaseAnalytics */; };
+		1048DF2F28D46062009C87AD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1048DF2E28D46062009C87AD /* FirebaseAuth */; };
 		10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEC28C20E3E0019C477 /* MonthView.swift */; };
 		10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEE28C2428F0019C477 /* WeekDaysView.swift */; };
 		10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AF028C2439D0019C477 /* CalenderView.swift */; };
@@ -96,11 +94,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1048DF2428D3760C009C87AD /* FirebaseAnalytics in Frameworks */,
-				1048DF2628D3760C009C87AD /* FirebaseAuth in Frameworks */,
-				1048DF2828D3760C009C87AD /* FirebaseDatabase in Frameworks */,
+				1048DF2D28D46062009C87AD /* FirebaseAnalytics in Frameworks */,
+				1048DF2F28D46062009C87AD /* FirebaseAuth in Frameworks */,
 				1005C3F028AF771200A8AA7B /* SnapKit in Frameworks */,
-				1048DF2A28D3760C009C87AD /* FirebaseInAppMessaging-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,10 +221,8 @@
 			name = MyPetD;
 			packageProductDependencies = (
 				1005C3EF28AF771200A8AA7B /* SnapKit */,
-				1048DF2328D3760C009C87AD /* FirebaseAnalytics */,
-				1048DF2528D3760C009C87AD /* FirebaseAuth */,
-				1048DF2728D3760C009C87AD /* FirebaseDatabase */,
-				1048DF2928D3760C009C87AD /* FirebaseInAppMessaging-Beta */,
+				1048DF2C28D46062009C87AD /* FirebaseAnalytics */,
+				1048DF2E28D46062009C87AD /* FirebaseAuth */,
 			);
 			productName = MyPetD;
 			productReference = 1005C3CC28AF1CB000A8AA7B /* MyPetD.app */;
@@ -260,7 +254,7 @@
 			mainGroup = 1005C3C328AF1CB000A8AA7B;
 			packageReferences = (
 				1005C3EE28AF771200A8AA7B /* XCRemoteSwiftPackageReference "SnapKit" */,
-				1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1048DF2B28D46062009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1005C3CD28AF1CB000A8AA7B /* Products */;
 			projectDirPath = "";
@@ -551,7 +545,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1048DF2B28D46062009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -567,25 +561,15 @@
 			package = 1005C3EE28AF771200A8AA7B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		1048DF2328D3760C009C87AD /* FirebaseAnalytics */ = {
+		1048DF2C28D46062009C87AD /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1048DF2B28D46062009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		1048DF2528D3760C009C87AD /* FirebaseAuth */ = {
+		1048DF2E28D46062009C87AD /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1048DF2B28D46062009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		1048DF2728D3760C009C87AD /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		1048DF2928D3760C009C87AD /* FirebaseInAppMessaging-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1048DF2228D3760C009C87AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseInAppMessaging-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

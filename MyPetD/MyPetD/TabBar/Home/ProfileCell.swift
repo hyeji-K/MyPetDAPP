@@ -77,9 +77,11 @@ class ProfileCell: UICollectionViewCell {
     }
     
     func configure(_ info: ProfileInfo) {
-        profileImageView.image = UIImage(named: info.image)
-        petNameLabel.text = info.name
-        withDayLabel.text = "\(info.withDay)"
+        self.petNameLabel.text = info.name
+        self.profileImageView.image = UIImage(named: info.image)
+        let withDate = info.withDate.date!
+        let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
+        self.withDayLabel.text = "\(dDay)"
     }
     
     private func setupCell() {

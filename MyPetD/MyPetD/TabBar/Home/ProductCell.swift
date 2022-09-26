@@ -13,18 +13,20 @@ class ProductCell: UITableViewCell {
     
     let cellView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray2
+        view.backgroundColor = .systemGray4
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.systemGray.cgColor
         view.layer.cornerRadius = 10
         return view
     }()
     
     let productImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray3
+        imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.systemGray.cgColor
-//        imageView.image = UIImage(systemName: "pawprint.circle")
+        imageView.image = UIImage(systemName: "pawprint.circle")
         imageView.tintColor = .systemGray
         imageView.contentMode = .scaleAspectFit
         
@@ -33,25 +35,26 @@ class ProductCell: UITableViewCell {
     
     let productNameLabel: UILabel = {
         let label = UILabel()
-//        label.text = "차오츄르"
-        label.backgroundColor = .systemGray3
+        label.text = "차오츄르"
+//        label.backgroundColor = .systemGray3
         label.font = .systemFont(ofSize: 15, weight: .bold)
         return label
     }()
         
     let storedLabel: UILabel = {
         let label = UILabel()
-//        label.text = "냉장보관"
-        label.backgroundColor = .systemGray3
+        label.text = "냉장보관"
+//        label.backgroundColor = .systemGray3
         label.font = .systemFont(ofSize: 15, weight: .light)
         return label
     }()
     
     let dDayLabel: UILabel = {
         let label = UILabel()
-//        label.text = "D-35"
-        label.backgroundColor = .systemGray3
-        label.font = .systemFont(ofSize: 15, weight: .light)
+        label.text = "D - 35"
+//        label.backgroundColor = .systemGray3
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
@@ -79,6 +82,15 @@ class ProductCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(_ info: ProductInfo) {
+        self.productImageView.image = UIImage(named: info.imageOfProduct)
+        self.productNameLabel.text = info.nameOfProduct
+        self.storedLabel.text = info.storedMethod
+        let expirationDate = info.expirationDate.date!
+        let dDay = Calendar.current.dateComponents([.day], from: expirationDate, to: Date()).day! + 1
+        self.dDayLabel.text = "D - \(dDay)"
     }
     
     private func setupCell() {
@@ -117,8 +129,5 @@ class ProductCell: UITableViewCell {
             make.height.equalTo(20)
             make.width.equalTo(60)
         }
-        
-        addSubview(likeButton)
     }
-
 }

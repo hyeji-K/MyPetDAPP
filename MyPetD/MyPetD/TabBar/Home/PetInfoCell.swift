@@ -108,8 +108,14 @@ class PetInfoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(_ text: String) {
-        self.petNameLabel.text = text
+    func configure(_ info: ProfileInfo) {
+        self.petNameLabel.text = info.name
+        self.profileImageView.image = UIImage(named: info.image)
+        self.birthDayLabel.text = "Birth. \(info.birthDate)"
+        self.withDateLabel.text = info.withDate
+        let withDate = info.withDate.date!
+        let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
+        self.withDayLabel.text = "\(dDay)"
     }
     
     private func setupCell() {

@@ -15,6 +15,21 @@ class AddItemViewController: UIViewController {
         setupView()
     }
     
+    @objc private func addPetButtonTapped() {
+        let viewController = AddPetViewController()
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc private func addProductButtonTapped() {
+        let viewController = AddProductViewController()
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc private func addTodoButtonTapped() {
+        let viewController = AddTodoViewController()
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
     @objc private func cancelButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -50,7 +65,7 @@ class AddItemViewController: UIViewController {
         }
         addPetButton.setTitle("반려동물 추가하기", for: .normal)
         addPetButton.setTitleColor(.black, for: .normal)
-        addPetButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        addPetButton.addTarget(self, action: #selector(addPetButtonTapped), for: .touchUpInside)
         
         let addProductButton = UIButton()
         mainView.addSubview(addProductButton)
@@ -61,7 +76,7 @@ class AddItemViewController: UIViewController {
         }
         addProductButton.setTitle("상품 추가하기", for: .normal)
         addProductButton.setTitleColor(.black, for: .normal)
-        addProductButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        addProductButton.addTarget(self, action: #selector(addProductButtonTapped), for: .touchUpInside)
         
         let addTodoButton = UIButton()
         mainView.addSubview(addTodoButton)
@@ -72,7 +87,7 @@ class AddItemViewController: UIViewController {
         }
         addTodoButton.setTitle("일정 추가하기", for: .normal)
         addTodoButton.setTitleColor(.black, for: .normal)
-        addTodoButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        addTodoButton.addTarget(self, action: #selector(addTodoButtonTapped), for: .touchUpInside)
         
         let cancelButton = UIButton()
         mainView.addSubview(cancelButton)

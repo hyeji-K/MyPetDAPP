@@ -14,7 +14,9 @@ class PetDetailViewController: UIViewController {
     enum Section {
         case main
     }
-    var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    let list: [ProfileInfo] = ProfileInfo.list
+    typealias Item = ProfileInfo
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     let dummyData = ["뭉", "치", "삐", "용"]
 
@@ -36,15 +38,15 @@ class PetDetailViewController: UIViewController {
             make.left.right.equalToSuperview()
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetInfoCell.cellId, for: indexPath) as? PetInfoCell else { return nil }
             cell.configure(item)
             return cell
         })
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(dummyData, toSection: .main)
+        snapshot.appendItems(list, toSection: .main)
         dataSource.apply(snapshot)
         
         collectionView.collectionViewLayout = collectionViewLayout()

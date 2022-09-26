@@ -13,13 +13,13 @@ import FirebaseAuth
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var toggle: Bool?
-    let productView: UIView = {
+    var toggleTableView: Bool?
+    let selectProductView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemYellow
         return view
     }()
-    let todoView: UIView = {
+    let selectTodoView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         return view
@@ -43,12 +43,14 @@ class HomeViewController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식"]
+    let productInfo: [ProductInfo] = ProductInfo.list
+    let todoInfo: [TodoInfo] = TodoInfo.list
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupView()
-        self.toggle = false
+        self.toggleTableView = false
         
         Auth.auth().signInAnonymously { authResult, error in
             guard let user = authResult?.user else { return }
@@ -117,34 +119,40 @@ class HomeViewController: UIViewController {
     }
     
     @objc func productButtonTapped(_ sender: UIButton) {
-        toggle = false
-        productView.backgroundColor = .systemYellow
-        todoView.backgroundColor = .clear
+        toggleTableView = false
+        selectProductView.backgroundColor = .systemYellow
+        selectTodoView.backgroundColor = .clear
         self.tableView.reloadData()
     }
     
     @objc func todoButtonTapped(_ sender: UIButton) {
-        toggle = true
-        productView.backgroundColor = .clear
-        todoView.backgroundColor = .systemYellow
+        toggleTableView = true
+        selectProductView.backgroundColor = .clear
+        selectTodoView.backgroundColor = .systemYellow
         self.tableView.reloadData()
     }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        if toggleTableView == false {
+            return productInfo.count
+        } else {
+            return todoInfo.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if toggle == false {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath)
+        if toggleTableView == false {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
             cell.selectionStyle = .none
+            cell.configure(productInfo[indexPath.row])
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.cellId, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.cellId, for: indexPath) as! TodoCell
             cell.selectionStyle = .none
+            cell.configure(todoInfo[indexPath.row])
             return cell
         }
     }
@@ -153,7 +161,7 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if toggle == false {
+        if toggleTableView == false {
             return 95
         } else {
             return 60
@@ -208,8 +216,8 @@ extension HomeViewController: UITableViewDelegate {
             make.width.equalToSuperview()
         }
         
-        headerView.addSubview(productView)
-        productView.snp.makeConstraints { make in
+        headerView.addSubview(selectProductView)
+        selectProductView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
 //            make.left.equalToSuperview().inset(50)
             make.centerX.equalToSuperview().dividedBy(2)
@@ -217,8 +225,8 @@ extension HomeViewController: UITableViewDelegate {
             make.width.equalTo(productButton.snp.width).dividedBy(2)
         }
         
-        headerView.addSubview(todoView)
-        todoView.snp.makeConstraints { make in
+        headerView.addSubview(selectTodoView)
+        selectTodoView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.right.equalToSuperview().inset(50)
 //            make.centerX.equalTo(todoButton.snp.view.widthAnchor)

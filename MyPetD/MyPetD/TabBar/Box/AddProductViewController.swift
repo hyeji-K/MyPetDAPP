@@ -9,7 +9,7 @@ import UIKit
 
 class AddProductViewController: UIViewController {
     
-    
+    let productImageView = UIImageView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +23,6 @@ class AddProductViewController: UIViewController {
     
     @objc func saveButtonTapped() {
         print("save button tapped")
-    }
-    
-    @objc func addImageButtonTapped() {
-        print("add image button tapped")
     }
     
     @objc func removeImageButtonTapped() {
@@ -63,12 +59,24 @@ class AddProductViewController: UIViewController {
         }
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
-        let addImageButton = UIButton()
-        self.view.addSubview(addImageButton)
-        addImageButton.snp.makeConstraints { make in
+//        let productImageView = UIImageView()
+        self.view.addSubview(productImageView)
+        productImageView.snp.makeConstraints { make in
             make.top.equalTo(navigationBar.snp.bottom).offset(16)
             make.left.equalToSuperview().offset(16)
             make.height.width.equalTo(100)
+        }
+        productImageView.backgroundColor = .systemMint
+        productImageView.layer.cornerRadius = 10
+        productImageView.layer.masksToBounds = true
+        productImageView.contentMode = .scaleAspectFill
+        
+        let addImageButton = UIButton()
+        self.view.addSubview(addImageButton)
+        addImageButton.snp.makeConstraints { make in
+            make.center.equalTo(productImageView.snp.center)
+            make.width.equalTo(productImageView.snp.width)
+            make.height.equalTo(productImageView.snp.height)
         }
         addImageButton.setImage(UIImage(systemName: "camera"), for: .normal)
         addImageButton.contentMode = .scaleAspectFill
@@ -77,28 +85,17 @@ class AddProductViewController: UIViewController {
         addImageButton.layer.borderColor = UIColor.systemMint.cgColor
         addImageButton.addTarget(self, action: #selector(addImageButtonTapped), for: .touchUpInside)
         
-        let productImageView = UIImageView()
-        self.view.addSubview(productImageView)
-        productImageView.snp.makeConstraints { make in
-            make.top.equalTo(addImageButton.snp.top)
-            make.left.equalTo(addImageButton.snp.right).offset(10)
-            make.height.width.equalTo(100)
-        }
-        productImageView.backgroundColor = .systemMint
-        productImageView.layer.cornerRadius = 10
-        productImageView.contentMode = .scaleAspectFit
-        
-        let removeButton = UIButton()
-        productImageView.addSubview(removeButton)
-        removeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
-            make.right.equalToSuperview().inset(8)
-            make.height.width.equalTo(25)
-        }
-        removeButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-        removeButton.tintColor = .black
-        removeButton.setPreferredSymbolConfiguration(.init(pointSize: 25), forImageIn: .normal)
-        removeButton.addTarget(self, action: #selector(removeImageButtonTapped), for: .touchUpInside)
+//        let removeButton = UIButton()
+//        productImageView.addSubview(removeButton)
+//        removeButton.snp.makeConstraints { make in
+//            make.top.equalToSuperview().inset(8)
+//            make.right.equalToSuperview().inset(8)
+//            make.height.width.equalTo(25)
+//        }
+//        removeButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+//        removeButton.tintColor = .black
+//        removeButton.setPreferredSymbolConfiguration(.init(pointSize: 25), forImageIn: .normal)
+//        removeButton.addTarget(self, action: #selector(removeImageButtonTapped), for: .touchUpInside)
         
         let productNameTextField = UITextField()
         self.view.addSubview(productNameTextField)
@@ -107,7 +104,7 @@ class AddProductViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
         }
         productNameTextField.borderStyle = .none
-        productNameTextField.placeholder = "상품명"
+        productNameTextField.placeholder = "상품명을 입력하세요."
         
         let lineView = UIView()
         self.view.addSubview(lineView)
@@ -125,7 +122,7 @@ class AddProductViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
         }
         storedMethodTextField.borderStyle = .none
-        storedMethodTextField.placeholder = "보관장소 (예: 냉장고/서랍)"
+        storedMethodTextField.placeholder = "보관장소를 입력하세요.(예: 냉장고/서랍)"
         
         let storedMethodlineView = UIView()
         self.view.addSubview(storedMethodlineView)
@@ -143,7 +140,7 @@ class AddProductViewController: UIViewController {
             make.left.right.equalToSuperview().inset(20)
         }
         storedMethodTextField.borderStyle = .none
-        memoTextField.placeholder = "한줄 메모"
+        memoTextField.placeholder = "한줄 메모를 입력하세요."
         
         let memolineView = UIView()
         self.view.addSubview(memolineView)
@@ -171,8 +168,37 @@ class AddProductViewController: UIViewController {
         }
 //        expirationDatePicker.datePickerStyle = .inline
         expirationDatePicker.datePickerMode = .date
+        expirationDatePicker.locale = Locale(identifier: "ko_KR")
+    }
+}
+
+extension AddProductViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    @objc func addImageButtonTapped() {
+        print("add image button tapped")
         
+        selectLibrary(src: .photoLibrary)
         
-        
+        // 전달된 소스 타입에 맞게 이미지 피커 창을 여는 내부 함수
+        func selectLibrary(src: UIImagePickerController.SourceType) {
+            // 인자값을 검사하여 현재 사용 가능한 소스 타입인지를 처크한 다음, 만약 지원되지 않는 타입이라면 경고성 메시지를 출력
+            if UIImagePickerController.isSourceTypeAvailable(src) {
+                let picker = UIImagePickerController()
+                picker.delegate = self
+                picker.allowsEditing = true
+                
+                self.present(picker, animated: false)
+            } else {
+//                self.alert("사용할 수 없는 타입입니다.")
+            }
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let rawVal = UIImagePickerController.InfoKey.originalImage.rawValue
+        if let img = info[UIImagePickerController.InfoKey(rawValue: rawVal)] as? UIImage {
+            self.productImageView.image = img
+        }
+        self.dismiss(animated: true)
     }
 }

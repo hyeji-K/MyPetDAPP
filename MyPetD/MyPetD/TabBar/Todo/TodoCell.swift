@@ -52,6 +52,11 @@ class TodoCell: UITableViewCell {
         // Initialization code
     }
     
+    func configure(_ info: TodoInfo) {
+        self.todoLabel.text = info.todo
+        self.descriptionLabel.text = "\(info.time), \(info.repeatCycle)"
+    }
+    
     @objc private func checkButtonTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let isDone = sender.isSelected

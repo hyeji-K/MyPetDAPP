@@ -6,10 +6,21 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseStorage
 
 class AddPetViewController: UIViewController {
     
     let petImageView = UIImageView()
+    let productNameTextField = UITextField()
+    let birthDatePicker = UIDatePicker()
+    let withDayDatePicker = UIDatePicker()
+    var imageData: Data?
+    var imageName: String?
+    var imageUrl: String?
+    
+    var ref: DatabaseReference!
+    let storage = Storage.storage().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +35,55 @@ class AddPetViewController: UIViewController {
     
     @objc func saveButtonTapped() {
         print("save button tapped")
-    }
-    
-    @objc func removeImageButtonTapped() {
-        print("remove image button tapped")
+        
+        let birthDate = birthDatePicker.date
+        let withDate = withDayDatePicker.date
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let stringOfBirthDay = formatter.string(from: birthDate)
+        let stringOfWithDay = formatter.string(from: withDate)
+        
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
+        guard let autoId = self.ref.child("PetInfo").childByAutoId().key else { return }
+        guard let name = productNameTextField.text else { return } // 이름을 입력해주세요.
+        if name == "" {
+            let alert = UIAlertController(title: "이름을 입력하세요.", message: nil, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(alertAction)
+            return self.present(alert, animated: true, completion: nil)
+        }
+        
+        // Storage에 이미지 Data 업로드 & URL 다운로드
+        let imageRef = self.storage.child(uid).child("PetImage")
+        let imageName = "\(name).jpg"
+        let imagefileRef = imageRef.child(imageName)
+        let data = self.imageData!
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let uploadTask = imagefileRef.putData(data, metadata: metadata) { metadata, error in
+            if let error = error {
+                print(error)
+            } else {
+                imagefileRef.downloadURL { url, error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        guard let url = url else { return }
+                        self.imageUrl = "\(url)"
+                    }
+                }
+            }
+        }
+        
+        guard let imageUrl = imageUrl else { return }
+        
+        let object = ProfileInfo(id: autoId, image: imageUrl, name: name, birthDate: stringOfBirthDay, withDate: stringOfWithDay)
+        
+        self.ref.child("PetInfo").child("\(object.id)").setValue(object.toDictionary)
+//        self.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     private func setupView() {
@@ -86,7 +142,7 @@ class AddPetViewController: UIViewController {
         addImageButton.tintColor = .black
         addImageButton.addTarget(self, action: #selector(addImageButtonTapped), for: .touchUpInside)
         
-        let productNameTextField = UITextField()
+//        let productNameTextField = UITextField()
         self.view.addSubview(productNameTextField)
         productNameTextField.snp.makeConstraints { make in
             make.top.equalTo(petImageView.snp.bottom).offset(30)
@@ -112,7 +168,7 @@ class AddPetViewController: UIViewController {
             make.left.equalToSuperview().inset(16)
         }
         
-        let birthDatePicker = UIDatePicker()
+//        let birthDatePicker = UIDatePicker()
         self.view.addSubview(birthDatePicker)
         birthDatePicker.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.top)
@@ -132,7 +188,7 @@ class AddPetViewController: UIViewController {
             make.left.equalToSuperview().inset(16)
         }
         
-        let withDayDatePicker = UIDatePicker()
+//        let withDayDatePicker = UIDatePicker()
         self.view.addSubview(withDayDatePicker)
         withDayDatePicker.snp.makeConstraints { make in
             make.top.equalTo(withDayLabel.snp.top)
@@ -167,9 +223,10 @@ extension AddPetViewController: UINavigationControllerDelegate, UIImagePickerCon
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let rawVal = UIImagePickerController.InfoKey.originalImage.rawValue
-        if let img = info[UIImagePickerController.InfoKey(rawValue: rawVal)] as? UIImage {
-            self.petImageView.image = img
+        let key = UIImagePickerController.InfoKey.originalImage.rawValue
+        if let image = info[UIImagePickerController.InfoKey(rawValue: key)] as? UIImage {
+            self.petImageView.image = image
+            self.imageData = image.jpegData(compressionQuality: 1)
         }
         self.dismiss(animated: true)
     }

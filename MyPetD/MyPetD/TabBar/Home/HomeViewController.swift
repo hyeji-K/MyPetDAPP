@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import FirebaseCore
 import FirebaseAuth
+import FirebaseDatabase
 
 class HomeViewController: UIViewController {
 
@@ -39,12 +40,15 @@ class HomeViewController: UIViewController {
         case main
     }
     let profileInfos: [ProfileInfo] = ProfileInfo.list
+//    var profileInfos: [ProfileInfo]?
     typealias Item = ProfileInfo
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식"]
     let productInfo: [ProductInfo] = ProductInfo.list
     let todoInfo: [TodoInfo] = TodoInfo.list
+    
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +60,29 @@ class HomeViewController: UIViewController {
             guard let user = authResult?.user else { return }
             let isAnonymous = user.isAnonymous  // true
             let uid = user.uid
-            print("isAnonymous: \(isAnonymous), uid: \(uid)")
+//            print("isAnonymous: \(isAnonymous), uid: \(uid)")
+            if UserDefaults.standard.string(forKey: "firebaseUid") == nil {
+                UserDefaults.standard.set(uid, forKey: "firebaseUid")
+            }
+            self.ref = Database.database().reference(withPath: user.uid)
+        }
+//        print(UserDefaults.standard.string(forKey: "firebaseUid"))
+        
+        // 파이어베이스에서 데이터 읽기
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
+        self.ref.child("PetInfo").observeSingleEvent(of: .value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            print(snapshot.values)
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let petInfo: [ProfileInfo] = try decoder.decode([ProfileInfo].self, from: data)
+//                self.profileInfos = petInfo
+//                self.pageControl.numberOfPages = petInfo.count
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     

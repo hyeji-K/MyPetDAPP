@@ -78,7 +78,8 @@ class ProfileCell: UICollectionViewCell {
     
     func configure(_ info: ProfileInfo) {
         self.petNameLabel.text = info.name
-        self.profileImageView.image = UIImage(named: info.image)
+        // TODO: 이미지는 url 로 받아옴
+        self.profileImageView.setImageURL(info.image)
         let withDate = info.withDate.date!
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"

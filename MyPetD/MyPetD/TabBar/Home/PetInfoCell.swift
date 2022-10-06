@@ -11,6 +11,8 @@ class PetInfoCell: UICollectionViewCell {
     
     static let cellId: String = "PetInfoCell"
     
+    weak var viewController: UIViewController?
+    
     let mainView: UIView = {
         let view = UIView()
         view.layer.borderColor = UIColor.systemGray.cgColor
@@ -110,12 +112,29 @@ class PetInfoCell: UICollectionViewCell {
     
     func configure(_ info: ProfileInfo) {
         self.petNameLabel.text = info.name
-        self.profileImageView.image = UIImage(named: info.image)
+        self.profileImageView.setImageURL(info.image)
         self.birthDayLabel.text = "Birth. \(info.birthDate)"
         self.withDateLabel.text = info.withDate
         let withDate = info.withDate.date!
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"
+    }
+    
+    @objc func removeButtonTapped() {
+        print("remove")
+        // TODO: 삭제하시겠습니까? 알럿 -> 삭제/취소
+        let alert = UIAlertController(title: nil, message: "삭제하시겠습니까?", preferredStyle: .alert)
+        let removeAction = UIAlertAction(title: "삭제", style: .destructive, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(removeAction)
+        alert.addAction(cancelAction)
+        viewController?.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func editButtonTapped() {
+        print("edit")
+        let addPetViewController = AddPetViewController()
+        viewController?.present(addPetViewController, animated: true, completion: nil)
     }
     
     private func setupCell() {
@@ -178,12 +197,14 @@ class PetInfoCell: UICollectionViewCell {
             make.right.equalToSuperview()
             make.top.equalTo(mainView.snp.bottom).offset(10)
         }
+        removeButton.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         
         self.contentView.addSubview(editButton)
         editButton.snp.makeConstraints { make in
             make.right.equalTo(removeButton.snp.left).inset(-20)
             make.top.equalTo(removeButton.snp.top)
         }
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
 //    func addTopBorder(with color: UIColor?, andWidth borderWidth: CGFloat) {

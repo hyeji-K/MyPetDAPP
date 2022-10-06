@@ -7,9 +7,7 @@
 
 import UIKit
 import SnapKit
-import FirebaseCore
-import FirebaseAuth
-import FirebaseDatabase
+import Combine
 
 class HomeViewController: UIViewController {
 
@@ -31,7 +29,7 @@ class HomeViewController: UIViewController {
         pageControl.allowsContinuousInteraction = false
         pageControl.pageIndicatorTintColor = .systemGray6
         pageControl.currentPageIndicatorTintColor = .black
-        pageControl.numberOfPages = profileInfos.count
+        pageControl.numberOfPages = viewModel.profileInfos.count
         pageControl.currentPage = .zero
         return pageControl
     }()
@@ -39,8 +37,10 @@ class HomeViewController: UIViewController {
     enum Section {
         case main
     }
-    let profileInfos: [ProfileInfo] = ProfileInfo.list
-//    var profileInfos: [ProfileInfo]?
+    
+    let viewModel: HomeViewModel = HomeViewModel()
+    var subscriptions = Set<AnyCancellable>()
+    
     typealias Item = ProfileInfo
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
@@ -48,42 +48,21 @@ class HomeViewController: UIViewController {
     let productInfo: [ProductInfo] = ProductInfo.list
     let todoInfo: [TodoInfo] = TodoInfo.list
     
-    var ref: DatabaseReference!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
         self.toggleTableView = false
         
-        Auth.auth().signInAnonymously { authResult, error in
-            guard let user = authResult?.user else { return }
-            let isAnonymous = user.isAnonymous  // true
-            let uid = user.uid
-//            print("isAnonymous: \(isAnonymous), uid: \(uid)")
-            if UserDefaults.standard.string(forKey: "firebaseUid") == nil {
-                UserDefaults.standard.set(uid, forKey: "firebaseUid")
-            }
-            self.ref = Database.database().reference(withPath: user.uid)
-        }
-//        print(UserDefaults.standard.string(forKey: "firebaseUid"))
+        viewModel.fetch()
         
-        // 파이어베이스에서 데이터 읽기
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("PetInfo").observeSingleEvent(of: .value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            print(snapshot.values)
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let petInfo: [ProfileInfo] = try decoder.decode([ProfileInfo].self, from: data)
-//                self.profileInfos = petInfo
-//                self.pageControl.numberOfPages = petInfo.count
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
+        setupView()
+        configureCollectionView()
+        bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.reloadData()
     }
     
     private func setupView() {
@@ -112,7 +91,9 @@ class HomeViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(6)
         }
-        
+    }
+    
+    private func configureCollectionView() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(
             collectionView: collectionView,
             cellProvider: { collectionView, indexPath, item in
@@ -121,12 +102,12 @@ class HomeViewController: UIViewController {
             return cell
         })
         
+        collectionView.collectionViewLayout = collectionViewLayout()
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(profileInfos, toSection: .main)
-        dataSource.apply(snapshot)
-        
-        collectionView.collectionViewLayout = collectionViewLayout()
+        snapshot.appendItems([], toSection: .main)
+        self.dataSource.apply(snapshot)
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -142,6 +123,22 @@ class HomeViewController: UIViewController {
         }
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+    
+    private func applyItems(_ profileInfos: [ProfileInfo]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems(profileInfos, toSection: .main)
+        self.dataSource.apply(snapshot)
+    }
+    
+    private func bind() {
+        viewModel.$profileInfos
+            .receive(on: RunLoop.main)
+            .sink { profileInfos in
+                print("--> update collection view \(profileInfos)")
+                self.applyItems(profileInfos)
+                self.pageControl.numberOfPages = profileInfos.count
+            }.store(in: &subscriptions)
     }
     
     @objc func productButtonTapped(_ sender: UIButton) {
@@ -266,10 +263,10 @@ extension HomeViewController: UITableViewDelegate {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = profileInfos[indexPath.item]
-        print("item -> \(item)")
+        let item = viewModel.profileInfos
         
         let petDetailViewController = PetDetailViewController()
+        petDetailViewController.profileInfo = item
         self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
 }

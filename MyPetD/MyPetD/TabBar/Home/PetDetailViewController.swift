@@ -14,11 +14,9 @@ class PetDetailViewController: UIViewController {
     enum Section {
         case main
     }
-    let list: [ProfileInfo] = ProfileInfo.list
+    var profileInfo: [ProfileInfo] = []
     typealias Item = ProfileInfo
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
-    
-    let dummyData = ["뭉", "치", "삐", "용"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +39,13 @@ class PetDetailViewController: UIViewController {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetInfoCell.cellId, for: indexPath) as? PetInfoCell else { return nil }
             cell.configure(item)
+            cell.viewController = self
             return cell
         })
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(list, toSection: .main)
+        snapshot.appendItems(profileInfo, toSection: .main)
         dataSource.apply(snapshot)
         
         collectionView.collectionViewLayout = collectionViewLayout()

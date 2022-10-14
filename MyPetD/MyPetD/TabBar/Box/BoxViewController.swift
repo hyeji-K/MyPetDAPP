@@ -6,38 +6,43 @@
 //
 
 import UIKit
+import Combine
 
 class BoxViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let dummyData = ["츄르", "건조간식", "사료", "캔"]
+    let viewModel: BoxViewModel = BoxViewModel()
+    var subscriptions = Set<AnyCancellable>()
     
     enum Section {
         case main
     }
-    var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    typealias Item = ProductInfo
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        bind()
+        viewModel.fetch()
     }
     
     private func setupView() {
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemMint
+//        collectionView.backgroundColor = .systemMint
         self.collectionView.register(BoxCell.self, forCellWithReuseIdentifier: BoxCell.identifier)
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxCell.identifier, for: indexPath) as? BoxCell else { return nil }
-            cell.configuration(title: item)
+            cell.configuration(item)
             return cell
         })
         
         collectionView.collectionViewLayout = collectionViewLayout()
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(dummyData, toSection: .main)
+        snapshot.appendItems([], toSection: .main)
         dataSource.apply(snapshot)
     }
     
@@ -52,17 +57,31 @@ class BoxViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func applyItems(_ productInfos: [ProductInfo]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems(productInfos, toSection: .main)
+        self.dataSource.apply(snapshot)
+    }
+    
+    private func bind() {
+        viewModel.$productInfos
+            .receive(on: RunLoop.main)
+            .sink { productInfo in
+                print("--> update collection view \(productInfo)")
+                print("--> 업데이트! \(productInfo.count)")
+                self.applyItems(productInfo)
+            }.store(in: &subscriptions)
+    }
 }
 // 
 
 extension BoxViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = indexPath.item
-        print(item)
-//        let productDetailViewController = ProductDetailViewController()
-//        self.navigationController?.pushViewController(productDetailViewController, animated: true)
+        let item = viewModel.productInfos[indexPath.item]
         
         let itemDetailViewController = ItemDetailViewController()
+        itemDetailViewController.productInfo = item
         itemDetailViewController.modalTransitionStyle = .crossDissolve
         itemDetailViewController.modalPresentationStyle = .overFullScreen
         self.present(itemDetailViewController, animated: true, completion: nil)

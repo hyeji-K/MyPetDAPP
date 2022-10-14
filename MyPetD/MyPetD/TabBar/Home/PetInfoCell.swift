@@ -124,7 +124,14 @@ class PetInfoCell: UICollectionViewCell {
         print("remove")
         // TODO: 삭제하시겠습니까? 알럿 -> 삭제/취소
         let alert = UIAlertController(title: nil, message: "삭제하시겠습니까?", preferredStyle: .alert)
-        let removeAction = UIAlertAction(title: "삭제", style: .destructive, handler: nil)
+        let removeAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            // TODO: 파이어베이스에서 삭제
+//            self.ref.child("PetInfo").child("autoId").removeValue()
+//            let imageRef = self.storage.child(uid).child("PetImage")
+//            let imageName = "\(name).jpg"
+//            let imagefileRef = imageRef.child(imageName)
+//            imagefileRef.delete()
+        }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alert.addAction(removeAction)
         alert.addAction(cancelAction)

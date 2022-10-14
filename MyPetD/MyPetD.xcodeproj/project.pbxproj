@@ -38,6 +38,7 @@
 		1044415628E9CF6E006950FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1044415528E9CF6E006950FB /* FirebaseStorage */; };
 		1044415A28EC5D46006950FB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044415928EC5D46006950FB /* HomeViewModel.swift */; };
 		1044415C28EEA45F006950FB /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044415B28EEA45F006950FB /* ImageCacheManager.swift */; };
+		1044415E28EEB47B006950FB /* BoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044415D28EEB47B006950FB /* BoxViewModel.swift */; };
 		1048DF1328D0A597009C87AD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1228D0A597009C87AD /* Extension.swift */; };
 		1048DF1528D0BDFF009C87AD /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1428D0BDFF009C87AD /* TodoCell.swift */; };
 		1048DF1728D1A143009C87AD /* RepeatButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1628D1A143009C87AD /* RepeatButtonView.swift */; };
@@ -83,6 +84,7 @@
 		1005C41328BA0E9500A8AA7B /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		1044415928EC5D46006950FB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		1044415B28EEA45F006950FB /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		1044415D28EEB47B006950FB /* BoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewModel.swift; sourceTree = "<group>"; };
 		1048DF1228D0A597009C87AD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1048DF1428D0BDFF009C87AD /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		1048DF1628D1A143009C87AD /* RepeatButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatButtonView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */,
 				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
 				1005C40B28B77FAA00A8AA7B /* AddProductViewController.swift */,
+				1044415D28EEB47B006950FB /* BoxViewModel.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
 				1048DF1528D0BDFF009C87AD /* TodoCell.swift in Sources */,
+				1044415E28EEB47B006950FB /* BoxViewModel.swift in Sources */,
 				1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 				1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */,

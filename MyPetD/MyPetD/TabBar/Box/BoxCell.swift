@@ -19,9 +19,11 @@ class BoxCell: UICollectionViewCell {
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "scribble.variable")
+        imageView.backgroundColor = .white
         imageView.layer.borderColor = UIColor.systemGray.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -67,13 +69,15 @@ class BoxCell: UICollectionViewCell {
         setupCell()
     }
     
-    func configuration(title: String) {
-        self.titleLabel.text = title
+    func configuration(_ productInfo: ProductInfo) {
+        self.titleLabel.text = productInfo.nameOfProduct
+        self.thumbnailImageView.setImageURL(productInfo.imageOfProduct)
+        self.expirationLabel.text = productInfo.expirationDate
     }
     
     private func setupCell() {
-        self.contentView.backgroundColor = .white
-        self.contentView.layer.borderWidth = 0.1
+        self.contentView.backgroundColor = .systemGray6
+        self.contentView.layer.borderWidth = 0.5
         self.contentView.layer.borderColor = UIColor.systemGray.cgColor
         self.contentView.layer.cornerRadius = 10
 

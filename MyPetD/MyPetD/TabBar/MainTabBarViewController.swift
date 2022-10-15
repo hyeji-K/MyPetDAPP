@@ -81,20 +81,33 @@ class MainTabBarViewController: UITabBarController {
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [addItem]
             navigationItem.backButtonDisplayMode = .minimal
-            
-        case is TodoViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "TodoView", action: { print("title tapped") })
+        case is ReminderViewController:
+            let titleConfig = CustomBarItemConfiguration(title: "ReminderView", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
-                let addTodoViewController = AddTodoViewController()
-                self.present(addTodoViewController, animated: true, completion: nil)
+                let addReminderViewController = AddReminderViewController()
+                self.present(addReminderViewController, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [addItem]
             navigationItem.backButtonDisplayMode = .minimal
+            
+//        case is TodoViewController:
+//            let titleConfig = CustomBarItemConfiguration(title: "TodoView", action: { print("title tapped") })
+//            let titleItem = UIBarButtonItem.generate(with: titleConfig)
+//            navigationItem.leftBarButtonItem = titleItem
+//
+//            let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+//                print("plus button tapped")
+//                let addTodoViewController = AddTodoViewController()
+//                self.present(addTodoViewController, animated: true, completion: nil)
+//            }
+//            let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+//            navigationItem.rightBarButtonItems = [addItem]
+//            navigationItem.backButtonDisplayMode = .minimal
             
         default:
             break

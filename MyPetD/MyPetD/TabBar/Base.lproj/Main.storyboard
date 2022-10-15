@@ -104,6 +104,32 @@
             </objects>
             <point key="canvasLocation" x="1362" y="860"/>
         </scene>
+        <!--Reminder-->
+        <scene sceneID="Cto-M0-be5">
+            <objects>
+                <collectionViewController storyboardIdentifier="ReminderViewController" id="Vgc-5p-DoN" customClass="ReminderViewController" customModule="MyPetD" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ock-5w-aeW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aKU-78-8bl">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="Vgc-5p-DoN" id="xsi-21-C9O"/>
+                            <outlet property="delegate" destination="Vgc-5p-DoN" id="oHv-nh-7U8"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Reminder" image="note.text" catalog="system" id="BqT-59-gFT"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQW-LV-TPw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2123" y="860"/>
+        </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="VtF-C5-ATd">
             <objects>
@@ -118,7 +144,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Eja-8d-lsu"/>
                         <segue destination="FEJ-KU-1DH" kind="relationship" relationship="viewControllers" id="VGI-PC-luw"/>
-                        <segue destination="SY6-Rp-dll" kind="relationship" relationship="viewControllers" id="dau-RP-FvC"/>
+                        <segue destination="Vgc-5p-DoN" kind="relationship" relationship="viewControllers" id="rJ8-Cd-H1R"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njt-le-ZnB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

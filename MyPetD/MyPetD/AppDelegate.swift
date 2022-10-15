@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // 파이어베이스 초기화
         FirebaseApp.configure()
+        
+        UINavigationBar.appearance().tintColor = .todayPrimaryTint
+        UINavigationBar.appearance().backgroundColor = .todayNavigationBackground
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         return true
     }
 

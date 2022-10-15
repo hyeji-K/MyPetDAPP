@@ -59,35 +59,3 @@ final class RepeatButtonView: UIView {
         return layout
     }
 }
-
-class RepeatCell: UICollectionViewCell {
-    static let cellID = "RepeatCell"
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCell()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupCell()
-    }
-    
-    func configure(title: String) {
-        self.titleLabel.text = title
-    }
-    
-    private func setupCell() {
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-    }
-}

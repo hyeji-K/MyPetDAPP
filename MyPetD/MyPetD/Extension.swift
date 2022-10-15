@@ -35,6 +35,9 @@ extension Date {
             return formatted(.dateTime.month().day().weekday(.wide))
         }
     }
+    var timeText: String {
+        return formatted(date: .omitted, time: .shortened)
+    }
 }
 
 

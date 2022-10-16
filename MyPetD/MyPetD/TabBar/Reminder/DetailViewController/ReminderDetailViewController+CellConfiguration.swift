@@ -13,6 +13,7 @@ extension ReminderDetailViewController {
         contentConfiguration.text = text(for: row)
         contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
         contentConfiguration.image = row.image
+        contentConfiguration.imageProperties.tintColor = .systemGray
         return contentConfiguration
     }
     
@@ -52,8 +53,8 @@ extension ReminderDetailViewController {
     func text(for row: Row) -> String? {
         switch row {
         case .viewTitle: return reminder.title
-        case .viewDate: return reminder.dueDate.dayText
-        case .viewTime: return reminder.dueDate.timeText
+        case .viewDate: return reminder.dueDate.dateLong!.dayText
+        case .viewTime: return reminder.dueDate.dateLong!.timeText
         case .viewRepeat: return reminder.repeatCycle
         default: return nil
         }

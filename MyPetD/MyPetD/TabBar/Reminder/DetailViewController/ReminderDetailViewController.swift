@@ -96,7 +96,8 @@ class ReminderDetailViewController: UICollectionViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.title, .dateAndTime, .repeatCycle])
         snapshot.appendItems([.header(Section.title.name), .editText(reminder.title)], toSection: .title)
-        snapshot.appendItems([.header(Section.dateAndTime.name), .editDate(reminder.dueDate)], toSection: .dateAndTime)
+        let date = reminder.dueDate.dateLong
+        snapshot.appendItems([.header(Section.dateAndTime.name), .editDate(date!)], toSection: .dateAndTime)
         snapshot.appendItems([.header(Section.repeatCycle.name), .editText(reminder.repeatCycle)], toSection: .repeatCycle)
         dataSource.apply(snapshot)
     }

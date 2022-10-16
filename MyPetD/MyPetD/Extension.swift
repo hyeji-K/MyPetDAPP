@@ -38,6 +38,16 @@ extension Date {
     var timeText: String {
         return formatted(date: .omitted, time: .shortened)
     }
+    
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    var stringFormat: String {
+        return Date.dateFormatter.string(from: self)
+    }
 }
 
 
@@ -52,6 +62,28 @@ extension String {
     var date: Date? {
         return String.dateFormatter.date(from: self)
     }
+    
+    static var dateFormatterLong: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    var dateLong: Date? {
+        return String.dateFormatterLong.date(from: self)
+    }
+    
+    
+//    func toDate() -> Date? { //"yyyy-MM-dd HH:mm:ss"
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+////        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+//        if let date = dateFormatter.date(from: self) {
+//            return date
+//        } else {
+//            return nil
+//        }
+//    }
 }
 
 extension UIColor {

@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ReminderViewController: UICollectionViewController {
         
     var dataSource: DataSource!
-    var reminders: [Reminder] = Reminder.sampleData
+//    var reminders: [Reminder] = Reminder.sampleData
+    var reminders: [Reminder] = []
+    var ref: DatabaseReference!
+    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +28,31 @@ class ReminderViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
         
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
-//        navigationItem.rightBarButtonItem = addButton
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
+        navigationItem.rightBarButtonItem = addButton
+        
+        self.ref = Database.database().reference(withPath: self.uid)
+        
+        fetch()
         
         updateSnapshot()
         
         collectionView.dataSource = dataSource
+    }
+    
+    func fetch() {
+        self.ref.child("Reminder").queryOrdered(byChild: "isComplete").observe(.value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                self.reminders = reminders
+                self.updateSnapshot()
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -48,10 +71,7 @@ class ReminderViewController: UICollectionViewController {
     }
     
     private func listLayout() -> UICollectionViewCompositionalLayout {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
-        listConfiguration.showsSeparators = false
-        listConfiguration.headerTopPadding = .zero
-        listConfiguration.headerMode = .none
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.trailingSwipeActionsConfigurationProvider = makeSwipeActions(for:)
         listConfiguration.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)

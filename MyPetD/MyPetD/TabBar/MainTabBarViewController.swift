@@ -82,23 +82,60 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.rightBarButtonItems = [addItem]
             navigationItem.backButtonDisplayMode = .minimal
             
-        case is TodoViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "TodoView", action: { print("title tapped") })
+        case is ReminderViewController:
+            let titleConfig = CustomBarItemConfiguration(title: "ReminderView", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
-                let addTodoViewController = AddTodoViewController()
-                self.present(addTodoViewController, animated: true, completion: nil)
+                let reminder = Reminder(title: "", dueDate: Date.now, repeatCycle: "반복없음")
+                let viewController = ReminderDetailViewController(reminder: reminder) { reminder in
+//                    let reminderView = ReminderViewController()
+//                    reminderView.add(reminder)
+//                    reminderView.updateSnapshot()
+//                    self.dismiss(animated: true, completion: nil)
+                }
+                viewController.isAddingNewReminder = true
+                viewController.setEditing(true, animated: false)
+                viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didCancelAdd))
+                viewController.navigationItem.title = NSLocalizedString("Add Reminder", comment: "Add Reminder view controller title")
+                let navigationController = UINavigationController(rootViewController: viewController)
+                self.present(navigationController, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
-            navigationItem.rightBarButtonItems = [addItem]
+            
+            let scheduledConfig = CustomBarItemConfiguration(image: UIImage(systemName: "checklist")) {
+                print("schedule button tapped")
+                let viewController = ScheduledViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+            let scheduledItem = UIBarButtonItem.generate(with: scheduledConfig, width: 30)
+            
+//            let addItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(ReminderViewController().didPressAddButton(_:)))
+            navigationItem.rightBarButtonItems = [scheduledItem, addItem]
             navigationItem.backButtonDisplayMode = .minimal
+             
+//        case is TodoViewController:
+//            let titleConfig = CustomBarItemConfiguration(title: "TodoView", action: { print("title tapped") })
+//            let titleItem = UIBarButtonItem.generate(with: titleConfig)
+//            navigationItem.leftBarButtonItem = titleItem
+//
+//            let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+//                print("plus button tapped")
+//                let addTodoViewController = AddTodoViewController()
+//                self.present(addTodoViewController, animated: true, completion: nil)
+//            }
+//            let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+//            navigationItem.rightBarButtonItems = [addItem]
+//            navigationItem.backButtonDisplayMode = .minimal
             
         default:
             break
         }
+    }
+    @objc func didCancelAdd() {
+        dismiss(animated: true)
     }
 }
 

@@ -24,6 +24,9 @@ class ReminderViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
         
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
+//        navigationItem.rightBarButtonItem = addButton
+        
         updateSnapshot()
         
         collectionView.dataSource = dataSource
@@ -49,7 +52,19 @@ class ReminderViewController: UICollectionViewController {
         listConfiguration.showsSeparators = false
         listConfiguration.headerTopPadding = .zero
         listConfiguration.headerMode = .none
+        listConfiguration.trailingSwipeActionsConfigurationProvider = makeSwipeActions(for:)
         listConfiguration.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    }
+    
+    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath, let id = dataSource.itemIdentifier(for: indexPath) else { return nil }
+        let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
+        let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
+            self?.deleteReminder(with: id)
+            self?.updateSnapshot()
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

@@ -103,10 +103,17 @@ class MainTabBarViewController: UITabBarController {
                 let navigationController = UINavigationController(rootViewController: viewController)
                 self.present(navigationController, animated: true, completion: nil)
             }
+            let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+            
+            let scheduledConfig = CustomBarItemConfiguration(image: UIImage(systemName: "checklist")) {
+                print("schedule button tapped")
+                let viewController = ScheduledViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+            let scheduledItem = UIBarButtonItem.generate(with: scheduledConfig, width: 30)
             
 //            let addItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(ReminderViewController().didPressAddButton(_:)))
-            let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
-            navigationItem.rightBarButtonItems = [addItem]
+            navigationItem.rightBarButtonItems = [scheduledItem, addItem]
             navigationItem.backButtonDisplayMode = .minimal
              
 //        case is TodoViewController:

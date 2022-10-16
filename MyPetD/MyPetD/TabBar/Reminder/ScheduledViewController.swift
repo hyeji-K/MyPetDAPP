@@ -47,7 +47,7 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
         contentConfiguration.image = UIImage(systemName: "checkmark.circle.fill")
         contentConfiguration.imageProperties.tintColor = .systemYellow
         contentConfiguration.text = reminders[indexPath.item].title
-        contentConfiguration.secondaryText = reminders[indexPath.item].dueDate.timeText
+        contentConfiguration.secondaryText = reminders[indexPath.item].dueDate
         contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
         cell.contentConfiguration = contentConfiguration
         cell.selectionStyle = .none

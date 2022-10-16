@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 extension ReminderViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
@@ -25,7 +26,9 @@ extension ReminderViewController {
         let reminder = reminder(for: id)
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.text = reminder.title
-        contentConfiguration.secondaryText = "\(reminder.dueDate.dayAndTimeText), \(reminder.repeatCycle)"
+        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        let stringToDate = reminder.dueDate.dateLong!
+        contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
         contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
         cell.contentConfiguration = contentConfiguration
         
@@ -34,7 +37,7 @@ extension ReminderViewController {
         cell.accessories = [.customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always)]
         
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
-        backgroundConfiguration.backgroundColor = .todayListCellBackground
+        backgroundConfiguration.backgroundColor = .white
         cell.backgroundConfiguration = backgroundConfiguration
     }
     
@@ -57,12 +60,20 @@ extension ReminderViewController {
     }
     
     func add(_ reminder: Reminder) {
-        reminders.append(reminder)
+//        reminders.append(reminder)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = reminder.dueDate
+        print()
+        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: "\(date)", repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
+        self.ref.child("Reminder").child(reminder.id).setValue(object.toDictionary)
     }
     
     func deleteReminder(with id: Reminder.ID) {
-        let index = reminders.indexOfReminder(with: id)
-        reminders.remove(at: index)
+//        let index = reminders.indexOfReminder(with: id)
+//        reminders.remove(at: index)
+        
+        self.ref.child("Reminder").child(id).removeValue()
     }
     
     func reminder(for id: Reminder.ID) -> Reminder {
@@ -73,5 +84,8 @@ extension ReminderViewController {
     func update(_ reminder: Reminder, with id: Reminder.ID) {
         let index = reminders.indexOfReminder(with: id)
         reminders[index] = reminder
+        
+        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: reminder.dueDate, repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
+        self.ref.child("Reminder").child(reminder.id).updateChildValues(object.toDictionary)
     }
 }

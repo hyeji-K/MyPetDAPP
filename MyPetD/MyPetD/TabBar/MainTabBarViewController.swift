@@ -89,7 +89,8 @@ class MainTabBarViewController: UITabBarController {
             
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
-                let reminder = Reminder(title: "", dueDate: Date.now, repeatCycle: "반복없음")
+                let today = Date.now.stringFormat
+                let reminder = Reminder(title: "", dueDate: today, repeatCycle: "반복없음")
                 let viewController = ReminderDetailViewController(reminder: reminder) { reminder in
 //                    let reminderView = ReminderViewController()
 //                    reminderView.add(reminder)

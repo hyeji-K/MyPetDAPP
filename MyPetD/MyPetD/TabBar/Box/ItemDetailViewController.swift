@@ -11,10 +11,73 @@ import FirebaseStorage
 
 class ItemDetailViewController: UIViewController {
     
-    var productInfo: ProductInfo?
+    var productInfo: ProductInfo {
+        didSet {
+            onChange(productInfo)
+        }
+    }
+    
+    lazy var productImageView: UIImageView = {
+        let imageView = UIImageView()
+        let urlString = productInfo.image
+        imageView.setImageURL(urlString)
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    lazy var productNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = productInfo.name
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    lazy var dDayLabel: UILabel = {
+        let label = UILabel()
+        label.text = dDayFunction(productInfo.expirationDate)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .systemMint
+        label.textAlignment = .right
+        return label
+    }()
+    lazy var storedLocationLabel: UILabel = {
+        let label = UILabel()
+        label.text = productInfo.storedMethod
+        label.textColor = .systemMint
+        label.numberOfLines = 2
+        return label
+    }()
+    lazy var expirationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort) 까지"
+        label.textAlignment = .right
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    lazy var memoLabel: UILabel = {
+        let label = UILabel()
+        label.text = productInfo.memo
+        label.numberOfLines = 3
+        return label
+    }()
+    
+    var onChange: (ProductInfo) -> Void
     var ref: DatabaseReference!
     let storage = Storage.storage().reference()
-
+    
+    
+    init(productInfo: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
+        self.productInfo = productInfo
+        self.onChange = onChange
+        super.init(nibName: nil, bundle: nil)
+        self.setupDetailView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,13 +87,10 @@ class ItemDetailViewController: UIViewController {
     @objc private func deleteButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            print("삭제하겠습니다.")
-            
             let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-            // TODO: 데이터와 이미지 삭제
-            print("이미지 삭제")
+            // MARK: 데이터와 이미지 삭제
             let imageRef = self.storage.child(uid).child("ProductImage")
-            let imageName = "\((self.productInfo?.nameOfProduct)!).jpg"
+            let imageName = "\(self.productInfo.id).jpg"
             imageRef.child(imageName).delete { error in
                 if let error = error {
                     print(error)
@@ -38,11 +98,9 @@ class ItemDetailViewController: UIViewController {
                     print("삭제되었습니다.")
                 }
             }
-            print("데이터 삭제")
             self.ref = Database.database().reference(withPath: uid)
-            let productId = (self.productInfo?.id)!
+            let productId = self.productInfo.id
             self.ref.child("ProductInfo").child(productId).removeValue()
-            print("삭제 완료")
             self.dismiss(animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
@@ -56,12 +114,33 @@ class ItemDetailViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        print("edit button tapped")
-        
-        // 데이터가 있는 상태의 추가하기 뷰로 이동
-        let addProductViewController = AddProductViewController()
-        self.present(addProductViewController, animated: true, completion: nil)
-        // 저장 버튼을 클릭했을 때 두 모달 모두 dismiss
+        let viewController = ProductViewController(product: self.productInfo) { productInfo in
+            print("편집 버튼 클릭시")
+            self.update(productInfo)
+        }
+        let navigationContoller = UINavigationController(rootViewController: viewController)
+        self.present(navigationContoller, animated: true)
+    }
+    
+    func update(_ product: ProductInfo) {
+        self.productNameLabel.text = product.name
+        self.productImageView.setImageURL(product.image)
+        self.dDayLabel.text = self.dDayFunction(product.expirationDate)
+        self.storedLocationLabel.text = product.storedMethod
+        self.expirationLabel.text = "\(product.expirationDate.dateLong!.stringFormatShort) 까지"
+        self.memoLabel.text = product.memo
+    }
+    
+    func dDayFunction(_ date: String) -> String {
+        if let date = date.dateLong {
+            let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
+            if dDay < 0 {
+                return "D - 0"
+            } else {
+                return "D - \(dDay)"
+            }
+        }
+        return "D - 0"
     }
     
     private func setupDetailView() {
@@ -78,18 +157,11 @@ class ItemDetailViewController: UIViewController {
         mainView.layer.cornerRadius = 10
         mainView.clipsToBounds = true
         
-        let productImageView = UIImageView()
-        guard let urlString = productInfo?.imageOfProduct else { return }
-        productImageView.setImageURL(urlString)
         mainView.addSubview(productImageView)
         productImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(self.view.frame.width*2/3)
         }
-        productImageView.backgroundColor = .white
-        productImageView.contentMode = .scaleAspectFill
-        productImageView.isUserInteractionEnabled = true
-        productImageView.layer.masksToBounds = true
         
         let closeButton = UIButton()
         productImageView.addSubview(closeButton)
@@ -109,42 +181,24 @@ class ItemDetailViewController: UIViewController {
         editButton.tintColor = .black
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        let productNameLabel = UILabel()
         mainView.addSubview(productNameLabel)
         productNameLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(16)
             make.left.equalToSuperview().offset(16)
         }
-        productNameLabel.text = productInfo?.nameOfProduct
-        productNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
-        let dDayLabel = UILabel()
         mainView.addSubview(dDayLabel)
         dDayLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(16)
             make.right.equalToSuperview().inset(16)
             make.left.greaterThanOrEqualTo(productNameLabel.snp.right).offset(10)
         }
-        guard let dday = productInfo?.expirationDate.date else { return }
-        let dDay = Calendar.current.dateComponents([.day], from: Date(), to: dday).day!
-        if dDay < 0 {
-            dDayLabel.text = "D - 0"
-        } else {
-            dDayLabel.text = "D - \(dDay)"
-        }
-        dDayLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        dDayLabel.textColor = .systemMint
-        dDayLabel.textAlignment = .right
         
-        let storedLocationLabel = UILabel()
         mainView.addSubview(storedLocationLabel)
         storedLocationLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(16)
             make.left.equalToSuperview().offset(16)
         }
-        storedLocationLabel.text = productInfo?.storedMethod
-        storedLocationLabel.textColor = .systemMint
-        storedLocationLabel.numberOfLines = 2
         
         let storedLabel = UILabel()
         mainView.addSubview(storedLabel)
@@ -156,7 +210,6 @@ class ItemDetailViewController: UIViewController {
         }
         storedLabel.text = "에 보관중"
         
-        let expirationLabel = UILabel()
         mainView.addSubview(expirationLabel)
         expirationLabel.snp.makeConstraints { make in
             make.centerY.equalTo(storedLabel.snp.centerY)
@@ -164,19 +217,12 @@ class ItemDetailViewController: UIViewController {
             make.width.equalTo(110)
             make.left.greaterThanOrEqualTo(storedLabel.snp.right).inset(10)
         }
-        guard let exprirationDate = productInfo?.expirationDate else { return }
-        expirationLabel.text = "\(exprirationDate) 까지"
-        expirationLabel.textAlignment = .right
-        expirationLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         
-        let memoLabel = UILabel()
         mainView.addSubview(memoLabel)
         memoLabel.snp.makeConstraints { make in
             make.top.equalTo(storedLabel.snp.bottom).offset(24)
             make.left.right.equalToSuperview().inset(16)
         }
-        memoLabel.text = productInfo?.memo
-        memoLabel.numberOfLines = 3
         
         let deleteButton = UIButton()
         mainView.addSubview(deleteButton)

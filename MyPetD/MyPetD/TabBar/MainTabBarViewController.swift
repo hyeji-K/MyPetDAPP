@@ -75,8 +75,16 @@ class MainTabBarViewController: UITabBarController {
             
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
-                let addProductViewController = AddProductViewController()
-                self.present(addProductViewController, animated: true, completion: nil)
+                let today = Date.now.stringFormat
+                let productInfo = ProductInfo(image: "", name: "", expirationDate: today, storedMethod: "", memo: "")
+                let viewController = ProductViewController(product: productInfo) { [weak self] productInfo in
+                }
+                viewController.isAddingNewProduct = true
+                viewController.setEditing(true, animated: false)
+                viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didCancelAdd))
+                viewController.navigationItem.title = NSLocalizedString("Add Product", comment: "Add Product view controller title")
+                let navigationController = UINavigationController(rootViewController: viewController)
+                self.present(navigationController, animated: true)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [addItem]

@@ -69,9 +69,9 @@ class AddProductViewController: UIViewController {
         guard let memo = memoTextField.text else { return }
         let expirationDate = expirationDatePicker.date
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        let stringOfexpirationDate = formatter.string(from: expirationDate)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy.MM.dd HH:MM:ss"
+        let stringOfexpirationDate = expirationDate.stringFormat
         
         let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         self.ref = Database.database().reference(withPath: uid)
@@ -80,15 +80,15 @@ class AddProductViewController: UIViewController {
         // Storage에 이미지 Data 업로드 & URL 다운로드
         imageUpload(uid: uid, productName: productName) { url in
             print(url)
-            let object = ProductInfo(id: autoId, imageOfProduct: url, nameOfProduct: productName, expirationDate: stringOfexpirationDate, storedMethod: storedMethod, memo: memo)
+            let object = ProductInfo(id: autoId, image: url, name: productName, expirationDate: stringOfexpirationDate, storedMethod: storedMethod, memo: memo)
             
             self.ref.child("ProductInfo").child("\(object.id)").setValue(object.toDictionary)
         }
         
-//        guard let imageUrl = self.imageUrl else { return }
-//        let object = ProductInfo(id: autoId, imageOfProduct: imageUrl, nameOfProduct: productName, expirationDate: stringOfexpirationDate, storedMethod: storedMethod, memo: memo)
-//
-//        self.ref.child("ProductInfo").child("\(object.id)").setValue(object.toDictionary)
+        guard let imageUrl = self.imageUrl else { return }
+        let object = ProductInfo(id: autoId, image: imageUrl, name: productName, expirationDate: stringOfexpirationDate, storedMethod: storedMethod, memo: memo)
+
+        self.ref.child("ProductInfo").child("\(object.id)").setValue(object.toDictionary)
         self.dismiss(animated: true, completion: nil)
     }
     

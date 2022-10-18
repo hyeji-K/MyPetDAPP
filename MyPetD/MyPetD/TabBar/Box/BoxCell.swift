@@ -18,7 +18,7 @@ class BoxCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "scribble.variable")
+        imageView.image = UIImage(systemName: "pawprint.circle.fill")
         imageView.backgroundColor = .white
         imageView.layer.borderColor = UIColor.systemGray.cgColor
         imageView.layer.borderWidth = 0.5
@@ -51,7 +51,7 @@ class BoxCell: UICollectionViewCell {
     
     let expirationLabel: UILabel = {
         let label = UILabel()
-        label.text = "22-10-30 (D-10)"
+        label.text = Date.now.stringFormatShort
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
@@ -70,9 +70,9 @@ class BoxCell: UICollectionViewCell {
     }
     
     func configuration(_ productInfo: ProductInfo) {
-        self.titleLabel.text = productInfo.nameOfProduct
-        self.thumbnailImageView.setImageURL(productInfo.imageOfProduct)
-        self.expirationLabel.text = productInfo.expirationDate
+        self.titleLabel.text = productInfo.name
+        self.thumbnailImageView.setImageURL(productInfo.image)
+        self.expirationLabel.text = productInfo.expirationDate.dateLong?.stringFormatShort
     }
     
     private func setupCell() {
@@ -81,12 +81,7 @@ class BoxCell: UICollectionViewCell {
         self.contentView.layer.borderColor = UIColor.systemGray.cgColor
         self.contentView.layer.cornerRadius = 10
 
-        self.contentView.addSubview(stackView)
-//        self.contentView.addSubview(dDayView)
-        thumbnailView.addSubview(thumbnailImageView)
-//        dDayView.addSubview(dDayLabel)
-        
-        // 그림자 주려니까 자꾸 뷰 에러 남 --
+//        TODO: ContentView 그림자 주기 (현재는 에러남)
 //        self.contentView.layer.shadowPath = UIBezierPath(roundedRect: contentView.bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
 //        self.contentView.layer.shadowOpacity = 0.5
 //        self.contentView.layer.shadowColor = UIColor.gray.cgColor
@@ -94,24 +89,17 @@ class BoxCell: UICollectionViewCell {
 //        self.contentView.layer.shadowRadius = 1
 //        self.contentView.layer.masksToBounds = false
 
+        self.contentView.addSubview(stackView)
+        thumbnailView.addSubview(thumbnailImageView)
+
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(6)
         }
+        
         thumbnailImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.height.equalTo(65)
         }
-
-//        dDayView.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(12)
-//            make.right.equalToSuperview().inset(8)
-//            make.width.equalTo(35)
-//            make.height.equalTo(20)
-//        }
-//
-//        dDayLabel.snp.makeConstraints { make in
-//            make.center.equalToSuperview()
-//        }
     }
     
     required init?(coder: NSCoder) {
@@ -119,4 +107,3 @@ class BoxCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-// setConstraint

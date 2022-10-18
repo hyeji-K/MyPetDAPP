@@ -17,7 +17,7 @@ class BoxViewModel {
     
     var ref: DatabaseReference!
     
-    func fetch() {
+    func fetch(completion: @escaping ([ProductInfo]) -> Void) {
         // 파이어베이스에서 데이터 읽기
         let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         self.ref = Database.database().reference(withPath: uid)
@@ -28,7 +28,7 @@ class BoxViewModel {
                     let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                     let decoder = JSONDecoder()
                     let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                    self.productInfos = productInfo
+                    completion(productInfo)
                 } catch let error {
                     print(error.localizedDescription)
                 }

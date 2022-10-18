@@ -1,19 +1,19 @@
 //
-//  DatePickerContentView.swift
+//  DateAndTimePickerContentView.swift
 //  MyPetD
 //
-//  Created by heyji on 2022/10/15.
+//  Created by heyji on 2022/10/18.
 //
 
 import UIKit
 
-class DatePickerContentView: UIView, UIContentView {
+class DateAndTimePickerContentView: UIView, UIContentView {
     struct Configuration: UIContentConfiguration {
         var date = Date.now
         var onChange: (String) -> Void = { _ in }
 
         func makeContentView() -> UIView & UIContentView {
-            return DatePickerContentView(self)
+            return DateAndTimePickerContentView(self)
         }
     }
     
@@ -31,7 +31,7 @@ class DatePickerContentView: UIView, UIContentView {
         datePicker.addTarget(self, action: #selector(didPick(_:)), for: .valueChanged)
         datePicker.preferredDatePickerStyle = .inline
         datePicker.minuteInterval = 5
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = .dateAndTime
     }
 
     required init?(coder: NSCoder) {
@@ -44,14 +44,14 @@ class DatePickerContentView: UIView, UIContentView {
     }
     
     @objc private func didPick(_ sender: UIDatePicker) {
-        guard let configuration = configuration as? DatePickerContentView.Configuration else { return }
+        guard let configuration = configuration as? DateAndTimePickerContentView.Configuration else { return }
         let stringToDate = sender.date.stringFormat
         configuration.onChange(stringToDate)
     }
 }
 
 extension UICollectionViewListCell {
-    func datePickerConfiguration() -> DatePickerContentView.Configuration {
-        DatePickerContentView.Configuration()
+    func dateAndTimePickerConfiguration() -> DateAndTimePickerContentView.Configuration {
+        DateAndTimePickerContentView.Configuration()
     }
 }

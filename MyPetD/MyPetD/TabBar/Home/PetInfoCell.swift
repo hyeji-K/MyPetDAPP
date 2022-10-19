@@ -11,11 +11,9 @@ class PetInfoCell: UICollectionViewCell {
     
     static let cellId: String = "PetInfoCell"
     
-    weak var viewController: UIViewController?
-    
     let mainView: UIView = {
         let view = UIView()
-        view.layer.borderColor = UIColor.systemGray.cgColor
+        view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 1
         view.backgroundColor = .white
         return view
@@ -28,9 +26,11 @@ class PetInfoCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemMint
+        imageView.backgroundColor = .systemGray
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.borderWidth = 0.1
         imageView.image = UIImage(named: "testImage2")
         imageView.layer.masksToBounds = true
         return imageView
@@ -63,8 +63,9 @@ class PetInfoCell: UICollectionViewCell {
     let petNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.textColor = .black
+        label.numberOfLines = 2
         return label
     }()
     
@@ -86,15 +87,15 @@ class PetInfoCell: UICollectionViewCell {
         return label
     }()
     
-    let removeButton: UIButton = {
-        let button = UIButton()
+    let deleteButton: PetEditButton = {
+        let button = PetEditButton()
         button.setImage(UIImage(systemName: "trash"), for: .normal)
         button.tintColor = .black
         return button
     }()
     
-    let editButton: UIButton = {
-        let button = UIButton()
+    let editButton: PetEditButton = {
+        let button = PetEditButton()
         button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.tintColor = .black
         return button
@@ -106,46 +107,21 @@ class PetInfoCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(_ info: ProfileInfo) {
-        self.petNameLabel.text = info.name
-        self.profileImageView.setImageURL(info.image)
-        self.birthDayLabel.text = "Birth. \(info.birthDate)"
-        self.withDateLabel.text = info.withDate
-        let withDate = info.withDate.date!
+    func configure(_ petInfo: PetInfo) {
+        self.petNameLabel.text = petInfo.name
+        self.profileImageView.setImageURL(petInfo.image)
+        self.birthDayLabel.text = "Birth. \(petInfo.birthDate.dateLong!.stringFormatShort)"
+        let withDate = petInfo.withDate.dateLong!
+        self.withDateLabel.text = withDate.stringFormatShort
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"
     }
     
-    @objc func removeButtonTapped() {
-        print("remove")
-        // TODO: 삭제하시겠습니까? 알럿 -> 삭제/취소
-        let alert = UIAlertController(title: nil, message: "삭제하시겠습니까?", preferredStyle: .alert)
-        let removeAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            // TODO: 파이어베이스에서 삭제
-//            self.ref.child("PetInfo").child("autoId").removeValue()
-//            let imageRef = self.storage.child(uid).child("PetImage")
-//            let imageName = "\(name).jpg"
-//            let imagefileRef = imageRef.child(imageName)
-//            imagefileRef.delete()
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        alert.addAction(removeAction)
-        alert.addAction(cancelAction)
-        viewController?.present(alert, animated: true, completion: nil)
-    }
-    
-    @objc func editButtonTapped() {
-        print("edit")
-        let addPetViewController = AddPetViewController()
-        viewController?.present(addPetViewController, animated: true, completion: nil)
-    }
-    
     private func setupCell() {
-        self.contentView.backgroundColor = .white
+        self.contentView.backgroundColor = .systemGray
         
         self.contentView.addSubview(mainView)
         mainView.snp.makeConstraints { make in
@@ -191,62 +167,28 @@ class PetInfoCell: UICollectionViewCell {
         petNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(40)
+            make.width.equalTo(150)
         }
         
         profileView.addSubview(birthDayLabel)
         birthDayLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(20)
+            make.left.lessThanOrEqualTo(petNameLabel.snp.right)
         }
         
-        self.contentView.addSubview(removeButton)
-        removeButton.snp.makeConstraints { make in
+        self.contentView.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { make in
             make.right.equalToSuperview()
             make.top.equalTo(mainView.snp.bottom).offset(10)
+            make.width.equalTo(25)
         }
-        removeButton.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         
         self.contentView.addSubview(editButton)
         editButton.snp.makeConstraints { make in
-            make.right.equalTo(removeButton.snp.left).inset(-20)
-            make.top.equalTo(removeButton.snp.top)
-        }
-        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-    }
-    
-//    func addTopBorder(with color: UIColor?, andWidth borderWidth: CGFloat) {
-//        let border = UIView()
-//        border.backgroundColor = color
-//        border.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
-//        border.frame = CGRect(x: 0, y: 0, width: mainView.frame.width, height: borderWidth)
-//        inputTextField.addSubview(border)
-//    }
-}
-
-extension CALayer {
-    
-    func addBorder(_ arrEdge: [UIRectEdge], color: UIColor, width: CGFloat) {
-        for edge in arrEdge {
-            let border = CALayer()
-            switch edge {
-            case UIRectEdge.top:
-                border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: width)
-                break
-            case UIRectEdge.bottom:
-                border.frame = CGRect.init(x: 0, y: frame.height - width, width: frame.width, height: width)
-                break
-            case UIRectEdge.left:
-                border.frame = CGRect.init(x: 0, y: 0, width: width, height: frame.height)
-                break
-            case UIRectEdge.right:
-                border.frame = CGRect.init(x: frame.width - width, y: 0, width: width, height: frame.height)
-                break
-            default:
-                break
-            }
-            border.backgroundColor = color.cgColor
-            self.addSublayer(border)
+            make.right.equalTo(deleteButton.snp.left).inset(-20)
+            make.top.equalTo(deleteButton.snp.top)
+            make.width.equalTo(25)
         }
     }
 }
-

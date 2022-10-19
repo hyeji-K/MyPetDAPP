@@ -13,7 +13,7 @@ class ProductCell: UITableViewCell {
     
     let cellView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .systemGray6
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.systemGray.cgColor
         view.layer.cornerRadius = 10
@@ -29,40 +29,39 @@ class ProductCell: UITableViewCell {
         imageView.image = UIImage(systemName: "pawprint.circle")
         imageView.tintColor = .systemGray
         imageView.contentMode = .scaleAspectFit
-        
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     let productNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "차오츄르"
-//        label.backgroundColor = .systemGray3
+        label.text = "간식 이름"
         label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.textAlignment = .left
         return label
     }()
         
     let storedLabel: UILabel = {
         let label = UILabel()
         label.text = "냉장보관"
-//        label.backgroundColor = .systemGray3
         label.font = .systemFont(ofSize: 15, weight: .light)
+        label.textAlignment = .left
         return label
     }()
     
     let dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D - 35"
-//        label.backgroundColor = .systemGray3
+        label.text = "D - 0"
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
-    let likeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        return button
-    }()
+//    let likeButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(systemName: "heart"), for: .normal)
+//        return button
+//    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -77,20 +76,25 @@ class ProductCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func configure(_ productInfo: ProductInfo) {
+        self.productImageView.setImageURL(productInfo.image)
+        self.productNameLabel.text = productInfo.name
+        self.storedLabel.text = productInfo.storedMethod
+        let dDay = dDayFunction(productInfo.expirationDate)
+        self.dDayLabel.text = dDay
     }
     
-    func configure(_ info: ProductInfo) {
-        self.productImageView.image = UIImage(named: info.imageOfProduct)
-        self.productNameLabel.text = info.nameOfProduct
-        self.storedLabel.text = info.storedMethod
-        let expirationDate = info.expirationDate.date!
-        let dDay = Calendar.current.dateComponents([.day], from: expirationDate, to: Date()).day! + 1
-        self.dDayLabel.text = "D - \(dDay)"
+    func dDayFunction(_ date: String) -> String {
+        if let date = date.dateLong {
+            let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
+            if dDay < 0 {
+                return "D - 0"
+            } else {
+                return "D - \(dDay)"
+            }
+        }
+        return "D - 0"
     }
     
     private func setupCell() {
@@ -127,7 +131,8 @@ class ProductCell: UITableViewCell {
             make.top.equalToSuperview().inset(10)
             make.right.equalToSuperview().inset(10)
             make.height.equalTo(20)
-            make.width.equalTo(60)
+            make.width.equalTo(80)
+            make.right.lessThanOrEqualTo(productNameLabel.snp.left)
         }
     }
 }

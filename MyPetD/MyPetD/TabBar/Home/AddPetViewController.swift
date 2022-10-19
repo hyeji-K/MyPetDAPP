@@ -79,9 +79,9 @@ class AddPetViewController: UIViewController {
         
         guard let imageUrl = imageUrl else { return }
         
-        let object = ProfileInfo(id: autoId, image: imageUrl, name: name, birthDate: stringOfBirthDay, withDate: stringOfWithDay)
+//        let object = ProfileInfo(id: autoId, image: imageUrl, name: name, birthDate: stringOfBirthDay, withDate: stringOfWithDay)
         
-        self.ref.child("PetInfo").child("\(object.id)").setValue(object.toDictionary)
+//        self.ref.child("PetInfo").child("\(object.id)").setValue(object.toDictionary)
 //        self.dismiss(animated: true, completion: nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }

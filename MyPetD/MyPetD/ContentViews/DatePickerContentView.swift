@@ -29,7 +29,7 @@ class DatePickerContentView: UIView, UIContentView {
         super.init(frame: .zero)
         addPinnedSubview(datePicker)
         datePicker.addTarget(self, action: #selector(didPick(_:)), for: .valueChanged)
-        datePicker.preferredDatePickerStyle = .inline
+        datePicker.preferredDatePickerStyle = .wheels
         datePicker.minuteInterval = 5
         datePicker.datePickerMode = .date
     }

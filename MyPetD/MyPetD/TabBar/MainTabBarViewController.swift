@@ -44,25 +44,15 @@ class MainTabBarViewController: UITabBarController {
             let settingsItem = UIBarButtonItem.generate(with: settingsConfig, width: 30)
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
                 print("plus button tapped")
-                let addItemViewController = AddItemViewController()
-                addItemViewController.modalTransitionStyle = .crossDissolve
-                addItemViewController.modalPresentationStyle = .overFullScreen
-                self.present(addItemViewController, animated: true, completion: nil)
+                let today = Date.now.stringFormat
+                let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today)
+                let viewController = PetViewController(petInfo) { petInfo in
+                }
+                viewController.navigationItem.title = NSLocalizedString("반려동물 추가하기", comment: "Add Pet view controller title")
+                viewController.isAddingNewPetInfo = true
+                let navigationContoller = UINavigationController(rootViewController: viewController)
                 
-//                let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-//                alert.modalPresentationStyle = .overFullScreen
-//                let action1 = UIAlertAction(title: "나의 반려동물 추가하기", style: .default, handler: nil)
-//                alert.addAction(action1)
-//
-//                let action2 = UIAlertAction(title: "제품 추가하기", style: .default, handler: nil)
-//                alert.addAction(action2)
-//
-//                let action3 = UIAlertAction(title: "일정 추가하기", style: .default, handler: nil)
-//                alert.addAction(action3)
-//
-//                let action4 = UIAlertAction(title: "취소", style: .destructive)
-//                alert.addAction(action4)
-//                self.present(alert, animated: true, completion: nil)
+                self.present(navigationContoller, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
             navigationItem.rightBarButtonItems = [settingsItem, addItem]

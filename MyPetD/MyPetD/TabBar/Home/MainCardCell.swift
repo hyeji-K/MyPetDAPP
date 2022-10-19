@@ -1,5 +1,5 @@
 //
-//  ProfileCell.swift
+//  MainCardCell.swift
 //  MyPetD
 //
 //  Created by heyji on 2022/08/19.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ProfileCell: UICollectionViewCell {
+class MainCardCell: UICollectionViewCell {
     
-    static let cellId: String = "ProfileCell"
+    static let cellId: String = "MainCardCell"
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -76,11 +76,10 @@ class ProfileCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(_ info: ProfileInfo) {
+    func configure(_ info: PetInfo) {
         self.petNameLabel.text = info.name
-        // TODO: 이미지는 url 로 받아옴
         self.profileImageView.setImageURL(info.image)
-        let withDate = info.withDate.date!
+        let withDate = info.withDate.dateLong!
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"
     }

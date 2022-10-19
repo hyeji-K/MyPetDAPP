@@ -8,11 +8,20 @@
 import UIKit
 import SnapKit
 import Combine
+import FirebaseDatabase
 
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var toggleTableView: Bool?
+    lazy var toggleTableView: Bool = false {
+        didSet {
+            if toggleTableView == false {
+                tableView.separatorStyle = .none
+            } else {
+                tableView.separatorStyle = .singleLine
+            }
+        }
+    }
     let selectProductView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemYellow
@@ -29,7 +38,7 @@ class HomeViewController: UIViewController {
         pageControl.allowsContinuousInteraction = false
         pageControl.pageIndicatorTintColor = .systemGray6
         pageControl.currentPageIndicatorTintColor = .black
-        pageControl.numberOfPages = viewModel.profileInfos.count
+        pageControl.numberOfPages = petInfos.count
         pageControl.currentPage = .zero
         return pageControl
     }()
@@ -37,40 +46,44 @@ class HomeViewController: UIViewController {
     enum Section {
         case main
     }
+        
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
+    typealias Item = PetInfo
+    var dataSource: DataSource!
     
     let viewModel: HomeViewModel = HomeViewModel()
     var subscriptions = Set<AnyCancellable>()
     
-    typealias Item = ProfileInfo
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
-    
-    let dummyData = ["츄르", "건조간식", "사료", "캔", "츄르", "건조간식"]
-    let productInfo: [ProductInfo] = ProductInfo.list
-    let todoInfo: [TodoInfo] = TodoInfo.list
+    var ref: DatabaseReference!
+    var petInfos: [PetInfo] = []
+    var productInfo: [ProductInfo] = []
+    var reminders: [Reminder] = Reminder.sampleData
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.toggleTableView = false
-        
-        viewModel.fetch()
+//        viewModel.fetch()
         
         setupView()
         configureCollectionView()
-        bind()
+//        bind()
+        fetch()
+        productFetch()
+        reminderFetch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
+        
+        self.tableView.reloadData()
     }
     
     private func setupView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.cellId)
-        tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.cellId)
-        tableView.separatorInset = .zero
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = .zero
         
@@ -78,7 +91,7 @@ class HomeViewController: UIViewController {
         tableView.tableHeaderView = headerView
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.cellId)
+        collectionView.register(MainCardCell.self, forCellWithReuseIdentifier: MainCardCell.cellId)
         collectionView.delegate = self
         headerView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
@@ -94,20 +107,17 @@ class HomeViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
-            collectionView: collectionView,
-            cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.cellId, for: indexPath) as? ProfileCell else { return nil }
-            cell.configure(item)
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCardCell.cellId, for: indexPath) as? MainCardCell else { return nil }
+            cell.configure(itemIdentifier)
             return cell
         })
         
         collectionView.collectionViewLayout = collectionViewLayout()
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems([], toSection: .main)
-        self.dataSource.apply(snapshot)
+        updateSnapshot()
+        
+        collectionView.dataSource = dataSource
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -125,24 +135,61 @@ class HomeViewController: UIViewController {
         return layout
     }
     
-    private func applyItems(_ profileInfos: [ProfileInfo]) {
-        var snapshot = dataSource.snapshot()
-        snapshot.appendItems(profileInfos, toSection: .main)
-        self.dataSource.apply(snapshot)
+    func updateSnapshot(reloading petInfo: [PetInfo] = []) {
+        print("updateSnapshot = \(petInfo)")
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(petInfo, toSection: .main)
+        if !petInfo.isEmpty {
+            snapshot.reloadItems(petInfo)
+        }
+        dataSource.apply(snapshot)
     }
     
-    private func bind() {
-        viewModel.$profileInfos
-            .receive(on: RunLoop.main)
-            .sink { profileInfos in
-                print("--> update collection view \(profileInfos)")
-                self.applyItems(profileInfos)
-                self.pageControl.numberOfPages = profileInfos.count
-            }.store(in: &subscriptions)
+    func showDetail(for petInfo: [PetInfo]) {
+        print("Show productInfo: \(petInfo)")
+        let petDetailViewController = PetDetailViewController(petInfo: petInfo) { petInfo in
+        }
+        self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
+    
+    func fetch() {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
+        self.ref.child("PetInfo").queryOrdered(byChild: "id").observe(.value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let petInfos: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
+                self.petInfos = petInfos
+                self.updateSnapshot(reloading: petInfos)
+                self.pageControl.numberOfPages = petInfos.count
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+//    private func applyItems(_ petInfos: [PetInfo]) {
+//        var snapshot = dataSource.snapshot()
+//        snapshot.appendItems(petInfos, toSection: .main)
+//        self.dataSource.apply(snapshot)
+//    }
+//
+//    private func bind() {
+//        viewModel.$profileInfos
+//            .receive(on: RunLoop.main)
+//            .sink { profileInfos in
+//                print("--> update collection view \(profileInfos)")
+//                self.applyItems(profileInfos)
+//                self.pageControl.numberOfPages = profileInfos.count
+//            }.store(in: &subscriptions)
+//    }
     
     @objc func productButtonTapped(_ sender: UIButton) {
         toggleTableView = false
+        print(toggleTableView)
         selectProductView.backgroundColor = .systemYellow
         selectTodoView.backgroundColor = .clear
         self.tableView.reloadData()
@@ -150,123 +197,51 @@ class HomeViewController: UIViewController {
     
     @objc func todoButtonTapped(_ sender: UIButton) {
         toggleTableView = true
+        print(toggleTableView)
         selectProductView.backgroundColor = .clear
         selectTodoView.backgroundColor = .systemYellow
         self.tableView.reloadData()
     }
-}
-
-extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if toggleTableView == false {
-            return productInfo.count
-        } else {
-            return todoInfo.count
+    
+    func productFetch() {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
+        self.ref.child("ProductInfo").queryOrdered(byChild: "id").observe(.value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let productInfos: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
+                self.productInfo = productInfos
+                self.tableView.reloadData()
+                print(" -->> \(productInfos)")
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if toggleTableView == false {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
-            cell.selectionStyle = .none
-            cell.configure(productInfo[indexPath.row])
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.cellId, for: indexPath) as! TodoCell
-            cell.selectionStyle = .none
-            cell.configure(todoInfo[indexPath.row])
-            return cell
+    func reminderFetch() {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
+        self.ref.child("Reminder").queryOrdered(byChild: "isComplete").observe(.value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                self.reminders = reminders
+                self.tableView.reloadData()
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
-    }
-}
-
-extension HomeViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if toggleTableView == false {
-            return 95
-        } else {
-            return 60
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .white
-//        headerView.layer.cornerRadius = 10
-//        headerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
-//        headerView.layer.borderWidth = 1
-//        headerView.layer.borderColor = UIColor.systemGray3.cgColor
-
-        let productButton = UIButton()
-        productButton.setTitle("임박 제품", for: .normal)
-        productButton.setTitleColor(.black, for: .normal)
-        productButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        headerView.addSubview(productButton)
-        productButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview()
-            make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(34)
-        }
-        productButton.addTarget(self, action: #selector(productButtonTapped), for: .touchUpInside)
-        
-        let todoButton = UIButton()
-        todoButton.setTitle("오늘 일정", for: .normal)
-        todoButton.setTitleColor(.black, for: .normal)
-        todoButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        headerView.addSubview(todoButton)
-        todoButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview()
-            make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(34)
-        }
-        todoButton.addTarget(self, action: #selector(todoButtonTapped), for: .touchUpInside)
-        
-        let seperatedView = UIView()
-        seperatedView.backgroundColor = .lightGray
-        headerView.addSubview(seperatedView)
-        seperatedView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.height.equalTo(0.8)
-            make.width.equalToSuperview()
-        }
-        
-        headerView.addSubview(selectProductView)
-        selectProductView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-//            make.left.equalToSuperview().inset(50)
-            make.centerX.equalToSuperview().dividedBy(2)
-            make.height.equalTo(3)
-            make.width.equalTo(productButton.snp.width).dividedBy(2)
-        }
-        
-        headerView.addSubview(selectTodoView)
-        selectTodoView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.right.equalToSuperview().inset(50)
-//            make.centerX.equalTo(todoButton.snp.view.widthAnchor)
-            make.height.equalTo(3)
-            make.width.equalTo(todoButton.snp.width).dividedBy(2)
-        }
-        
-        return headerView
     }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = viewModel.profileInfos
-        
-        let petDetailViewController = PetDetailViewController()
-        petDetailViewController.profileInfo = item
-        self.navigationController?.pushViewController(petDetailViewController, animated: true)
+        let item = petInfos
+        showDetail(for: item)
     }
 }

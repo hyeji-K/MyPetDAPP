@@ -18,15 +18,15 @@ extension ProductViewController {
         var name: String {
             switch self {
             case .image:
-                return NSLocalizedString("Product Image", comment: "Product Image section name")
+                return NSLocalizedString("사진", comment: "Product Image section name")
             case .name:
-                return NSLocalizedString("Product Name", comment: "Product Name section name")
+                return NSLocalizedString("상품명", comment: "Product Name section name")
             case .location:
-                return NSLocalizedString("Location", comment: "Location section name")
+                return NSLocalizedString("보관장소", comment: "Location section name")
             case .notes:
-                return NSLocalizedString("Notes", comment: "Notes section name")
+                return NSLocalizedString("한줄 메모", comment: "Notes section name")
             case .date:
-                return NSLocalizedString("Date", comment: "Date section name")
+                return NSLocalizedString("유효기한", comment: "Date section name")
             }
         }
     }

@@ -21,7 +21,7 @@ class ProductViewController: UICollectionViewController {
     var workingProduct: ProductInfo
     var isAddingNewProduct = false
     var onChange: (ProductInfo) -> Void
-    lazy var imageURL: String = product.image
+    let imageURL: String
     var imageData: Data = Data()
 
     private var dataSource: DataSource!
@@ -34,6 +34,7 @@ class ProductViewController: UICollectionViewController {
         self.product = product
         self.workingProduct = product
         self.onChange = onChange
+        self.imageURL = product.image
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
@@ -53,7 +54,7 @@ class ProductViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
         
-        navigationItem.title = NSLocalizedString("Product Edit", comment: "Reminder view controller title")
+        navigationItem.title = NSLocalizedString("편집하기", comment: "Reminder view controller title")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didDoneEdit))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didCancelEdit))
         
@@ -61,10 +62,17 @@ class ProductViewController: UICollectionViewController {
     }
     
     @objc func didDoneEdit() {
-        self.imageUpload(uid: uid, productId: product.id, imageData: imageData) { url in
-            self.product.image = url
-            self.updateSnapshotForEditing()
+        if self.product.image != self.imageURL {
+            self.imageUpload(uid: uid, productId: product.id, imageData: imageData) { url in
+                self.product = self.workingProduct
+                self.product.image = url
+                self.updateSnapshotForEditing()
+                self.updateProduct(self.product)
+            }
+        } else {
             self.product = self.workingProduct
+            self.product.image = self.imageURL
+            self.updateSnapshotForEditing()
             self.updateProduct(self.product)
         }
         self.dismiss(animated: true, completion: nil)

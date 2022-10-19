@@ -71,8 +71,7 @@ class MainTabBarViewController: UITabBarController {
                 }
                 viewController.isAddingNewProduct = true
                 viewController.setEditing(true, animated: false)
-                viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didCancelAdd))
-                viewController.navigationItem.title = NSLocalizedString("Add Product", comment: "Add Product view controller title")
+                viewController.navigationItem.title = NSLocalizedString("상품 추가하기", comment: "Add Product view controller title")
                 let navigationController = UINavigationController(rootViewController: viewController)
                 self.present(navigationController, animated: true)
             }

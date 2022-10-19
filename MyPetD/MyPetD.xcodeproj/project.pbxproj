@@ -17,8 +17,8 @@
 		1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */; };
 		1005C3F028AF771200A8AA7B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1005C3EF28AF771200A8AA7B /* SnapKit */; };
 		1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F128AF7DB000A8AA7B /* ProductCell.swift */; };
-		1005C3F428AF9A2200A8AA7B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */; };
-		1005C3F628AFA04C00A8AA7B /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */; };
+		1005C3F428AF9A2200A8AA7B /* MainCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */; };
+		1005C3F628AFA04C00A8AA7B /* PetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F528AFA04C00A8AA7B /* PetInfo.swift */; };
 		1005C3F828AFD73A00A8AA7B /* TodayTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */; };
 		1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */; };
 		1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */; };
@@ -71,6 +71,12 @@
 		1048DF4028D61566009C87AD /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF3F28D61566009C87AD /* AddPetViewController.swift */; };
 		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
 		106467CC28FEEA6E006FF939 /* DateAndTimePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */; };
+		106467CE28FF5F07006FF939 /* PetViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CD28FF5F07006FF939 /* PetViewContoller.swift */; };
+		106467D028FF609E006FF939 /* PetViewContoller+Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */; };
+		106467D228FF61F1006FF939 /* PetViewContoller+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */; };
+		106467D428FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */; };
+		106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */; };
+		106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D728FF9B81006FF939 /* PetEditButton.swift */; };
 		10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEC28C20E3E0019C477 /* MonthView.swift */; };
 		10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEE28C2428F0019C477 /* WeekDaysView.swift */; };
 		10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AF028C2439D0019C477 /* CalenderView.swift */; };
@@ -90,8 +96,8 @@
 		1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarItem.swift; sourceTree = "<group>"; };
 		1005C3F128AF7DB000A8AA7B /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
-		1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
-		1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
+		1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardCell.swift; sourceTree = "<group>"; };
+		1005C3F528AFA04C00A8AA7B /* PetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfo.swift; sourceTree = "<group>"; };
 		1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTodoCell.swift; sourceTree = "<group>"; };
 		1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailViewController.swift; sourceTree = "<group>"; };
 		1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfoCell.swift; sourceTree = "<group>"; };
@@ -140,6 +146,12 @@
 		1048DF3F28D61566009C87AD /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimePickerContentView.swift; sourceTree = "<group>"; };
+		106467CD28FF5F07006FF939 /* PetViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewContoller.swift; sourceTree = "<group>"; };
+		106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+Row.swift"; sourceTree = "<group>"; };
+		106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+Section.swift"; sourceTree = "<group>"; };
+		106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+CellConfiguration.swift"; sourceTree = "<group>"; };
+		106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewContoller.swift"; sourceTree = "<group>"; };
+		106467D728FF9B81006FF939 /* PetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetEditButton.swift; sourceTree = "<group>"; };
 		10F59AEC28C20E3E0019C477 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		10F59AEE28C2428F0019C477 /* WeekDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysView.swift; sourceTree = "<group>"; };
 		10F59AF028C2439D0019C477 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
@@ -202,7 +214,7 @@
 		1005C3E328AF1F5A00A8AA7B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1005C3F528AFA04C00A8AA7B /* ProfileInfo.swift */,
+				1005C3F528AFA04C00A8AA7B /* PetInfo.swift */,
 				1005C40928B778B300A8AA7B /* ProductInfo.swift */,
 				1048DF3028D4AFA7009C87AD /* TodoInfo.swift */,
 				104441B228F9906E006950FB /* Reminder.swift */,
@@ -214,15 +226,21 @@
 			isa = PBXGroup;
 			children = (
 				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
+				106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */,
+				1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */,
 				1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */,
 				1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */,
+				106467CD28FF5F07006FF939 /* PetViewContoller.swift */,
+				106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */,
+				106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */,
+				106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */,
+				106467D728FF9B81006FF939 /* PetEditButton.swift */,
 				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
-				1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */,
-				1005C3F328AF9A2200A8AA7B /* ProfileCell.swift */,
-				1005C3FF28B2702F00A8AA7B /* AddItemViewController.swift */,
 				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
-				1048DF3F28D61566009C87AD /* AddPetViewController.swift */,
 				1044415928EC5D46006950FB /* HomeViewModel.swift */,
+				1005C3F728AFD73A00A8AA7B /* TodayTodoCell.swift */,
+				1005C3FF28B2702F00A8AA7B /* AddItemViewController.swift */,
+				1048DF3F28D61566009C87AD /* AddPetViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -252,8 +270,8 @@
 				10F59AEE28C2428F0019C477 /* WeekDaysView.swift */,
 				10F59AF028C2439D0019C477 /* CalenderView.swift */,
 				10F59AF428C5DA9A0019C477 /* DateCell.swift */,
-				10F59AF228C24C080019C477 /* TodoView.swift */,
 				1048DF1428D0BDFF009C87AD /* TodoCell.swift */,
+				10F59AF228C24C080019C477 /* TodoView.swift */,
 				1005C41328BA0E9500A8AA7B /* AddTodoViewController.swift */,
 				1048DF1A28D1D43D009C87AD /* EditTodoViewController.swift */,
 				1048DF1628D1A143009C87AD /* RepeatButtonView.swift */,
@@ -404,6 +422,7 @@
 				104441D528FD27E1006950FB /* ProductViewController.swift in Sources */,
 				1005C41428BA0E9500A8AA7B /* AddTodoViewController.swift in Sources */,
 				104441BE28FABAEE006950FB /* ReminderDetailViewController+Row.swift in Sources */,
+				106467D028FF609E006FF939 /* PetViewContoller+Row.swift in Sources */,
 				1048DF1928D1B944009C87AD /* CustomRepeatView.swift in Sources */,
 				1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */,
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
@@ -412,14 +431,17 @@
 				10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */,
 				104441CB28FAF420006950FB /* DatePickerContentView.swift in Sources */,
 				10F59AF528C5DA9A0019C477 /* DateCell.swift in Sources */,
-				1005C3F628AFA04C00A8AA7B /* ProfileInfo.swift in Sources */,
+				1005C3F628AFA04C00A8AA7B /* PetInfo.swift in Sources */,
 				104441B528FA9AEB006950FB /* ReminderViewController+DataSource.swift in Sources */,
+				106467D228FF61F1006FF939 /* PetViewContoller+Section.swift in Sources */,
 				104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */,
+				106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */,
 				104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				1048DF1B28D1D43D009C87AD /* EditTodoViewController.swift in Sources */,
 				104441D128FB76E3006950FB /* RepeatCell.swift in Sources */,
 				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
+				106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */,
 				1005C40C28B77FAA00A8AA7B /* AddProductViewController.swift in Sources */,
 				1005C40028B2702F00A8AA7B /* AddItemViewController.swift in Sources */,
 				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
@@ -438,6 +460,7 @@
 				1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */,
 				10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */,
 				1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */,
+				106467CE28FF5F07006FF939 /* PetViewContoller.swift in Sources */,
 				1044415A28EC5D46006950FB /* HomeViewModel.swift in Sources */,
 				104441D728FD2A09006950FB /* ProductViewController+Section.swift in Sources */,
 				1048DF1328D0A597009C87AD /* Extension.swift in Sources */,
@@ -455,8 +478,9 @@
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
 				104441C028FADF6A006950FB /* ReminderDetailViewController+Section.swift in Sources */,
 				1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */,
+				106467D428FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift in Sources */,
 				1048DF4028D61566009C87AD /* AddPetViewController.swift in Sources */,
-				1005C3F428AF9A2200A8AA7B /* ProfileCell.swift in Sources */,
+				1005C3F428AF9A2200A8AA7B /* MainCardCell.swift in Sources */,
 				104441B328F9906E006950FB /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

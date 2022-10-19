@@ -12,7 +12,7 @@ import FirebaseDatabase
 
 class HomeViewModel {
     
-    @Published var profileInfos: [ProfileInfo] = []
+    @Published var petInfos: [PetInfo] = []
     var subscriptions = Set<AnyCancellable>()
     
     var ref: DatabaseReference!
@@ -36,8 +36,8 @@ class HomeViewModel {
                 do {
                     let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                     let decoder = JSONDecoder()
-                    let petInfo: [ProfileInfo] = try decoder.decode([ProfileInfo].self, from: data)
-                    self.profileInfos = petInfo
+                    let petInfo: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
+                    self.petInfos = petInfo
                 } catch let error {
                     print(error.localizedDescription)
                 }

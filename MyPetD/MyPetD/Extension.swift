@@ -51,7 +51,7 @@ extension Date {
     
     static var dateFormatterShort: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy. MM. dd"
         return formatter
     }()
     

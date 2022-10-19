@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // 파이어베이스 초기화
         FirebaseApp.configure()
+        
+        Auth.auth().signInAnonymously { authResult, error in
+            guard let user = authResult?.user else { return }
+            let isAnonymous = user.isAnonymous  // true
+            let uid = user.uid
+            if UserDefaults.standard.string(forKey: "firebaseUid") == nil {
+                UserDefaults.standard.set(uid, forKey: "firebaseUid")
+            }
+        }
         
         UINavigationBar.appearance().tintColor = .todayPrimaryTint
         UINavigationBar.appearance().backgroundColor = .todayNavigationBackground

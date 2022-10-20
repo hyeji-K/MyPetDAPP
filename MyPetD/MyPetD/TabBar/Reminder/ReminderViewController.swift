@@ -47,7 +47,7 @@ class ReminderViewController: UICollectionViewController {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                self.reminders = reminders
+                self.reminders = reminders.sorted(by: { $0.dueDate < $1.dueDate })
                 self.updateSnapshot()
             } catch let error {
                 print(error.localizedDescription)

@@ -32,8 +32,8 @@ extension ReminderDetailViewController {
         return contentConfiguration
     }
     
-    func dateConfiguration(for cell: UICollectionViewListCell, with date: Date) -> DatePickerContentView.Configuration {
-        var contentConfiguration = cell.datePickerConfiguration()
+    func dateConfiguration(for cell: UICollectionViewListCell, with date: Date) -> DateAndTimePickerContentView.Configuration {
+        var contentConfiguration = cell.dateAndTimePickerConfiguration()
         contentConfiguration.date = date
         contentConfiguration.onChange = { [weak self] dueDate in
             self?.workingReminder.dueDate = dueDate

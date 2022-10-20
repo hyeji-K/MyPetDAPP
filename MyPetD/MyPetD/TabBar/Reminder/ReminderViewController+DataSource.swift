@@ -61,12 +61,9 @@ extension ReminderViewController {
     
     func add(_ reminder: Reminder) {
 //        reminders.append(reminder)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = reminder.dueDate
-        print()
-        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: "\(date)", repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
-        self.ref.child("Reminder").child(reminder.id).setValue(object.toDictionary)
+//        let date = reminder.dueDate.dateLong!.stringFormat
+//        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: "\(date)", repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
+//        self.ref.child("Reminder").child(reminder.id).setValue(object.toDictionary)
     }
     
     func deleteReminder(with id: Reminder.ID) {

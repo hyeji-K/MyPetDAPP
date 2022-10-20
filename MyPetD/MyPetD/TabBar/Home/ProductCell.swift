@@ -11,7 +11,7 @@ class ProductCell: UITableViewCell {
     
     static let cellId: String = "ProductCell"
     
-    let cellView: UIView = {
+    lazy var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
         view.layer.borderWidth = 1
@@ -20,7 +20,7 @@ class ProductCell: UITableViewCell {
         return view
     }()
     
-    let productImageView: UIImageView = {
+    lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 10
@@ -33,7 +33,7 @@ class ProductCell: UITableViewCell {
         return imageView
     }()
     
-    let productNameLabel: UILabel = {
+    lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.text = "간식 이름"
         label.font = .systemFont(ofSize: 15, weight: .bold)
@@ -41,7 +41,7 @@ class ProductCell: UITableViewCell {
         return label
     }()
         
-    let storedLabel: UILabel = {
+    lazy var storedLabel: UILabel = {
         let label = UILabel()
         label.text = "냉장보관"
         label.font = .systemFont(ofSize: 15, weight: .light)
@@ -49,7 +49,7 @@ class ProductCell: UITableViewCell {
         return label
     }()
     
-    let dDayLabel: UILabel = {
+    lazy var dDayLabel: UILabel = {
         let label = UILabel()
         label.text = "D - 0"
         label.textAlignment = .right
@@ -81,58 +81,51 @@ class ProductCell: UITableViewCell {
         self.productImageView.setImageURL(productInfo.image)
         self.productNameLabel.text = productInfo.name
         self.storedLabel.text = productInfo.storedMethod
-        let dDay = dDayFunction(productInfo.expirationDate)
+        let dDay = productInfo.expirationDate.dDayFunction(productInfo.expirationDate)
         self.dDayLabel.text = dDay
-    }
-    
-    func dDayFunction(_ date: String) -> String {
-        if let date = date.dateLong {
-            let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
-            if dDay < 0 {
-                return "D - 0"
-            } else {
-                return "D - \(dDay)"
-            }
-        }
-        return "D - 0"
     }
     
     private func setupCell() {
         
         self.contentView.addSubview(cellView)
+        cellView.addSubview(productImageView)
+        cellView.addSubview(productNameLabel)
+        cellView.addSubview(storedLabel)
+        cellView.addSubview(dDayLabel)
+        
         cellView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(80)
         }
         
-        cellView.addSubview(productImageView)
         productImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalTo(10)
             make.width.height.equalTo(60)
         }
-        cellView.addSubview(productNameLabel)
+        productNameLabel.setContentCompressionResistancePriority(.init(rawValue: 750), for: .horizontal)
         productNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
-            make.left.equalTo(productImageView.snp.right).inset(-16)
-            make.right.equalToSuperview().inset(100)
+            make.left.equalTo(productImageView.snp.right).inset(-12)
+            make.right.equalTo(dDayLabel.snp.left)
             make.height.equalTo(15)
         }
-        cellView.addSubview(storedLabel)
+        
         storedLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).inset(-10)
             make.left.equalTo(productNameLabel.snp.left)
-            make.right.equalToSuperview().inset(100)
+            make.right.equalToSuperview().inset(10)
             make.height.equalTo(15)
         }
-        cellView.addSubview(dDayLabel)
+        
+        dDayLabel.setContentCompressionResistancePriority(.init(rawValue: 751), for: .horizontal)
         dDayLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.right.equalToSuperview().inset(10)
-            make.height.equalTo(20)
+            make.left.equalTo(productNameLabel.snp.right)
             make.width.equalTo(80)
-            make.right.lessThanOrEqualTo(productNameLabel.snp.left)
+            make.height.equalTo(20)
         }
     }
 }

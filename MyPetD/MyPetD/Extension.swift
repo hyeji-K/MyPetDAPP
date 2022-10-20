@@ -83,6 +83,19 @@ extension String {
         return String.dateFormatterLong.date(from: self)
     }
     
+    func dDayFunction(_ date: String) -> String {
+        if let date = date.dateLong {
+            let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
+            if dDay < 0 {
+                return "기한 만료"
+            } else if dDay == 0 {
+                return "D - Day"
+            } else {
+                return "D - \(dDay)"
+            }
+        }
+        return "D - 0"
+    }
     
 //    func toDate() -> Date? { //"yyyy-MM-dd HH:mm:ss"
 //        let dateFormatter = DateFormatter()

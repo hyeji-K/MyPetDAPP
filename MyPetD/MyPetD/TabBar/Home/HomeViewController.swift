@@ -58,7 +58,7 @@ class HomeViewController: UIViewController {
     var ref: DatabaseReference!
     var petInfos: [PetInfo] = []
     var productInfo: [ProductInfo] = []
-    var reminders: [Reminder] = Reminder.sampleData
+    var reminders: [Reminder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,9 +212,17 @@ class HomeViewController: UIViewController {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let productInfos: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                self.productInfo = productInfos
+                // NOTE: 상품의 유효기한이 60일 이내일때만 표시되도록 구현
+                var filterProduct: [ProductInfo] = []
+                productInfos.map { product in
+                    let date = product.expirationDate.dateLong!
+                    let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
+                    if dDay <= 60 {
+                        filterProduct.append(product)
+                    }
+                }
+                self.productInfo = filterProduct.sorted(by: { $0.expirationDate > $1.expirationDate })
                 self.tableView.reloadData()
-                print(" -->> \(productInfos)")
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -230,7 +238,14 @@ class HomeViewController: UIViewController {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                self.reminders = reminders
+                // NOTE: 오늘 일정인 것만 표시되도록 구현
+                self.reminders = []
+                reminders.map { reminder in
+                    let date = Date.now.stringFormatShort
+                    if date == reminder.dueDate.dateLong!.stringFormatShort {
+                        self.reminders.append(reminder)
+                    }
+                }
                 self.tableView.reloadData()
             } catch let error {
                 print(error.localizedDescription)

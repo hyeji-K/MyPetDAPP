@@ -23,6 +23,10 @@ extension Date {
             let timeFormat = NSLocalizedString("Today, %@", comment: "Today at time format string")
             return String(format: timeFormat, timeText) // 오늘 오후 ㅁ시
         } else {
+            // 현재년도 일때와 아닐때 구분
+//            if Locale.current.calendar.isDate(<#T##date1: Date##Date#>, equalTo: self, toGranularity: .year) {
+//
+//            }
             let dateText = formatted(.dateTime.month(.abbreviated).day())
             let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
             return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시
@@ -57,6 +61,16 @@ extension Date {
     
     var stringFormatShort: String {
         return Date.dateFormatterShort.string(from: self)
+    }
+    
+    static var dateFormatterShortline: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
+    var stringFormatShortline: String {
+        return Date.dateFormatterShortline.string(from: self)
     }
 }
 

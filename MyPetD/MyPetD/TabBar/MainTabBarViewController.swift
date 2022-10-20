@@ -89,10 +89,10 @@ class MainTabBarViewController: UITabBarController {
                 let today = Date.now.stringFormat
                 let reminder = Reminder(title: "", dueDate: today, repeatCycle: "반복없음")
                 let viewController = ReminderDetailViewController(reminder: reminder) { reminder in
-//                    let reminderView = ReminderViewController()
-//                    reminderView.add(reminder)
-//                    reminderView.updateSnapshot()
-//                    self.dismiss(animated: true, completion: nil)
+                    print("add 에서 넘어왔어여 \(reminder)")
+//                    self.add(reminder)
+//                    self.updateSnapshot()
+                    self.dismiss(animated: true, completion: nil)
                 }
                 viewController.isAddingNewReminder = true
                 viewController.setEditing(true, animated: false)

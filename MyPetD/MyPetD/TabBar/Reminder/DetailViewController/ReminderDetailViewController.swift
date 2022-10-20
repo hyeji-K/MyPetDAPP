@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ReminderDetailViewController: UICollectionViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
@@ -20,6 +21,9 @@ class ReminderDetailViewController: UICollectionViewController {
     var isAddingNewReminder = false
     var onChange: (Reminder) -> Void
     private var dataSource: DataSource!
+    
+    var ref: DatabaseReference!
+    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     init(reminder: Reminder, onChange: @escaping (Reminder) -> Void) {
         self.reminder = reminder
@@ -47,6 +51,8 @@ class ReminderDetailViewController: UICollectionViewController {
         navigationItem.rightBarButtonItem = editButtonItem
         
         updateSnapshotForViewing()
+        
+        self.ref = Database.database().reference(withPath: uid)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -58,6 +64,9 @@ class ReminderDetailViewController: UICollectionViewController {
                 prepareForViewing()
             } else {
                 onChange(workingReminder)
+                let date = workingReminder.dueDate.dateLong!.stringFormat
+                let object = Reminder(id: workingReminder.id, title: workingReminder.title, dueDate: date, repeatCycle: workingReminder.repeatCycle, isComplete: workingReminder.isComplete)
+                    self.ref.child("Reminder").child(workingReminder.id).setValue(object.toDictionary)
             }
         }
     }

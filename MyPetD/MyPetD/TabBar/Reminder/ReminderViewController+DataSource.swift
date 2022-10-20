@@ -43,9 +43,52 @@ extension ReminderViewController {
     
     func completeReminder(with id: Reminder.ID) {
         var reminder = reminder(for: id)
+        if reminder.isComplete == false {
+            switch reminder.repeatCycle {
+            case RepectCycle.none.name:
+                reminder.isComplete.toggle()
+                update(reminder, with: id)
+                updateSnapshot(reloading: [id])
+                let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
+                self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary) // DB에 저장
+                deleteReminder(with: id)
+                updateSnapshot()
+            
+            case RepectCycle.everyDay.name:
+                completeReminderHandler(with: id, for: RepectCycle.everyDay)
+                
+            case RepectCycle.everyWeek.name:
+                completeReminderHandler(with: id, for: RepectCycle.everyWeek)
+                
+            case RepectCycle.everyMonth.name:
+                completeReminderHandler(with: id, for: RepectCycle.everyMonth)
+                
+            case RepectCycle.everyYear.name:
+                completeReminderHandler(with: id, for: RepectCycle.everyYear)
+                
+            default:
+                print()
+            }
+        } else {
+            // 완료 해제시
+        }
+    }
+    
+    private func completeReminderHandler(with id: Reminder.ID, for repectCycle: RepectCycle) {
+        var reminder = reminder(for: id)
         reminder.isComplete.toggle()
-        update(reminder, with: id)
-        updateSnapshot(reloading: [id])
+        let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
+        self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary)
+        self.update(reminder, with: id)
+        self.updateSnapshot(reloading: [id])
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            let date = reminder.dueDate.dateLong!
+            let changeDate = Calendar.current.date(byAdding: repectCycle.adding, value: repectCycle.repeatValue, to: date)!.stringFormat
+            reminder.dueDate = changeDate
+            reminder.isComplete.toggle()
+            self.update(reminder, with: id)
+            self.updateSnapshot(reloading: [id])
+        }
     }
     
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
@@ -67,9 +110,8 @@ extension ReminderViewController {
     }
     
     func deleteReminder(with id: Reminder.ID) {
-//        let index = reminders.indexOfReminder(with: id)
-//        reminders.remove(at: index)
-        
+        let index = reminders.indexOfReminder(with: id)
+        reminders.remove(at: index)
         self.ref.child("Reminder").child(id).removeValue()
     }
     

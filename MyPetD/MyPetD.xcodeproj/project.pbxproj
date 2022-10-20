@@ -77,6 +77,7 @@
 		106467D428FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */; };
 		106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */; };
 		106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D728FF9B81006FF939 /* PetEditButton.swift */; };
+		106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467DB29018C3A006FF939 /* RepeatCycle.swift */; };
 		10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEC28C20E3E0019C477 /* MonthView.swift */; };
 		10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEE28C2428F0019C477 /* WeekDaysView.swift */; };
 		10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AF028C2439D0019C477 /* CalenderView.swift */; };
@@ -152,6 +153,7 @@
 		106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+CellConfiguration.swift"; sourceTree = "<group>"; };
 		106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewContoller.swift"; sourceTree = "<group>"; };
 		106467D728FF9B81006FF939 /* PetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetEditButton.swift; sourceTree = "<group>"; };
+		106467DB29018C3A006FF939 /* RepeatCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCycle.swift; sourceTree = "<group>"; };
 		10F59AEC28C20E3E0019C477 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		10F59AEE28C2428F0019C477 /* WeekDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysView.swift; sourceTree = "<group>"; };
 		10F59AF028C2439D0019C477 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				104441B428FA9AEB006950FB /* ReminderViewController+DataSource.swift */,
 				104441B628FAAC60006950FB /* ReminderDoneButton.swift */,
 				104441B828FAACF8006950FB /* ReminderListViewController+Actions.swift */,
+				106467DB29018C3A006FF939 /* RepeatCycle.swift */,
 				104441D228FBB76C006950FB /* ScheduledViewController.swift */,
 				104441BC28FABAC9006950FB /* DetailViewController */,
 				104441B028F95A47006950FB /* AddReminderViewController.swift */,
@@ -449,6 +452,7 @@
 				1048DF1728D1A143009C87AD /* RepeatButtonView.swift in Sources */,
 				1005C3FE28B0FFF500A8AA7B /* MainNavigationController.swift in Sources */,
 				10F59AF328C24C080019C477 /* TodoView.swift in Sources */,
+				106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */,
 				104441BB28FAB9B6006950FB /* ReminderDetailViewController.swift in Sources */,
 				104441AF28F95849006950FB /* ReminderViewController.swift in Sources */,
 				104441D328FBB76C006950FB /* ScheduledViewController.swift in Sources */,

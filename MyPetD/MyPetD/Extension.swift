@@ -24,19 +24,23 @@ extension Date {
             return String(format: timeFormat, timeText) // 오늘 오후 ㅁ시
         } else {
             // 현재년도 일때와 아닐때 구분
-//            if Locale.current.calendar.isDate(<#T##date1: Date##Date#>, equalTo: self, toGranularity: .year) {
-//
-//            }
-            let dateText = formatted(.dateTime.month(.abbreviated).day())
-            let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
-            return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시
+            let currentYear = Date.now
+            if Locale.current.calendar.isDate(currentYear, equalTo: self, toGranularity: .year) {
+                let dateText = formatted(.dateTime.month(.wide).day())
+                let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
+                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시
+            } else {
+                let dateText = formatted(.dateTime.year().month(.wide).day())
+                let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
+                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, 2022, ㅁ시
+            }
         }
     }
     var dayText: String {
         if Locale.current.calendar.isDateInToday(self) {
             return NSLocalizedString("Today", comment: "Today due date description")
         } else {
-            return formatted(.dateTime.month().day().weekday(.wide))
+            return formatted(.dateTime.month(.wide).day().weekday(.wide))
         }
     }
     var timeText: String {

@@ -115,8 +115,8 @@ class BoxViewController: UIViewController {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                self.products = productInfo
-                self.updateSnapshot(reloading: productInfo)
+                self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
+                self.updateSnapshot(reloading: self.products)
             } catch let error {
                 print(error.localizedDescription)
             }

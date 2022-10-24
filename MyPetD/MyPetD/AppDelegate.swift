@@ -23,9 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let user = authResult?.user else { return }
             let isAnonymous = user.isAnonymous  // true
             let uid = user.uid
-            if UserDefaults.standard.string(forKey: "firebaseUid") == nil {
-                UserDefaults.standard.set(uid, forKey: "firebaseUid")
-            }
+            UserDefaults.standard.set(uid, forKey: "firebaseUid")
+            print("FirebaseAuth: \(uid)")
+            print("UserDefaults \(UserDefaults.standard.string(forKey: "firebaseUid")!)")
         }
         
         UINavigationBar.appearance().tintColor = .todayPrimaryTint

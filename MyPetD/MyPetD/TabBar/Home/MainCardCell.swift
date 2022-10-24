@@ -13,6 +13,7 @@ class MainCardCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .fiordColor
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .systemGray3
         return imageView
@@ -29,7 +30,7 @@ class MainCardCell: UICollectionViewCell {
     let heartImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "heart.fill")
-        imageView.tintColor = .systemRed
+        imageView.tintColor = .appleBlossomColor
         return imageView
     }()
     
@@ -54,7 +55,7 @@ class MainCardCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
-        label.textColor = .systemRed
+        label.textColor = .appleBlossomColor
         return label
     }()
     

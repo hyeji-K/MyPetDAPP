@@ -11,6 +11,8 @@ extension PetViewController {
     func headerConfiguration(for cell: UICollectionViewListCell, with title: String) -> UIListContentConfiguration {
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.text = title
+        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .body)
+        contentConfiguration.textProperties.color = .black
         return contentConfiguration
     }
     

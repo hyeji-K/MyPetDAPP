@@ -13,9 +13,10 @@ struct PetInfo: Hashable, Identifiable, Codable {
     var name: String
     var birthDate: String
     var withDate: String
+    var createdDate: String = Date.now.stringFormat
     
     var toDictionary: [String: Any] {
-        let dict: [String: Any] = ["id": id, "name": name, "image": image, "birthDate": birthDate, "withDate": withDate]
+        let dict: [String: Any] = ["id": id, "name": name, "image": image, "birthDate": birthDate, "withDate": withDate, "createdDate": createdDate]
         return dict
     }
 }
@@ -31,7 +32,7 @@ extension Array where Element == PetInfo {
 
 extension PetInfo {
     static let list = [
-        PetInfo(id: "0", image: "testImage1", name: "뭉치", birthDate: "2018.01.01", withDate: "2018.03.17"),
-        PetInfo(id: "1", image: "testImage2", name: "삐용", birthDate: "2018.09.25", withDate: "2018.12.20"),
+        PetInfo(id: "0", image: "testImage1", name: "뭉치", birthDate: "2018.01.01", withDate: "2018.03.17", createdDate: Date.now.stringFormat),
+        PetInfo(id: "1", image: "testImage2", name: "삐용", birthDate: "2018.09.25", withDate: "2018.12.20", createdDate: Date.now.stringFormat),
     ]
 }

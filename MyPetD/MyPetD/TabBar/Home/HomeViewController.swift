@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
     }
     let selectProductView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .ebonyClayColor
         return view
     }()
     let selectTodoView: UIView = {
@@ -59,6 +59,8 @@ class HomeViewController: UIViewController {
     var petInfos: [PetInfo] = []
     var productInfo: [ProductInfo] = []
     var reminders: [Reminder] = []
+    var todayReminders: [Reminder] = []
+    var todayIsCompletedReminders: [Reminder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +89,7 @@ class HomeViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = .zero
         
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 220))
         tableView.tableHeaderView = headerView
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
@@ -121,9 +123,9 @@ class HomeViewController: UIViewController {
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(220))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(220))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
@@ -144,31 +146,45 @@ class HomeViewController: UIViewController {
             snapshot.reloadItems(petInfo)
         }
         dataSource.apply(snapshot)
+        self.pageControl.numberOfPages = petInfo.count
     }
     
     func showDetail(for petInfo: [PetInfo]) {
         print("Show productInfo: \(petInfo)")
         let petDetailViewController = PetDetailViewController(petInfo: petInfo) { petInfo in
+            self.updateSnapshot(reloading: petInfo)
         }
         self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
     
     func fetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
         self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("PetInfo").queryOrdered(byChild: "id").observe(.value) { snapshot in
+        self.ref.child("PetInfo").observe(.value) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             do {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let petInfos: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
-                self.petInfos = petInfos
+                // NOTE: 생성된 날짜순으로 정렬
+                self.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
                 self.updateSnapshot(reloading: petInfos)
-                self.pageControl.numberOfPages = petInfos.count
             } catch let error {
                 print(error.localizedDescription)
             }
         }
+        if self.petInfos.isEmpty {
+            emptyPetInfoData()
+        }
+    }
+    
+    private func emptyPetInfoData() {
+        let downloadDate = Date.now.stringFormat
+        UserDefaults.standard.set(downloadDate, forKey: "downloadDate")
+        let date = UserDefaults.standard.string(forKey: "downloadDate")!
+        let mainView = PetInfo(image: "", name: "AppName", birthDate: date, withDate: date)
+        self.petInfos.append(mainView)
+        self.updateSnapshot(reloading: self.petInfos)
     }
     
 //    private func applyItems(_ petInfos: [PetInfo]) {
@@ -189,24 +205,22 @@ class HomeViewController: UIViewController {
     
     @objc func productButtonTapped(_ sender: UIButton) {
         toggleTableView = false
-        print(toggleTableView)
-        selectProductView.backgroundColor = .systemYellow
+        selectProductView.backgroundColor = .ebonyClayColor
         selectTodoView.backgroundColor = .clear
         self.tableView.reloadData()
     }
     
     @objc func todoButtonTapped(_ sender: UIButton) {
         toggleTableView = true
-        print(toggleTableView)
         selectProductView.backgroundColor = .clear
-        selectTodoView.backgroundColor = .systemYellow
+        selectTodoView.backgroundColor = .ebonyClayColor
         self.tableView.reloadData()
     }
     
     func productFetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
         self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("ProductInfo").queryOrdered(byChild: "id").observe(.value) { snapshot in
+        self.ref.child("ProductInfo").observe(.value) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             do {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
@@ -221,7 +235,7 @@ class HomeViewController: UIViewController {
                         filterProduct.append(product)
                     }
                 }
-                self.productInfo = filterProduct.sorted(by: { $0.expirationDate > $1.expirationDate })
+                self.productInfo = filterProduct.sorted(by: { $0.expirationDate < $1.expirationDate })
                 self.tableView.reloadData()
             } catch let error {
                 print(error.localizedDescription)
@@ -230,27 +244,46 @@ class HomeViewController: UIViewController {
     }
     
     func reminderFetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
         self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("Reminder").queryOrdered(byChild: "isComplete").observe(.value) { snapshot in
+        self.ref.child("Reminder").observe(.value) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             do {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                 let decoder = JSONDecoder()
                 let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
                 // NOTE: 오늘 일정인 것만 표시되도록 구현
-                self.reminders = []
+                self.todayReminders = []
                 reminders.map { reminder in
                     let date = Date.now.stringFormatShort
                     if date == reminder.dueDate.dateLong!.stringFormatShort {
-                        self.reminders.append(reminder)
+                        self.todayReminders.append(reminder)
                     }
                 }
-                self.tableView.reloadData()
             } catch let error {
                 print(error.localizedDescription)
             }
         }
+        let date = Date.now.stringFormatShortline
+        self.ref.child("CompleteReminder").child(date).observe(.value) { snapshot in
+            guard let snapshot = snapshot.value as? [String: Any] else { return }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                let decoder = JSONDecoder()
+                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                // NOTE: 오늘 일정인 것만 표시되도록 구현
+                self.todayIsCompletedReminders = []
+                reminders.map { reminder in
+                    let date = Date.now.stringFormatShort
+                    if date == reminder.dueDate.dateLong!.stringFormatShort {
+                        self.todayIsCompletedReminders.append(reminder)
+                    }
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        self.tableView.reloadData()
     }
 }
 

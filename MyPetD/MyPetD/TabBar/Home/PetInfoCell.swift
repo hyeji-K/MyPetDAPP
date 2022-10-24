@@ -26,12 +26,11 @@ class PetInfoCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray
+        imageView.backgroundColor = .ebonyClayColor.withAlphaComponent(0.8)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 0.1
-        imageView.image = UIImage(named: "testImage2")
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -48,7 +47,7 @@ class PetInfoCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
-        label.textColor = .systemRed
+        label.textColor = .appleBlossomColor
         return label
     }()
     
@@ -115,13 +114,13 @@ class PetInfoCell: UICollectionViewCell {
         self.profileImageView.setImageURL(petInfo.image)
         self.birthDayLabel.text = "Birth. \(petInfo.birthDate.dateLong!.stringFormatShort)"
         let withDate = petInfo.withDate.dateLong!
-        self.withDateLabel.text = withDate.stringFormatShort
+        self.withDateLabel.text = "\(withDate.stringFormatShort) ~"
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"
     }
     
     private func setupCell() {
-        self.contentView.backgroundColor = .systemGray
+        self.contentView.backgroundColor = .clear
         
         self.contentView.addSubview(mainView)
         mainView.snp.makeConstraints { make in
@@ -166,7 +165,7 @@ class PetInfoCell: UICollectionViewCell {
         profileView.addSubview(petNameLabel)
         petNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(40)
+            make.left.equalToSuperview().offset(26)
             make.width.equalTo(150)
         }
         

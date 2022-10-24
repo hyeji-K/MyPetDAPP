@@ -12,7 +12,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         if toggleTableView == false {
             return productInfo.count
         } else {
-            return reminders.count
+            return todayReminders.count + todayIsCompletedReminders.count
         }
     }
     
@@ -25,19 +25,21 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         } else {
+            self.reminders = self.todayReminders + self.todayIsCompletedReminders
             let reminder = self.reminders[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             cell.selectionStyle = .none
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = reminder.title
-            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .subheadline)
+            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
             let stringToDate = reminder.dueDate.dateLong!
             contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
-            contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
+            contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
+            contentConfiguration.secondaryTextProperties.color = .systemGray
             let symbolName = reminder.isComplete ? "checkmark.circle.fill" : "circle"
             let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title2)
             let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
-            contentConfiguration.imageProperties.tintColor = .systemGray
+            contentConfiguration.imageProperties.tintColor = .ebonyClayColor
             contentConfiguration.image = image
             cell.contentConfiguration = contentConfiguration
             
@@ -47,7 +49,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if toggleTableView == false {
-            return 95
+            return 75
         } else {
             return 60
         }
@@ -68,26 +70,26 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let productButton = UIButton()
         productButton.setTitle("임박 제품", for: .normal)
         productButton.setTitleColor(.black, for: .normal)
-        productButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        productButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         headerView.addSubview(productButton)
         productButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview()
             make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(43)
+            make.height.equalTo(42)
         }
         productButton.addTarget(self, action: #selector(productButtonTapped), for: .touchUpInside)
         
         let todoButton = UIButton()
         todoButton.setTitle("오늘 일정", for: .normal)
         todoButton.setTitleColor(.black, for: .normal)
-        todoButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        todoButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         headerView.addSubview(todoButton)
         todoButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview()
             make.width.equalTo(headerView.snp.width).dividedBy(2)
-            make.height.equalTo(43)
+            make.height.equalTo(42)
         }
         todoButton.addTarget(self, action: #selector(todoButtonTapped), for: .touchUpInside)
         
@@ -106,7 +108,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             make.bottom.equalToSuperview()
 //            make.left.equalToSuperview().inset(50)
             make.centerX.equalToSuperview().dividedBy(2)
-            make.height.equalTo(3)
+            make.height.equalTo(4)
             make.width.equalTo(productButton.snp.width).dividedBy(2)
         }
         
@@ -115,7 +117,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             make.bottom.equalToSuperview()
             make.right.equalToSuperview().inset(50)
 //            make.centerX.equalTo(todoButton.snp.view.widthAnchor)
-            make.height.equalTo(3)
+            make.height.equalTo(4)
             make.width.equalTo(todoButton.snp.width).dividedBy(2)
         }
         

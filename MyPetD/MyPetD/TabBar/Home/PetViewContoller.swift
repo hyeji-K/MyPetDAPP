@@ -37,6 +37,7 @@ class PetViewController: UICollectionViewController {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
+        listConfiguration.backgroundColor = .white
         let listLayout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         super.init(collectionViewLayout: listLayout)
     }
@@ -47,6 +48,10 @@ class PetViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
         
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
@@ -59,6 +64,7 @@ class PetViewController: UICollectionViewController {
         }
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didCancelEdit))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didDoneEdit))
+        navigationController?.navigationBar.tintColor = .black
         
         updateSnapshot()
     }
@@ -95,10 +101,16 @@ class PetViewController: UICollectionViewController {
             cell.contentConfiguration = imageConfiguration(for: cell, with: url)
         case (.name, .editName(let name)):
             cell.contentConfiguration = nameConfiguration(for: cell, with: name)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.birthDate, .editBirthDate(let birthDate)):
             cell.contentConfiguration = birthDateConfiguration(for: cell, with: birthDate)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.withDate, .editWithDate(let withDate)):
             cell.contentConfiguration = withDateConfiguration(for: cell, with: withDate)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         default:
             fatalError("Unexpected combination of section and row.")
         }
@@ -160,11 +172,11 @@ extension PetViewController: UINavigationControllerDelegate, UIImagePickerContro
             let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? NSURL
             let imageName = imageUrl?.lastPathComponent
             let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-            let localPath = documentDirectory?.appending(imageName!)
+            let appendingPath = documentDirectory?.appending("/")
+            let localPath = appendingPath?.appending(imageName!)
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             let data = image.pngData()! as NSData
             data.write(toFile: localPath!, atomically: true)
-            
             self.petInfo.image = localPath!
             self.updateSnapshot()
         }

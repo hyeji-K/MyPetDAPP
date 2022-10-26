@@ -36,7 +36,7 @@ extension ReminderDetailViewController {
         var textStyle: UIFont.TextStyle {
             switch self {
             case .viewTitle: return .headline
-            default: return .subheadline
+            default: return .body
             }
         }
     }

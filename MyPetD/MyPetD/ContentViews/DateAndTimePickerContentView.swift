@@ -32,6 +32,7 @@ class DateAndTimePickerContentView: UIView, UIContentView {
         datePicker.preferredDatePickerStyle = .inline
         datePicker.minuteInterval = 5
         datePicker.datePickerMode = .dateAndTime
+        datePicker.tintColor = .shadyLadyColor
     }
 
     required init?(coder: NSCoder) {

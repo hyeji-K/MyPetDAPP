@@ -17,7 +17,7 @@ class ScheduledViewController: UIViewController {
     var tableView = UITableView()
     
     var ref: DatabaseReference!
-    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +27,12 @@ class ScheduledViewController: UIViewController {
         fetch()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            let section = self.sectionHeaderTitles.count - 1
-            let row = self.sortedReminderTuple[section].1.endIndex - 1
-            let endIndex = IndexPath(row: row, section: section)
-            self.tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+            if !self.sectionHeaderTitles.isEmpty {
+                let section = self.sectionHeaderTitles.count - 1
+                let row = self.sortedReminderTuple[section].1.endIndex - 1
+                let endIndex = IndexPath(row: row, section: section)
+                self.tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+            }
         }
     }
     
@@ -52,7 +54,8 @@ class ScheduledViewController: UIViewController {
     }
     
     func fetch() {
-        self.ref = Database.database().reference(withPath: self.uid)
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("CompleteReminder").observe(.value) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             self.sectionHeaderTitles = snapshot.keys.map({ $0 }).sorted(by: { $0 < $1 })
@@ -82,6 +85,8 @@ class ScheduledViewController: UIViewController {
     func deleteReminder(indexPath: IndexPath) {
         let completeDate = self.sectionHeaderTitles[indexPath.section]
         let reminderId = self.sortedReminderTuple[indexPath.section].1[indexPath.row].id
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("CompleteReminder").child(completeDate).child(reminderId).removeValue()
     }
 }
@@ -101,11 +106,13 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
         let symbolName = sortedReminderTuple[indexPath.section].1[indexPath.row].isComplete ? "checkmark.circle.fill" : "circle"
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title2)
         contentConfiguration.image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
-        contentConfiguration.imageProperties.tintColor = .systemGray
+        contentConfiguration.imageProperties.tintColor = .ebonyClayColor
         
         contentConfiguration.text = sortedReminderTuple[indexPath.section].1[indexPath.row].title
+        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
         contentConfiguration.secondaryText = "\(sortedReminderTuple[indexPath.section].1[indexPath.row].dueDate.dateLong!.timeText), \(sortedReminderTuple[indexPath.section].1[indexPath.row].repeatCycle)"
-        contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
+        contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
+        contentConfiguration.secondaryTextProperties.color = .lightGray
         cell.contentConfiguration = contentConfiguration
         cell.selectionStyle = .none
         

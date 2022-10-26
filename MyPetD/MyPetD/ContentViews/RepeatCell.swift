@@ -12,7 +12,7 @@ class RepeatCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.cellView.backgroundColor = isSelected ? .systemBlue : .clear
+            self.cellView.backgroundColor = isSelected ? .shadyLadyColor : .clear
             self.titleLabel.textColor = isSelected ? .white : .black
             self.titleLabel.font = isSelected ?  .boldSystemFont(ofSize: 18) : .systemFont(ofSize: 16)
         }

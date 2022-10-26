@@ -21,7 +21,7 @@ class ItemDetailViewController: UIViewController {
         let imageView = UIImageView()
         let urlString = productInfo.image
         imageView.setImageURL(urlString)
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .systemGray6
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.masksToBounds = true
@@ -37,30 +37,30 @@ class ItemDetailViewController: UIViewController {
         let label = UILabel()
         label.text = dDayFunction(productInfo.expirationDate)
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textColor = .systemMint
+        label.textColor = .appleBlossomColor
         label.textAlignment = .right
         return label
     }()
     lazy var storedLocationLabel: UILabel = {
         let label = UILabel()
         label.text = productInfo.storedMethod
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.sizeToFit()
-        label.textColor = .systemMint
+        label.textColor = .apricotColor
         label.numberOfLines = 2
         return label
     }()
     lazy var storedLabel: UILabel = {
         let label = UILabel()
         label.text = "에 보관중"
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     lazy var expirationLabel: UILabel = {
         let label = UILabel()
         label.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort)"
         label.textAlignment = .right
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     lazy var memoLabel: UILabel = {
@@ -94,6 +94,7 @@ class ItemDetailViewController: UIViewController {
     }
     
     @objc private func deleteButtonTapped(_ sender: UIButton) {
+        print("삭제합니다")
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
@@ -128,6 +129,7 @@ class ItemDetailViewController: UIViewController {
             self.update(productInfo)
         }
         let navigationContoller = UINavigationController(rootViewController: viewController)
+        navigationContoller.navigationBar.tintColor = .black
         self.present(navigationContoller, animated: true)
     }
     
@@ -178,6 +180,7 @@ class ItemDetailViewController: UIViewController {
             make.top.left.equalToSuperview().inset(16)
         }
         closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        closeButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
         closeButton.tintColor = .black
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         
@@ -187,6 +190,7 @@ class ItemDetailViewController: UIViewController {
             make.top.right.equalToSuperview().inset(16)
         }
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
         editButton.tintColor = .black
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
@@ -249,10 +253,11 @@ class ItemDetailViewController: UIViewController {
         }
         deleteButton.backgroundColor = .white
         deleteButton.layer.cornerRadius = 10
-        deleteButton.layer.borderColor = UIColor.systemGray.cgColor
+        deleteButton.layer.borderColor = UIColor.shadyLadyColor.cgColor
         deleteButton.layer.borderWidth = 0.5
         deleteButton.setTitle("삭제하기", for: .normal)
         deleteButton.setTitleColor(.red, for: .normal)
+        deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
 }

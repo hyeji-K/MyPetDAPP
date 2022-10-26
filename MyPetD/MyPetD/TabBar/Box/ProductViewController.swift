@@ -27,7 +27,6 @@ class ProductViewController: UICollectionViewController {
     private var dataSource: DataSource!
     var ref: DatabaseReference!
     let storage = Storage.storage().reference()
-    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     init(product: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
         print("편집 페이지 입니다. \(product)")
@@ -38,6 +37,7 @@ class ProductViewController: UICollectionViewController {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
+        listConfiguration.backgroundColor = .white
         let listLayout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         super.init(collectionViewLayout: listLayout)
     }
@@ -48,6 +48,10 @@ class ProductViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
         
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Row) in
@@ -62,6 +66,7 @@ class ProductViewController: UICollectionViewController {
     }
     
     @objc func didDoneEdit() {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         if self.product.image != self.imageURL {
             self.imageUpload(uid: uid, productId: product.id, imageData: imageData) { url in
                 self.product = self.workingProduct
@@ -87,12 +92,20 @@ class ProductViewController: UICollectionViewController {
             cell.contentConfiguration = imageConfiguration(for: cell, with: url)
         case (.name, .editName(let name)):
             cell.contentConfiguration = nameConfiguration(for: cell, with: name!)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.location, .editLocation(let location)):
             cell.contentConfiguration = locationConfiguration(for: cell, with: location)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.notes, .editNote(let memo)):
             cell.contentConfiguration = noteConfiguration(for: cell, with: memo)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.date, .editDate(let date)):
             cell.contentConfiguration = dateConfiguration(for: cell, with: date)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         default:
             fatalError("Unexpected combination of section and row.")
         }
@@ -121,7 +134,7 @@ class ProductViewController: UICollectionViewController {
     }
     
     func updateProduct(_ productInfo: ProductInfo) {
-//        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         self.ref = Database.database().reference(withPath: uid)
         let object = ProductInfo(id: productInfo.id, image: productInfo.image, name: productInfo.name, expirationDate: productInfo.expirationDate, storedMethod: productInfo.storedMethod, memo: productInfo.memo)
         self.ref.child("ProductInfo").child(productInfo.id).updateChildValues(object.toDictionary)
@@ -165,7 +178,8 @@ extension ProductViewController: UINavigationControllerDelegate, UIImagePickerCo
             let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? NSURL
             let imageName = imageUrl?.lastPathComponent
             let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-            let localPath = documentDirectory?.appending(imageName!)
+            let appendingPath = documentDirectory?.appending("/")
+            let localPath = appendingPath?.appending(imageName!)
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             let data = image.pngData()! as NSData
             data.write(toFile: localPath!, atomically: true)
@@ -177,6 +191,7 @@ extension ProductViewController: UINavigationControllerDelegate, UIImagePickerCo
     }
     
     func imageUpload(uid: String, productId: String, imageData: Data, completion: @escaping (String) -> Void) {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         let imageRef = self.storage.child(uid).child("ProductImage")
         let imageName = "\(productId).jpg"
         let imagefileRef = imageRef.child(imageName)

@@ -59,7 +59,7 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.backButtonDisplayMode = .minimal
             
         case is BoxViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "BoxView", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "간식창고", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
@@ -73,6 +73,7 @@ class MainTabBarViewController: UITabBarController {
                 viewController.setEditing(true, animated: false)
                 viewController.navigationItem.title = NSLocalizedString("상품 추가하기", comment: "Add Product view controller title")
                 let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: true)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)

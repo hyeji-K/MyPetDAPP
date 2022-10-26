@@ -18,8 +18,9 @@ class BoxCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "pawprint.circle.fill")
-        imageView.backgroundColor = .white
+        imageView.image = UIImage(systemName: "pawprint.fill")
+        imageView.tintColor = .systemGray
+        imageView.backgroundColor = .systemGray4
         imageView.layer.borderColor = UIColor.systemGray.cgColor
         imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = 10
@@ -45,14 +46,15 @@ class BoxCell: UICollectionViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
     }()
     
     let expirationLabel: UILabel = {
         let label = UILabel()
         label.text = Date.now.stringFormatShort
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.preferredFont(forTextStyle: .caption2)
+        label.textColor = .systemGray
         return label
     }()
     
@@ -93,12 +95,12 @@ class BoxCell: UICollectionViewCell {
         thumbnailView.addSubview(thumbnailImageView)
 
         stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(6)
+            make.edges.equalToSuperview().inset(4)
         }
         
         thumbnailImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.height.equalTo(65)
+            make.width.height.equalTo(60)
         }
     }
     

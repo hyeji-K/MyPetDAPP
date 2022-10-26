@@ -91,6 +91,11 @@ class BoxViewController: UIViewController {
         if !product.isEmpty {
             snapshot.reloadItems(product)
         }
+        if snapshot.itemIdentifiers.isEmpty {
+            collectionView.setEmptyView(title: "간식창고가 비어있습니다", message: "+ 버튼을 클릭하여 창고를 채워보세요!")
+        } else {
+            collectionView.restore()
+        }
         dataSource.apply(snapshot)
     }
     
@@ -109,18 +114,21 @@ class BoxViewController: UIViewController {
         let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         self.ref = Database.database().reference(withPath: uid)
         
-        self.ref.child("ProductInfo").observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
-                self.updateSnapshot(reloading: self.products)
-            } catch let error {
-                print(error.localizedDescription)
+        self.ref.observe(.value) { snapshot in
+            self.ref.child("ProductInfo").observe(.value) { snapshot in
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
+                    self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
+                    self.updateSnapshot(reloading: self.products)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
-        }   
+            self.updateSnapshot()
+        }
     }
     
 //    private func applyItems(_ productInfos: [ProductInfo]) {

@@ -32,25 +32,25 @@ class MainTabBarViewController: UITabBarController {
 //            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "sun.max.fill")
             
             // customBarItem
-            let titleConfig = CustomBarItemConfiguration(title: "HomeView", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "AppName", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
             let settingsConfig = CustomBarItemConfiguration(image: UIImage(systemName: "gearshape")) {
-                print("setting button tapped")
                 let settingViewController = SettingViewController()
                 self.navigationController?.pushViewController(settingViewController, animated: true)
             }
             let settingsItem = UIBarButtonItem.generate(with: settingsConfig, width: 30)
             let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
-                print("plus button tapped")
                 let today = Date.now.stringFormat
                 let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today)
                 let viewController = PetViewController(petInfo) { petInfo in
                 }
                 viewController.navigationItem.title = NSLocalizedString("반려동물 추가하기", comment: "Add Pet view controller title")
+                
                 viewController.isAddingNewPetInfo = true
                 let navigationContoller = UINavigationController(rootViewController: viewController)
+                navigationContoller.navigationBar.tintColor = .black
                 
                 self.present(navigationContoller, animated: true, completion: nil)
             }
@@ -59,7 +59,7 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.backButtonDisplayMode = .minimal
             
         case is BoxViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "BoxView", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "간식창고", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
@@ -73,6 +73,7 @@ class MainTabBarViewController: UITabBarController {
                 viewController.setEditing(true, animated: false)
                 viewController.navigationItem.title = NSLocalizedString("상품 추가하기", comment: "Add Product view controller title")
                 let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: true)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)

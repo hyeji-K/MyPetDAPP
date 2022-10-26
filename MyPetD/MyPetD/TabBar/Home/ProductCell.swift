@@ -14,37 +14,38 @@ class ProductCell: UITableViewCell {
     lazy var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray.cgColor
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.systemGray4.cgColor
         view.layer.cornerRadius = 10
         return view
     }()
     
     lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .systemGray4
         imageView.layer.cornerRadius = 10
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.systemGray.cgColor
-        imageView.image = UIImage(systemName: "pawprint.circle")
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor.systemGray4.cgColor
+        imageView.image = UIImage(systemName: "pawprint.fill")
         imageView.tintColor = .systemGray
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
     
     lazy var productNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "간식 이름"
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.text = "상품명"
+        label.font = .preferredFont(forTextStyle: .headline)
         label.textAlignment = .left
         return label
     }()
         
     lazy var storedLabel: UILabel = {
         let label = UILabel()
-        label.text = "냉장보관"
-        label.font = .systemFont(ofSize: 15, weight: .light)
+        label.text = "보관장소"
+        label.font = .preferredFont(forTextStyle: .callout)
+        label.textColor = .systemGray
         label.textAlignment = .left
         return label
     }()
@@ -53,7 +54,8 @@ class ProductCell: UITableViewCell {
         let label = UILabel()
         label.text = "D - 0"
         label.textAlignment = .right
-        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textColor = .appleBlossomColor
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
@@ -96,24 +98,24 @@ class ProductCell: UITableViewCell {
         cellView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(80)
+            make.height.equalTo(60)
         }
         
         productImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalTo(10)
-            make.width.height.equalTo(60)
+            make.width.height.equalTo(45)
         }
         productNameLabel.setContentCompressionResistancePriority(.init(rawValue: 750), for: .horizontal)
         productNameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(10)
             make.left.equalTo(productImageView.snp.right).inset(-12)
             make.right.equalTo(dDayLabel.snp.left)
             make.height.equalTo(15)
         }
         
         storedLabel.snp.makeConstraints { make in
-            make.top.equalTo(productNameLabel.snp.bottom).inset(-10)
+            make.top.equalTo(productNameLabel.snp.bottom).inset(-8)
             make.left.equalTo(productNameLabel.snp.left)
             make.right.equalToSuperview().inset(10)
             make.height.equalTo(15)
@@ -121,11 +123,11 @@ class ProductCell: UITableViewCell {
         
         dDayLabel.setContentCompressionResistancePriority(.init(rawValue: 751), for: .horizontal)
         dDayLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
+            make.top.equalTo(productNameLabel.snp.top)
             make.right.equalToSuperview().inset(10)
             make.left.equalTo(productNameLabel.snp.right)
             make.width.equalTo(80)
-            make.height.equalTo(20)
+            make.height.equalTo(15)
         }
     }
 }

@@ -21,7 +21,7 @@ class ItemDetailViewController: UIViewController {
         let imageView = UIImageView()
         let urlString = productInfo.image
         imageView.setImageURL(urlString)
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .systemGray6
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.masksToBounds = true
@@ -37,28 +37,37 @@ class ItemDetailViewController: UIViewController {
         let label = UILabel()
         label.text = dDayFunction(productInfo.expirationDate)
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textColor = .systemMint
+        label.textColor = .appleBlossomColor
         label.textAlignment = .right
         return label
     }()
     lazy var storedLocationLabel: UILabel = {
         let label = UILabel()
         label.text = productInfo.storedMethod
-        label.textColor = .systemMint
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.sizeToFit()
+        label.textColor = .apricotColor
         label.numberOfLines = 2
+        return label
+    }()
+    lazy var storedLabel: UILabel = {
+        let label = UILabel()
+        label.text = "에 보관중"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     lazy var expirationLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort) 까지"
+        label.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort)"
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     lazy var memoLabel: UILabel = {
         let label = UILabel()
         label.text = productInfo.memo
-        label.numberOfLines = 3
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 2
         return label
     }()
     
@@ -85,6 +94,7 @@ class ItemDetailViewController: UIViewController {
     }
     
     @objc private func deleteButtonTapped(_ sender: UIButton) {
+        print("삭제합니다")
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
@@ -119,6 +129,7 @@ class ItemDetailViewController: UIViewController {
             self.update(productInfo)
         }
         let navigationContoller = UINavigationController(rootViewController: viewController)
+        navigationContoller.navigationBar.tintColor = .black
         self.present(navigationContoller, animated: true)
     }
     
@@ -127,7 +138,7 @@ class ItemDetailViewController: UIViewController {
         self.productImageView.setImageURL(product.image)
         self.dDayLabel.text = self.dDayFunction(product.expirationDate)
         self.storedLocationLabel.text = product.storedMethod
-        self.expirationLabel.text = "\(product.expirationDate.dateLong!.stringFormatShort) 까지"
+        self.expirationLabel.text = "\(product.expirationDate.dateLong!.stringFormatShort)"
         self.memoLabel.text = product.memo
     }
     
@@ -169,6 +180,7 @@ class ItemDetailViewController: UIViewController {
             make.top.left.equalToSuperview().inset(16)
         }
         closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        closeButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
         closeButton.tintColor = .black
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         
@@ -178,47 +190,54 @@ class ItemDetailViewController: UIViewController {
             make.top.right.equalToSuperview().inset(16)
         }
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
         editButton.tintColor = .black
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         mainView.addSubview(productNameLabel)
+        mainView.addSubview(dDayLabel)
+        mainView.addSubview(storedLocationLabel)
+        mainView.addSubview(storedLabel)
+        mainView.addSubview(expirationLabel)
+        mainView.addSubview(memoLabel)
+        
+        productNameLabel.setContentCompressionResistancePriority(.init(rawValue: 750), for: .horizontal)
         productNameLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(16)
             make.left.equalToSuperview().offset(16)
+            make.right.equalTo(dDayLabel.snp.left)
         }
         
-        mainView.addSubview(dDayLabel)
+        dDayLabel.setContentCompressionResistancePriority(.init(rawValue: 751), for: .horizontal)
         dDayLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(16)
             make.right.equalToSuperview().inset(16)
-            make.left.greaterThanOrEqualTo(productNameLabel.snp.right).offset(10)
+            make.left.equalTo(productNameLabel.snp.right)
+            make.width.equalTo(100)
         }
-        
-        mainView.addSubview(storedLocationLabel)
+        storedLocationLabel.setContentCompressionResistancePriority(.init(rawValue: 750), for: .horizontal)
+        storedLocationLabel.setContentHuggingPriority(.init(rawValue: 252), for: .horizontal)
         storedLocationLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(16)
             make.left.equalToSuperview().offset(16)
+            make.right.equalTo(storedLabel.snp.left)
         }
         
-        let storedLabel = UILabel()
-        mainView.addSubview(storedLabel)
+        storedLabel.setContentCompressionResistancePriority(.init(rawValue: 751), for: .horizontal)
+        storedLabel.setContentHuggingPriority(.init(rawValue: 251), for: .horizontal)
         storedLabel.snp.makeConstraints { make in
             make.centerY.equalTo(storedLocationLabel.snp.centerY)
-            make.left.equalTo(storedLocationLabel.snp.right).offset(6)
-            make.width.equalTo(80)
-            make.left.greaterThanOrEqualTo(storedLocationLabel.snp.right).inset(10)
+            make.left.equalTo(storedLocationLabel.snp.right)
+            make.right.equalTo(expirationLabel.snp.left)
         }
-        storedLabel.text = "에 보관중"
         
-        mainView.addSubview(expirationLabel)
         expirationLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(storedLabel.snp.centerY)
+            make.top.equalTo(storedLabel.snp.top)
             make.right.equalToSuperview().inset(16)
-            make.width.equalTo(110)
-            make.left.greaterThanOrEqualTo(storedLabel.snp.right).inset(10)
+            make.left.equalTo(storedLabel.snp.right)
+            make.width.equalTo(100)
         }
         
-        mainView.addSubview(memoLabel)
         memoLabel.snp.makeConstraints { make in
             make.top.equalTo(storedLabel.snp.bottom).offset(24)
             make.left.right.equalToSuperview().inset(16)
@@ -232,9 +251,13 @@ class ItemDetailViewController: UIViewController {
             make.left.right.equalToSuperview().inset(40)
             make.height.equalTo(45)
         }
-        deleteButton.backgroundColor = .systemMint
+        deleteButton.backgroundColor = .white
         deleteButton.layer.cornerRadius = 10
+        deleteButton.layer.borderColor = UIColor.shadyLadyColor.cgColor
+        deleteButton.layer.borderWidth = 0.5
         deleteButton.setTitle("삭제하기", for: .normal)
+        deleteButton.setTitleColor(.red, for: .normal)
+        deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
 }

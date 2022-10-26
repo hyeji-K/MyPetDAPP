@@ -78,6 +78,7 @@
 		106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */; };
 		106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D728FF9B81006FF939 /* PetEditButton.swift */; };
 		106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467DB29018C3A006FF939 /* RepeatCycle.swift */; };
+		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
 		10F59AED28C20E3E0019C477 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEC28C20E3E0019C477 /* MonthView.swift */; };
 		10F59AEF28C2428F0019C477 /* WeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AEE28C2428F0019C477 /* WeekDaysView.swift */; };
 		10F59AF128C2439D0019C477 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F59AF028C2439D0019C477 /* CalenderView.swift */; };
@@ -154,6 +155,7 @@
 		106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewContoller.swift"; sourceTree = "<group>"; };
 		106467D728FF9B81006FF939 /* PetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetEditButton.swift; sourceTree = "<group>"; };
 		106467DB29018C3A006FF939 /* RepeatCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCycle.swift; sourceTree = "<group>"; };
+		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10F59AEC28C20E3E0019C477 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		10F59AEE28C2428F0019C477 /* WeekDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysView.swift; sourceTree = "<group>"; };
 		10F59AF028C2439D0019C477 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				1005C3FD28B0FFF500A8AA7B /* MainNavigationController.swift */,
 				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
 				1048DF1228D0A597009C87AD /* Extension.swift */,
+				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
 				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
@@ -441,6 +444,7 @@
 				106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */,
 				104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
+				10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */,
 				1048DF1B28D1D43D009C87AD /* EditTodoViewController.swift in Sources */,
 				104441D128FB76E3006950FB /* RepeatCell.swift in Sources */,
 				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
@@ -634,7 +638,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -663,7 +667,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

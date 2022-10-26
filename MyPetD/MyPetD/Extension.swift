@@ -128,6 +128,39 @@ extension String {
 }
 
 extension UIColor {
+    convenience init(hex: Int) {
+        let components = (
+            R: CGFloat((hex >> 16) & 0xff) / 255,
+            G: CGFloat((hex >> 08) & 0xff) / 255,
+            B: CGFloat((hex >> 00) & 0xff) / 255
+        )
+        self.init(red: components.R, green: components.G, blue: components.B, alpha: 1)
+    }
+    
+    static var apricotColor: UIColor {
+        UIColor(named: "apricotColor") ?? UIColor(hex: 0xE99E75)
+    }
+    
+    static var rumColor: UIColor {
+        UIColor(named: "rumColor") ?? UIColor(hex: 0x776483)
+    }
+    
+    static var shadyLadyColor: UIColor {
+        UIColor(named: "shadyLadyColor") ?? UIColor(hex: 0xBBAAB8)
+    }
+    
+    static var fiordColor: UIColor {
+        UIColor(named: "fiordColor") ?? UIColor(hex: 0x44426E)
+    }
+    
+    static var ebonyClayColor: UIColor {
+        UIColor(named: "ebonyClayColor") ?? UIColor(hex: 0x292643)
+    }
+    
+    static var appleBlossomColor: UIColor {
+        UIColor(named: "appleBlossomColor") ?? UIColor(hex: 0xAF4F41)
+    }
+    
     static var todayDetailCellTint: UIColor {
         UIColor(named: "TodayDetailCellTint") ?? .tintColor
     }

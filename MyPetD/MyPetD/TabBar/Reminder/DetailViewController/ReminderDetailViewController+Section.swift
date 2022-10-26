@@ -18,11 +18,11 @@ extension ReminderDetailViewController {
             switch self {
             case .view: return ""
             case .title:
-                return NSLocalizedString("Title", comment: "Title section name")
+                return NSLocalizedString("할 일", comment: "Title section name")
             case .dateAndTime:
-                return NSLocalizedString("Date and Time", comment: "Date and Time section name")
+                return NSLocalizedString("날짜와 시간", comment: "Date and Time section name")
             case .repeatCycle:
-                return NSLocalizedString("Repeat Cycle", comment: "RepeatCycle section name")
+                return NSLocalizedString("반복 주기", comment: "RepeatCycle section name")
             }
         }
     }

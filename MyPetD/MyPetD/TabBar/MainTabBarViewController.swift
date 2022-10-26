@@ -81,7 +81,7 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.backButtonDisplayMode = .minimal
             
         case is ReminderViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "ReminderView", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "전체 일정", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
@@ -98,8 +98,9 @@ class MainTabBarViewController: UITabBarController {
                 viewController.isAddingNewReminder = true
                 viewController.setEditing(true, animated: false)
                 viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didCancelAdd))
-                viewController.navigationItem.title = NSLocalizedString("Add Reminder", comment: "Add Reminder view controller title")
+                viewController.navigationItem.title = NSLocalizedString("일정 추가하기", comment: "Add Reminder view controller title")
                 let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.navigationBar.tintColor = .black
                 self.present(navigationController, animated: true, completion: nil)
             }
             let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)

@@ -13,13 +13,15 @@ extension ReminderDetailViewController {
         contentConfiguration.text = text(for: row)
         contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
         contentConfiguration.image = row.image
-        contentConfiguration.imageProperties.tintColor = .systemGray
+        contentConfiguration.imageProperties.tintColor = .ebonyClayColor
         return contentConfiguration
     }
     
     func headerConfiguration(for cell: UICollectionViewListCell, with title: String) -> UIListContentConfiguration {
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.text = title
+        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .body)
+        contentConfiguration.textProperties.color = .black
         return contentConfiguration
     }
     

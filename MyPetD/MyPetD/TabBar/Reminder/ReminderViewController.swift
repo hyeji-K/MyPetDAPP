@@ -14,7 +14,6 @@ class ReminderViewController: UICollectionViewController {
 //    var reminders: [Reminder] = Reminder.sampleData
     var reminders: [Reminder] = []
     var ref: DatabaseReference!
-    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +30,7 @@ class ReminderViewController: UICollectionViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
         navigationItem.rightBarButtonItem = addButton
         
-        self.ref = Database.database().reference(withPath: self.uid)
+        
         
         fetch()
         
@@ -41,6 +40,8 @@ class ReminderViewController: UICollectionViewController {
     }
     
     func fetch() {
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("Reminder").queryOrdered(byChild: "isComplete").observe(.value) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             do {
@@ -79,7 +80,7 @@ class ReminderViewController: UICollectionViewController {
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         guard let indexPath = indexPath, let id = dataSource.itemIdentifier(for: indexPath) else { return nil }
-        let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
+        let deleteActionTitle = NSLocalizedString("삭제", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
             self?.deleteReminder(with: id)
             self?.updateSnapshot()

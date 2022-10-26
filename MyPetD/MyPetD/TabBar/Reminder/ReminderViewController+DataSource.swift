@@ -19,6 +19,11 @@ extension ReminderViewController {
         if !ids.isEmpty {
             snapshot.reloadItems(ids)
         }
+        if snapshot.itemIdentifiers.isEmpty {
+            collectionView.setEmptyView(title: "일정을 추가해보세요", message: "+ 버튼을 클릭하여 일정을 추가할 수 있습니다.")
+        } else {
+            collectionView.restore()
+        }
         dataSource.apply(snapshot)
     }
     
@@ -26,14 +31,21 @@ extension ReminderViewController {
         let reminder = reminder(for: id)
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.text = reminder.title
-        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
         let stringToDate = reminder.dueDate.dateLong!
         contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
-        contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
+        contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
+        print(reminder.dueDate)
+        
+        if reminder.dueDate.dateLong!.stringFormatShort == Date.now.stringFormatShort {
+            contentConfiguration.secondaryTextProperties.color = .appleBlossomColor
+        } else {
+            contentConfiguration.secondaryTextProperties.color = .lightGray
+        }
         cell.contentConfiguration = contentConfiguration
         
         var doneButtonConfiguration = doneButtonConfiguration(for: reminder)
-        doneButtonConfiguration.tintColor = .systemGray
+        doneButtonConfiguration.tintColor = .ebonyClayColor
         cell.accessories = [.customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always)]
         
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
@@ -50,6 +62,8 @@ extension ReminderViewController {
                 update(reminder, with: id)
                 updateSnapshot(reloading: [id])
                 let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
+                let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+                self.ref = Database.database().reference(withPath: uid)
                 self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary) // DB에 저장
                 deleteReminder(with: id)
                 updateSnapshot()
@@ -78,6 +92,8 @@ extension ReminderViewController {
         var reminder = reminder(for: id)
         reminder.isComplete.toggle()
         let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary)
         self.update(reminder, with: id)
         self.updateSnapshot(reloading: [id])
@@ -112,6 +128,8 @@ extension ReminderViewController {
     func deleteReminder(with id: Reminder.ID) {
         let index = reminders.indexOfReminder(with: id)
         reminders.remove(at: index)
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("Reminder").child(id).removeValue()
     }
     
@@ -125,6 +143,8 @@ extension ReminderViewController {
         reminders[index] = reminder
         
         let object = Reminder(id: reminder.id, title: reminder.title, dueDate: reminder.dueDate, repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
+        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+        self.ref = Database.database().reference(withPath: uid)
         self.ref.child("Reminder").child(reminder.id).updateChildValues(object.toDictionary)
     }
 }

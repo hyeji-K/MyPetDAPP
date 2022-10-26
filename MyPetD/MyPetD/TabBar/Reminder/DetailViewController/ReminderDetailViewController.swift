@@ -23,7 +23,6 @@ class ReminderDetailViewController: UICollectionViewController {
     private var dataSource: DataSource!
     
     var ref: DatabaseReference!
-    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     init(reminder: Reminder, onChange: @escaping (Reminder) -> Void) {
         self.reminder = reminder
@@ -32,6 +31,7 @@ class ReminderDetailViewController: UICollectionViewController {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
+        listConfiguration.backgroundColor = .white
         let listLayout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         super.init(collectionViewLayout: listLayout)
     }
@@ -52,7 +52,7 @@ class ReminderDetailViewController: UICollectionViewController {
         
         updateSnapshotForViewing()
         
-        self.ref = Database.database().reference(withPath: uid)
+        
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -66,7 +66,9 @@ class ReminderDetailViewController: UICollectionViewController {
                 onChange(workingReminder)
                 let date = workingReminder.dueDate.dateLong!.stringFormat
                 let object = Reminder(id: workingReminder.id, title: workingReminder.title, dueDate: date, repeatCycle: workingReminder.repeatCycle, isComplete: workingReminder.isComplete)
-                    self.ref.child("Reminder").child(workingReminder.id).setValue(object.toDictionary)
+                let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+                self.ref = Database.database().reference(withPath: uid)
+                self.ref.child("Reminder").child(workingReminder.id).setValue(object.toDictionary)
             }
         }
     }
@@ -76,14 +78,21 @@ class ReminderDetailViewController: UICollectionViewController {
         switch (section, row) {
         case (_, .header(let title)):
             cell.contentConfiguration = headerConfiguration(for: cell, with: title)
+            cell.layer.borderWidth = 0
         case (.view, _):
             cell.contentConfiguration = defaultConfiguration(for: cell, at: row)
         case (.title, .editText(let title)):
             cell.contentConfiguration = titleConfiguration(for: cell, with: title)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.dateAndTime, .editDate(let date)):
             cell.contentConfiguration = dateConfiguration(for: cell, with: date)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         case (.repeatCycle, .editText(let repeatCycle)):
             cell.contentConfiguration = repeatConfiguration(for: cell, with: repeatCycle)
+            cell.layer.borderWidth = 0.8
+            cell.layer.borderColor = UIColor.shadyLadyColor.cgColor
         default:
             fatalError("Unexpected combination of section and row.")
         }

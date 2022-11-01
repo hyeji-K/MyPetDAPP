@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseStorage
 
 class ItemDetailViewController: UIViewController {
     
@@ -72,9 +70,6 @@ class ItemDetailViewController: UIViewController {
     }()
     
     var onChange: (ProductInfo) -> Void
-    var ref: DatabaseReference!
-    let storage = Storage.storage().reference()
-    
     
     init(productInfo: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
         self.productInfo = productInfo
@@ -97,20 +92,8 @@ class ItemDetailViewController: UIViewController {
         print("삭제합니다")
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-            // MARK: 데이터와 이미지 삭제
-            let imageRef = self.storage.child(uid).child("ProductImage")
-            let imageName = "\(self.productInfo.id).jpg"
-            imageRef.child(imageName).delete { error in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("삭제되었습니다.")
-                }
-            }
-            self.ref = Database.database().reference(withPath: uid)
-            let productId = self.productInfo.id
-            self.ref.child("ProductInfo").child(productId).removeValue()
+            NetworkService.shared.deleteImageAndData(with: self.productInfo.id, storageName: .productImage, classification: .productInfo)
+            
             self.dismiss(animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 extension ReminderViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
@@ -61,10 +60,9 @@ extension ReminderViewController {
                 reminder.isComplete.toggle()
                 update(reminder, with: id)
                 updateSnapshot(reloading: [id])
-                let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
-                let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-                self.ref = Database.database().reference(withPath: uid)
-                self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary) // DB에 저장
+                
+                NetworkService.shared.updateCompleteReminder(id: reminder.id, reminder: reminder, classification: .completeReminder)
+                
                 deleteReminder(with: id)
                 updateSnapshot()
             
@@ -91,10 +89,9 @@ extension ReminderViewController {
     private func completeReminderHandler(with id: Reminder.ID, for repectCycle: RepectCycle) {
         var reminder = reminder(for: id)
         reminder.isComplete.toggle()
-        let completeDate = reminder.dueDate.dateLong!.stringFormatShortline
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("CompleteReminder").child(completeDate).child(reminder.id).setValue(reminder.toDictionary)
+        
+        NetworkService.shared.updateCompleteReminder(id: reminder.id, reminder: reminder, classification: .completeReminder)
+        
         self.update(reminder, with: id)
         self.updateSnapshot(reloading: [id])
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
@@ -128,9 +125,8 @@ extension ReminderViewController {
     func deleteReminder(with id: Reminder.ID) {
         let index = reminders.indexOfReminder(with: id)
         reminders.remove(at: index)
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("Reminder").child(id).removeValue()
+        
+        NetworkService.shared.deleteData(with: id, classification: .reminder)
     }
     
     func reminder(for id: Reminder.ID) -> Reminder {
@@ -141,10 +137,6 @@ extension ReminderViewController {
     func update(_ reminder: Reminder, with id: Reminder.ID) {
         let index = reminders.indexOfReminder(with: id)
         reminders[index] = reminder
-        
-        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: reminder.dueDate, repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("Reminder").child(reminder.id).updateChildValues(object.toDictionary)
+        NetworkService.shared.updateReminder(reminder: reminder, classification: .reminder)
     }
 }

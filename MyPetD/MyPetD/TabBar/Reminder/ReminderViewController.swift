@@ -6,14 +6,12 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class ReminderViewController: UICollectionViewController {
         
     var dataSource: DataSource!
 //    var reminders: [Reminder] = Reminder.sampleData
     var reminders: [Reminder] = []
-    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +38,22 @@ class ReminderViewController: UICollectionViewController {
     }
     
     func fetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("Reminder").queryOrdered(byChild: "isComplete").observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                self.reminders = reminders.sorted(by: { $0.dueDate < $1.dueDate })
-                self.updateSnapshot()
-            } catch let error {
-                print(error.localizedDescription)
+        NetworkService.shared.getDataList(classification: .reminder) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                    
+                    self.reminders = reminders.sorted(by: { $0.dueDate < $1.dueDate })
+                    self.updateSnapshot()
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            } else {
+                // 스냅샷이 존재하지 않을때
             }
         }
     }

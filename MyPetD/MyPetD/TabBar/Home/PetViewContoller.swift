@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseStorage
 
 class PetViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
@@ -25,9 +23,6 @@ class PetViewController: UICollectionViewController {
     var imageData: Data = Data()
     
     private var dataSource: DataSource!
-    var ref: DatabaseReference!
-    let storage = Storage.storage().reference()
-    let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
     
     init(_ petInfo: PetInfo, onChange: @escaping (PetInfo) -> Void) {
         self.petInfo = petInfo
@@ -71,7 +66,7 @@ class PetViewController: UICollectionViewController {
     
     @objc func didDoneEdit() {
         if self.petInfo.image != self.imageURL {
-            self.imageUpload(uid: uid, petId: petInfo.id, imageData: imageData) { url in
+            NetworkService.shared.imageUpload(id: petInfo.id, storageName: .petImage, imageData: imageData) { url in
                 self.petInfo.image = url
                 self.updateSnapshot()
                 self.petInfo = self.workingPetInfo
@@ -129,9 +124,7 @@ class PetViewController: UICollectionViewController {
     }
     
     func updatePetInfo(_ petInfo: PetInfo) {
-        self.ref = Database.database().reference(withPath: uid)
-        let object = PetInfo(id: petInfo.id, image: petInfo.image, name: petInfo.name, birthDate: petInfo.birthDate, withDate: petInfo.withDate)
-        self.ref.child("PetInfo").child(petInfo.id).updateChildValues(object.toDictionary)
+        NetworkService.shared.updatePetInfo(petInfo: petInfo, classification: .petInfo)
     }
     
     private func section(for indexPath: IndexPath) -> Section {
@@ -181,27 +174,5 @@ extension PetViewController: UINavigationControllerDelegate, UIImagePickerContro
             self.updateSnapshot()
         }
         self.dismiss(animated: true)
-    }
-    
-    func imageUpload(uid: String, petId: String, imageData: Data, completion: @escaping (String) -> Void) {
-        let imageRef = self.storage.child(uid).child("PetImage")
-        let imageName = "\(petId).jpg"
-        let imagefileRef = imageRef.child(imageName)
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        imagefileRef.putData(imageData, metadata: metadata) { metadata, error in
-            if let error = error {
-                print("이미지 올리기 실패! \(error)")
-            } else {
-                imagefileRef.downloadURL { url, error in
-                    if let error = error {
-                        print("이미지 다운로드 실패! \(error)")
-                    } else {
-                        guard let url = url else { return }
-                        completion("\(url)")
-                    }
-                }
-            }
-        }
     }
 }

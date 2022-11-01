@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class ScheduledViewController: UIViewController {
     
@@ -15,9 +14,6 @@ class ScheduledViewController: UIViewController {
     var sortedReminderTuple: [(String, [Reminder])] = []
     
     var tableView = UITableView()
-    
-    var ref: DatabaseReference!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +50,7 @@ class ScheduledViewController: UIViewController {
     }
     
     func fetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("CompleteReminder").observe(.value) { snapshot in
+        NetworkService.shared.getDataList(classification: .completeReminder) { snapshot in
             guard let snapshot = snapshot.value as? [String: Any] else { return }
             self.sectionHeaderTitles = snapshot.keys.map({ $0 }).sorted(by: { $0 < $1 })
             
@@ -85,9 +79,8 @@ class ScheduledViewController: UIViewController {
     func deleteReminder(indexPath: IndexPath) {
         let completeDate = self.sectionHeaderTitles[indexPath.section]
         let reminderId = self.sortedReminderTuple[indexPath.section].1[indexPath.row].id
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("CompleteReminder").child(completeDate).child(reminderId).removeValue()
+        
+        NetworkService.shared.deleteData(with: reminderId, date: completeDate, classification: .completeReminder)
     }
 }
 
@@ -155,6 +148,10 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
+//            let indexSet = IndexSet(arrayLiteral: indexPath.section)
+//            sectionHeaderTitles.remove(at: indexPath.section)
+//            tableView.deleteSections(indexSet, with: .fade)
+            
             self.deleteReminder(indexPath: indexPath)
         }
     }

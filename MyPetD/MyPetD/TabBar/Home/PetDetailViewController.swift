@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseStorage
 
 class PetDetailViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -26,9 +24,6 @@ class PetDetailViewController: UIViewController {
     }
     typealias Item = PetInfo
     var dataSource: DataSource!
-    
-    var ref: DatabaseReference!
-    let storage = Storage.storage().reference()
     
     init(petInfo: [PetInfo], onChange: @escaping ([PetInfo]) -> Void) {
         self.petInfo = petInfo
@@ -90,18 +85,8 @@ class PetDetailViewController: UIViewController {
         
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-            let imageRef = self.storage.child(uid).child("PetImage")
-            let imageName = "\(id).jpg"
-            imageRef.child(imageName).delete { error in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("삭제되었습니다.")
-                }
-            }
-            self.ref = Database.database().reference(withPath: uid)
-            self.ref.child("PetInfo").child(id).removeValue()
+            NetworkService.shared.deleteImageAndData(with: id, storageName: .petImage, classification: .petInfo)
+            
             self.petInfo.remove(at: index)
             self.updateSnapshot(reloading: self.petInfo)
             self.dismiss(animated: true, completion: nil)

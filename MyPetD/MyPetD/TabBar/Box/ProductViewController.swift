@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseStorage
 
 class ProductViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
@@ -25,8 +23,6 @@ class ProductViewController: UICollectionViewController {
     var imageData: Data = Data()
 
     private var dataSource: DataSource!
-    var ref: DatabaseReference!
-    let storage = Storage.storage().reference()
     
     init(product: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
         print("편집 페이지 입니다. \(product)")
@@ -66,9 +62,8 @@ class ProductViewController: UICollectionViewController {
     }
     
     @objc func didDoneEdit() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
         if self.product.image != self.imageURL {
-            self.imageUpload(uid: uid, productId: product.id, imageData: imageData) { url in
+            NetworkService.shared.imageUpload(id: product.id, storageName: .productImage, imageData: imageData) { url in
                 self.product = self.workingProduct
                 self.product.image = url
                 self.updateSnapshotForEditing()
@@ -134,10 +129,7 @@ class ProductViewController: UICollectionViewController {
     }
     
     func updateProduct(_ productInfo: ProductInfo) {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        let object = ProductInfo(id: productInfo.id, image: productInfo.image, name: productInfo.name, expirationDate: productInfo.expirationDate, storedMethod: productInfo.storedMethod, memo: productInfo.memo)
-        self.ref.child("ProductInfo").child(productInfo.id).updateChildValues(object.toDictionary)
+        NetworkService.shared.updateProductInfo(productInfo: productInfo, classification: .productInfo)
     }
     
     private func section(for indexPath: IndexPath) -> Section {
@@ -188,28 +180,5 @@ extension ProductViewController: UINavigationControllerDelegate, UIImagePickerCo
             self.updateSnapshotForEditing()
         }
         self.dismiss(animated: true)
-    }
-    
-    func imageUpload(uid: String, productId: String, imageData: Data, completion: @escaping (String) -> Void) {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        let imageRef = self.storage.child(uid).child("ProductImage")
-        let imageName = "\(productId).jpg"
-        let imagefileRef = imageRef.child(imageName)
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        imagefileRef.putData(imageData, metadata: metadata) { metadata, error in
-            if let error = error {
-                print("이미지 올리기 실패! \(error)")
-            } else {
-                imagefileRef.downloadURL { url, error in
-                    if let error = error {
-                        print("이미지 다운로드 실패! \(error)")
-                    } else {
-                        guard let url = url else { return }
-                        completion("\(url)")
-                    }
-                }
-            }
-        }
     }
 }

@@ -39,6 +39,11 @@ class ReminderDetailViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
+        
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Row) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)

@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import Combine
-import FirebaseDatabase
 
 class HomeViewController: UIViewController {
 
@@ -55,7 +54,6 @@ class HomeViewController: UIViewController {
     let viewModel: HomeViewModel = HomeViewModel()
     var subscriptions = Set<AnyCancellable>()
     
-    var ref: DatabaseReference!
     var petInfos: [PetInfo] = []
     var productInfo: [ProductInfo] = []
     var reminders: [Reminder] = []
@@ -78,6 +76,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print(" 화면이 다시 보일때 \(self.productInfo)")
         self.tableView.reloadData()
     }
     
@@ -157,24 +156,23 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
     
-    func fetch() {
-        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("PetInfo").observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let petInfos: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
-                // NOTE: 생성된 날짜순으로 정렬
-                self.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
-                self.updateSnapshot(reloading: petInfos)
-            } catch let error {
-                print(error.localizedDescription)
+    private func fetch() {
+        NetworkService.shared.getDataList(classification: .petInfo) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let petInfos: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
+                    // NOTE: 생성된 날짜순으로 정렬
+                    self.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
+                    self.updateSnapshot(reloading: petInfos)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            } else {
+                self.emptyPetInfoData()
             }
-        }
-        if self.petInfos.isEmpty {
-            emptyPetInfoData()
         }
     }
     
@@ -218,69 +216,66 @@ class HomeViewController: UIViewController {
     }
     
     func productFetch() {
-        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("ProductInfo").observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let productInfos: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                // NOTE: 상품의 유효기한이 60일 이내일때만 표시되도록 구현
-                var filterProduct: [ProductInfo] = []
-                productInfos.map { product in
-                    let date = product.expirationDate.dateLong!
-                    let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
-                    if dDay <= 60 {
-                        filterProduct.append(product)
+        NetworkService.shared.getDataList(classification: .productInfo) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let productInfos: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
+                    var filterProduct: [ProductInfo] = []
+                    productInfos.map { product in
+                        let date = product.expirationDate.dateLong!
+                        let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
+                        if dDay <= 60 {
+                            filterProduct.append(product)
+                        }
                     }
+                    self.productInfo = filterProduct.sorted(by: { $0.expirationDate < $1.expirationDate })
+                    self.tableView.reloadData()
+                } catch let error {
+                    print(error.localizedDescription)
                 }
-                self.productInfo = filterProduct.sorted(by: { $0.expirationDate < $1.expirationDate })
-                self.tableView.reloadData()
-            } catch let error {
-                print(error.localizedDescription)
+            } else {
+                self.productInfo = []
+//                self.tableView.reloadData()
+//                self.updateSnapshot()
             }
         }
     }
     
     func reminderFetch() {
-        guard let uid = UserDefaults.standard.string(forKey: "firebaseUid") else { return }
-        self.ref = Database.database().reference(withPath: uid)
-        self.ref.child("Reminder").observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                // NOTE: 오늘 일정인 것만 표시되도록 구현
-                self.todayReminders = []
-                reminders.map { reminder in
-                    let date = Date.now.stringFormatShort
-                    if date == reminder.dueDate.dateLong!.stringFormatShort {
-                        self.todayReminders.append(reminder)
+        NetworkService.shared.getDataList(classification: .reminder) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                    // NOTE: 오늘 일정인 것만 표시되도록 구현
+                    self.todayReminders = []
+                    reminders.map { reminder in
+                        let date = Date.now.stringFormatShort
+                        if date == reminder.dueDate.dateLong!.stringFormatShort {
+                            self.todayReminders.append(reminder)
+                        }
                     }
+                } catch let error {
+                    print(error.localizedDescription)
                 }
-            } catch let error {
-                print(error.localizedDescription)
+            } else {
+                // 스냅샷이 존재하지 않을때
             }
         }
-        let date = Date.now.stringFormatShortline
-        self.ref.child("CompleteReminder").child(date).observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                // NOTE: 오늘 일정인 것만 표시되도록 구현
-                self.todayIsCompletedReminders = []
-                reminders.map { reminder in
-                    let date = Date.now.stringFormatShort
-                    if date == reminder.dueDate.dateLong!.stringFormatShort {
-                        self.todayIsCompletedReminders.append(reminder)
-                    }
+
+        NetworkService.shared.getCompleteRemindersList(classification: .completeReminder) { completeReminders in
+            // NOTE: 오늘 일정인 것만 표시되도록 구현
+            self.todayIsCompletedReminders = []
+            completeReminders.map { reminder in
+                let date = Date.now.stringFormatShort
+                if date == reminder.dueDate.dateLong!.stringFormatShort {
+                    self.todayIsCompletedReminders.append(reminder)
                 }
-            } catch let error {
-                print(error.localizedDescription)
             }
         }
         self.tableView.reloadData()

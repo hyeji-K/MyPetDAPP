@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import FirebaseDatabase
 
 class BoxViewController: UIViewController {
 
@@ -26,8 +25,6 @@ class BoxViewController: UIViewController {
     let viewModel: BoxViewModel = BoxViewModel()
     var subscriptions = Set<AnyCancellable>()
     var products: [ProductInfo] = []
-    
-    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,11 +108,8 @@ class BoxViewController: UIViewController {
     }
     
     func fetch() {
-        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-        self.ref = Database.database().reference(withPath: uid)
-        
-        self.ref.observe(.value) { snapshot in
-            self.ref.child("ProductInfo").observe(.value) { snapshot in
+        NetworkService.shared.getDataList(classification: .productInfo) { snapshot in
+            if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
                 do {
                     let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
@@ -126,9 +120,30 @@ class BoxViewController: UIViewController {
                 } catch let error {
                     print(error.localizedDescription)
                 }
+            } else {
+                self.updateSnapshot()
             }
-            self.updateSnapshot()
         }
+//
+//        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
+//        self.ref = Database.database().reference(withPath: uid)
+//
+//        self.ref.child("ProductInfo").observe(.value) { snapshot in
+//            if snapshot.exists() {
+//                guard let snapshot = snapshot.value as? [String: Any] else { return }
+//                do {
+//                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+//                    let decoder = JSONDecoder()
+//                    let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
+//                    self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
+//                    self.updateSnapshot(reloading: self.products)
+//                } catch let error {
+//                    print(error.localizedDescription)
+//                }
+//            } else {
+//                self.updateSnapshot()
+//            }
+//        }
     }
     
 //    private func applyItems(_ productInfos: [ProductInfo]) {

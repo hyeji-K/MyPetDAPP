@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class ReminderDetailViewController: UICollectionViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
@@ -21,8 +20,6 @@ class ReminderDetailViewController: UICollectionViewController {
     var isAddingNewReminder = false
     var onChange: (Reminder) -> Void
     private var dataSource: DataSource!
-    
-    var ref: DatabaseReference!
     
     init(reminder: Reminder, onChange: @escaping (Reminder) -> Void) {
         self.reminder = reminder
@@ -64,11 +61,8 @@ class ReminderDetailViewController: UICollectionViewController {
                 prepareForViewing()
             } else {
                 onChange(workingReminder)
-                let date = workingReminder.dueDate.dateLong!.stringFormat
-                let object = Reminder(id: workingReminder.id, title: workingReminder.title, dueDate: date, repeatCycle: workingReminder.repeatCycle, isComplete: workingReminder.isComplete)
-                let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-                self.ref = Database.database().reference(withPath: uid)
-                self.ref.child("Reminder").child(workingReminder.id).setValue(object.toDictionary)
+                
+                NetworkService.shared.updateReminder(reminder: workingReminder, classification: .reminder)
             }
         }
     }

@@ -24,6 +24,7 @@ class MainCardCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "petName")
         return label
     }()
     
@@ -31,23 +32,24 @@ class MainCardCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "heart.fill")
         imageView.tintColor = .appleBlossomColor
+        imageView.systemImageDropShadow()
         return imageView
     }()
     
     let meLabel: UILabel = {
         let label = UILabel()
-        label.text = "나"
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "나")
         return label
     }()
     
     let withLabel: UILabel = {
         let label = UILabel()
-        label.text = "함께한지"
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "함께한지")
         return label
     }()
     
@@ -56,14 +58,15 @@ class MainCardCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
         label.textColor = .appleBlossomColor
+        label.attributedText = .attributeShadowStyle(text: "0")
         return label
     }()
     
     let dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "일"
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "일")
         return label
     }()
     

@@ -23,14 +23,29 @@ class HomeViewController: UIViewController {
     }
     let selectProductView: UIView = {
         let view = UIView()
-        view.backgroundColor = .ebonyClayColor
+        view.backgroundColor = .fiordColor
         return view
+    }()
+    let productButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("임박 제품", for: .normal)
+        button.setTitleColor(.rumColor, for: .normal)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        return button
     }()
     let selectTodoView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         return view
     }()
+    let todoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("오늘 일정", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        return button
+    }()
+    
     var collectionView: UICollectionView!
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -192,18 +207,9 @@ class HomeViewController: UIViewController {
                 }
             } else {
                 self.indicatorView.stopAnimating()
-                self.emptyPetInfoData()
+                self.collectionView.setEmptyView(title: "반려동물을 추가해보세요", message: "우측 상단의 + 버튼으로 추가할 수 있습니다.", backgroundColor: .fiordColor)
             }
         }
-    }
-    
-    private func emptyPetInfoData() {
-        let downloadDate = Date.now.stringFormat
-        UserDefaults.standard.set(downloadDate, forKey: "downloadDate")
-        let date = UserDefaults.standard.string(forKey: "downloadDate")!
-        let mainView = PetInfo(image: "", name: "AppName", birthDate: date, withDate: date)
-        self.petInfos.append(mainView)
-        self.updateSnapshot(reloading: self.petInfos)
     }
     
 //    private func applyItems(_ petInfos: [PetInfo]) {
@@ -224,15 +230,19 @@ class HomeViewController: UIViewController {
     
     @objc func productButtonTapped(_ sender: UIButton) {
         toggleTableView = false
-        selectProductView.backgroundColor = .ebonyClayColor
+        selectProductView.backgroundColor = .fiordColor
         selectTodoView.backgroundColor = .clear
+        productButton.setTitleColor(.rumColor, for: .normal)
+        todoButton.setTitleColor(.black, for: .normal)
         self.tableView.reloadData()
     }
     
     @objc func todoButtonTapped(_ sender: UIButton) {
         toggleTableView = true
         selectProductView.backgroundColor = .clear
-        selectTodoView.backgroundColor = .ebonyClayColor
+        selectTodoView.backgroundColor = .fiordColor
+        productButton.setTitleColor(.black, for: .normal)
+        todoButton.setTitleColor(.rumColor, for: .normal)
         self.tableView.reloadData()
     }
     

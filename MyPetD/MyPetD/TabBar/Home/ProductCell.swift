@@ -14,8 +14,8 @@ class ProductCell: UITableViewCell {
     lazy var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.systemGray4.cgColor
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.systemGray5.cgColor
         view.layer.cornerRadius = 10
         return view
     }()
@@ -27,7 +27,7 @@ class ProductCell: UITableViewCell {
         imageView.layer.borderWidth = 0.5
         imageView.layer.borderColor = UIColor.systemGray4.cgColor
         imageView.image = UIImage(systemName: "pawprint.fill")
-        imageView.tintColor = .systemGray
+        imageView.tintColor = .fiordColor
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
@@ -127,7 +127,7 @@ class ProductCell: UITableViewCell {
             make.right.equalToSuperview().inset(10)
             make.left.equalTo(productNameLabel.snp.right)
             make.width.equalTo(80)
-            make.height.equalTo(15)
+            make.height.equalTo(17)
         }
     }
 }

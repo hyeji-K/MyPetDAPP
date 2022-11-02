@@ -47,6 +47,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if toggleTableView == false {
+            self.tabBarController?.selectedIndex = 1
+        } else {
+            self.tabBarController?.selectedIndex = 2
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if toggleTableView == false {
             return 75

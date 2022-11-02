@@ -35,11 +35,22 @@ class HomeViewController: UIViewController {
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.allowsContinuousInteraction = false
-        pageControl.pageIndicatorTintColor = .systemGray6
-        pageControl.currentPageIndicatorTintColor = .black
+//        pageControl.pageIndicatorTintColor = .systemGray6
+        pageControl.tintColor = .darkGray
+        pageControl.currentPageIndicatorTintColor = .ebonyClayColor
         pageControl.numberOfPages = petInfos.count
         pageControl.currentPage = .zero
         return pageControl
+    }()
+    
+    let indicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+//        indicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        indicator.color = .ebonyClayColor
+        indicator.style = .large
+        indicator.hidesWhenStopped = true
+        indicator.stopAnimating()
+        return indicator
     }()
 
     enum Section {
@@ -105,6 +116,13 @@ class HomeViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(6)
         }
+        
+        self.view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        self.view.bringSubviewToFront(indicatorView)
+        
     }
     
     private func configureCollectionView() {
@@ -157,6 +175,7 @@ class HomeViewController: UIViewController {
     }
     
     private func fetch() {
+        self.indicatorView.startAnimating()
         NetworkService.shared.getDataList(classification: .petInfo) { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
@@ -167,10 +186,12 @@ class HomeViewController: UIViewController {
                     // NOTE: 생성된 날짜순으로 정렬
                     self.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
                     self.updateSnapshot(reloading: petInfos)
+                    self.indicatorView.stopAnimating()
                 } catch let error {
                     print(error.localizedDescription)
                 }
             } else {
+                self.indicatorView.stopAnimating()
                 self.emptyPetInfoData()
             }
         }

@@ -32,7 +32,7 @@ class MainTabBarViewController: UITabBarController {
 //            navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "sun.max.fill")
             
             // customBarItem
-            let titleConfig = CustomBarItemConfiguration(title: "AppName", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "MyPetBox", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             
@@ -59,7 +59,7 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.backButtonDisplayMode = .minimal
             
         case is BoxViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "간식창고", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "간식 창고", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             

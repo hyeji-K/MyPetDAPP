@@ -59,7 +59,7 @@ extension Date {
     
     static var dateFormatterShort: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
+        formatter.dateFormat = "yyyy. MM. dd."
         return formatter
     }()
     
@@ -125,6 +125,33 @@ extension String {
 //            return nil
 //        }
 //    }
+}
+
+extension NSAttributedString {
+    class func attributeShadowStyle(text: String) -> NSAttributedString {
+        
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor.black
+        shadow.shadowBlurRadius = 2
+        
+        let attrs: [NSAttributedString.Key: Any] = [
+            .shadow: shadow
+        ]
+        
+        let attrString = NSMutableAttributedString(string: text, attributes: attrs)
+        
+        return attrString
+    }
+}
+
+extension UIImageView {
+    func systemImageDropShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 1.0
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = .zero
+        self.layer.masksToBounds = false
+    }
 }
 
 extension UIColor {

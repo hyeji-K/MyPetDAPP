@@ -19,11 +19,12 @@ class BoxCell: UICollectionViewCell {
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "pawprint.fill")
-        imageView.tintColor = .systemGray
+        imageView.tintColor = .fiordColor
         imageView.backgroundColor = .systemGray4
-        imageView.layer.borderColor = UIColor.systemGray.cgColor
+        imageView.layer.borderColor = UIColor.systemGray4.cgColor
         imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = 10
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -46,14 +47,14 @@ class BoxCell: UICollectionViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     
     let expirationLabel: UILabel = {
         let label = UILabel()
         label.text = Date.now.stringFormatShort
-        label.font = UIFont.preferredFont(forTextStyle: .caption2)
+        label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.textColor = .systemGray
         return label
     }()
@@ -79,8 +80,8 @@ class BoxCell: UICollectionViewCell {
     
     private func setupCell() {
         self.contentView.backgroundColor = .systemGray6
-        self.contentView.layer.borderWidth = 0.5
-        self.contentView.layer.borderColor = UIColor.systemGray.cgColor
+        self.contentView.layer.borderWidth = 2
+        self.contentView.layer.borderColor = UIColor.systemGray5.cgColor
         self.contentView.layer.cornerRadius = 10
 
 //        TODO: ContentView 그림자 주기 (현재는 에러남)

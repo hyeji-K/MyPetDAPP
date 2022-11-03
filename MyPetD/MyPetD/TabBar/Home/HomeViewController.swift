@@ -296,20 +296,33 @@ class HomeViewController: UIViewController {
                 }
             } else {
                 // 스냅샷이 존재하지 않을때
+                self.todayReminders = []
             }
         }
 
-        NetworkService.shared.getCompleteRemindersList(classification: .completeReminder) { completeReminders in
-            // NOTE: 오늘 일정인 것만 표시되도록 구현
-            self.todayIsCompletedReminders = []
-            completeReminders.map { reminder in
-                let date = Date.now.stringFormatShort
-                if date == reminder.dueDate.dateLong!.stringFormatShort {
-                    self.todayIsCompletedReminders.append(reminder)
+        NetworkService.shared.getCompleteRemindersList(classification: .completeReminder) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let completeReminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                    
+                    // NOTE: 오늘 일정인 것만 표시되도록 구현
+                    self.todayIsCompletedReminders = []
+                    completeReminders.map { reminder in
+                        let date = Date.now.stringFormatShort
+                        if date == reminder.dueDate.dateLong!.stringFormatShort {
+                            self.todayIsCompletedReminders.append(reminder)
+                        }
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
                 }
+            } else {
+                self.todayIsCompletedReminders = []
             }
         }
-        self.tableView.reloadData()
     }
 }
 

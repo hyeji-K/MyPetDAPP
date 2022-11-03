@@ -26,20 +26,20 @@ class PetInfoCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .ebonyClayColor.withAlphaComponent(0.8)
+        imageView.backgroundColor = .fiordColor
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
-        imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.layer.borderWidth = 0.1
+        imageView.layer.borderColor = UIColor.systemGray.cgColor
+        imageView.layer.borderWidth = 0.5
         imageView.layer.masksToBounds = true
         return imageView
     }()
     
     let withLabel: UILabel = {
         let label = UILabel()
-        label.text = "함께한지"
-        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.font = .systemFont(ofSize: 13, weight: .bold)
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "함께한지")
         return label
     }()
     
@@ -48,14 +48,15 @@ class PetInfoCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textAlignment = .right
         label.textColor = .appleBlossomColor
+        label.attributedText = .attributeShadowStyle(text: "0")
         return label
     }()
     
     let dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "일"
-        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.font = .systemFont(ofSize: 13, weight: .bold)
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "일")
         return label
     }()
     
@@ -70,16 +71,16 @@ class PetInfoCell: UICollectionViewCell {
     
     let withDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2018. 01. 01."
-        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.font = .systemFont(ofSize: 13, weight: .bold)
         label.textAlignment = .right
         label.textColor = .white
+        label.attributedText = .attributeShadowStyle(text: "2018. 01. 01. ~")
         return label
     }()
     
     let birthDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "Birth. 2018. 01. 01."
+        label.text = "생일. 2018. 01. 01."
         label.font = .systemFont(ofSize: 13, weight: .bold)
         label.textAlignment = .right
         label.textColor = .black
@@ -112,7 +113,7 @@ class PetInfoCell: UICollectionViewCell {
     func configure(_ petInfo: PetInfo) {
         self.petNameLabel.text = petInfo.name
         self.profileImageView.setImageURL(petInfo.image)
-        self.birthDayLabel.text = "Birth. \(petInfo.birthDate.dateLong!.stringFormatShort)"
+        self.birthDayLabel.text = "생일. \(petInfo.birthDate.dateLong!.stringFormatShort)"
         let withDate = petInfo.withDate.dateLong!
         self.withDateLabel.text = "\(withDate.stringFormatShort) ~"
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1

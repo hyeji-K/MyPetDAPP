@@ -47,6 +47,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if toggleTableView == false {
+            self.tabBarController?.selectedIndex = 1
+        } else {
+            self.tabBarController?.selectedIndex = 2
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if toggleTableView == false {
             return 75
@@ -67,10 +75,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 //        headerView.layer.borderWidth = 1
 //        headerView.layer.borderColor = UIColor.systemGray3.cgColor
 
-        let productButton = UIButton()
-        productButton.setTitle("임박 제품", for: .normal)
-        productButton.setTitleColor(.black, for: .normal)
-        productButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         headerView.addSubview(productButton)
         productButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -80,10 +84,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         productButton.addTarget(self, action: #selector(productButtonTapped), for: .touchUpInside)
         
-        let todoButton = UIButton()
-        todoButton.setTitle("오늘 일정", for: .normal)
-        todoButton.setTitleColor(.black, for: .normal)
-        todoButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         headerView.addSubview(todoButton)
         todoButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

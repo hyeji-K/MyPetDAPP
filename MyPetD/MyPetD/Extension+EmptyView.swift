@@ -9,7 +9,7 @@ import UIKit
 
 extension UICollectionView {
     
-    func setEmptyView(title: String, message: String) {
+    func setEmptyView(title: String, message: String, backgroundColor: UIColor? = nil) {
         let emptyView: UIView = {
             let view = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.width, height: self.bounds.height))
             return view
@@ -19,7 +19,7 @@ extension UICollectionView {
             let label = UILabel()
             label.text = title
             label.textColor = .systemGray
-            label.font = UIFont.preferredFont(forTextStyle: .title2)
+            label.font = UIFont.preferredFont(forTextStyle: .title3)
             return label
         }()
         
@@ -37,16 +37,16 @@ extension UICollectionView {
         emptyView.addSubview(messageLabel)
         
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(emptyView.snp.centerY)
+            make.centerY.equalTo(emptyView.snp.centerY).offset(-20)
             make.centerX.equalTo(emptyView.snp.centerX)
         }
         
         messageLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
         }
-        
+        emptyView.backgroundColor = backgroundColor
         self.backgroundView = emptyView
     }
     

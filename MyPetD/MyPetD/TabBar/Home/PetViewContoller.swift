@@ -57,8 +57,8 @@ class PetViewController: UICollectionViewController {
         } else {
             self.navigationItem.title = NSLocalizedString("편집하기", comment: "Pet view controller title")            
         }
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didCancelEdit))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didDoneEdit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(didCancelEdit))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(didDoneEdit))
         navigationController?.navigationBar.tintColor = .black
         
         updateSnapshot()

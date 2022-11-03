@@ -36,20 +36,12 @@ class NetworkService {
         }
     }
     
-    func getCompleteRemindersList(classification: Classification, completion: @escaping ([Reminder]) -> Void) {
+    func getCompleteRemindersList(classification: Classification, completion: @escaping (DataSnapshot) -> Void) {
         guard let uid = self.uid else { return }
         self.ref = Database.database().reference(withPath: uid)
         let date = Date.now.stringFormatShortline
         self.ref.child(classification.rawValue).child(date).observe(.value) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-                let decoder = JSONDecoder()
-                let completeReminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                completion(completeReminders)
-            } catch let error {
-                print(error.localizedDescription)
-            }
+            completion(snapshot)
         }
     }
     

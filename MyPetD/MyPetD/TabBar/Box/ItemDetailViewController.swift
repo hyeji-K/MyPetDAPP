@@ -14,6 +14,7 @@ class ItemDetailViewController: UIViewController {
             onChange(productInfo)
         }
     }
+    var workingProductInfo: ProductInfo
     
     lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,7 +34,7 @@ class ItemDetailViewController: UIViewController {
     }()
     lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = dDayFunction(productInfo.expirationDate)
+        label.text = productInfo.expirationDate.dDayFunction(productInfo.expirationDate)
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .appleBlossomColor
         label.textAlignment = .right
@@ -73,6 +74,7 @@ class ItemDetailViewController: UIViewController {
     
     init(productInfo: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
         self.productInfo = productInfo
+        self.workingProductInfo = productInfo
         self.onChange = onChange
         super.init(nibName: nil, bundle: nil)
         self.setupDetailView()
@@ -88,9 +90,17 @@ class ItemDetailViewController: UIViewController {
         setupDetailView()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        // 배경 터치시 현재 뷰 컨트롤러 내리기
+        if let touch = touches.first, touch.view == self.view {
+            self.dismiss(animated: true)
+        }
+    }
+    
     @objc private func deleteButtonTapped(_ sender: UIButton) {
         print("삭제합니다")
-        let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             NetworkService.shared.deleteImageAndData(with: self.productInfo.id, storageName: .productImage, classification: .productInfo)
             
@@ -107,8 +117,8 @@ class ItemDetailViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        let viewController = ProductViewController(product: self.productInfo) { productInfo in
-            print("편집 버튼 클릭시")
+        let viewController = ProductViewController(product: self.workingProductInfo) { productInfo in
+            self.workingProductInfo = productInfo
             self.update(productInfo)
         }
         let navigationContoller = UINavigationController(rootViewController: viewController)
@@ -116,25 +126,13 @@ class ItemDetailViewController: UIViewController {
         self.present(navigationContoller, animated: true)
     }
     
-    func update(_ product: ProductInfo) {
-        self.productNameLabel.text = product.name
-        self.productImageView.setImageURL(product.image)
-        self.dDayLabel.text = self.dDayFunction(product.expirationDate)
-        self.storedLocationLabel.text = product.storedMethod
-        self.expirationLabel.text = "\(product.expirationDate.dateLong!.stringFormatShort)"
-        self.memoLabel.text = product.memo
-    }
-    
-    func dDayFunction(_ date: String) -> String {
-        if let date = date.dateLong {
-            let dDay = Calendar.current.dateComponents([.day], from: Date(), to: date).day!
-            if dDay < 0 {
-                return "D - 0"
-            } else {
-                return "D - \(dDay)"
-            }
-        }
-        return "D - 0"
+    func update(_ productInfo: ProductInfo) {
+        self.productNameLabel.text = productInfo.name
+        self.productImageView.setImageURL(productInfo.image)
+        self.dDayLabel.text = productInfo.expirationDate.dDayFunction(productInfo.expirationDate)
+        self.storedLocationLabel.text = productInfo.storedMethod
+        self.expirationLabel.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort)"
+        self.memoLabel.text = productInfo.memo
     }
     
     private func setupDetailView() {
@@ -164,8 +162,9 @@ class ItemDetailViewController: UIViewController {
         }
         closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         closeButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
-        closeButton.tintColor = .black
+        closeButton.tintColor = .white
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        closeButton.imageView?.systemImageDropShadow()
         
         let editButton = UIButton()
         mainView.addSubview(editButton)
@@ -174,8 +173,9 @@ class ItemDetailViewController: UIViewController {
         }
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         editButton.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
-        editButton.tintColor = .black
+        editButton.tintColor = .white
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        editButton.imageView?.systemImageDropShadow()
         
         mainView.addSubview(productNameLabel)
         mainView.addSubview(dDayLabel)
@@ -239,7 +239,7 @@ class ItemDetailViewController: UIViewController {
         deleteButton.layer.borderColor = UIColor.shadyLadyColor.cgColor
         deleteButton.layer.borderWidth = 0.5
         deleteButton.setTitle("삭제하기", for: .normal)
-        deleteButton.setTitleColor(.red, for: .normal)
+        deleteButton.setTitleColor(.appleBlossomColor, for: .normal)
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }

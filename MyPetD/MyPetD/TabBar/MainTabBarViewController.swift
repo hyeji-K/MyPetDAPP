@@ -59,7 +59,7 @@ class MainTabBarViewController: UITabBarController {
             navigationItem.backButtonDisplayMode = .minimal
             
         case is BoxViewController:
-            let titleConfig = CustomBarItemConfiguration(title: "간식창고", action: { print("title tapped") })
+            let titleConfig = CustomBarItemConfiguration(title: "간식 창고", action: { print("title tapped") })
             let titleItem = UIBarButtonItem.generate(with: titleConfig)
             navigationItem.leftBarButtonItem = titleItem
             

@@ -89,7 +89,7 @@ class BoxViewController: UIViewController {
             snapshot.reloadItems(product)
         }
         if snapshot.itemIdentifiers.isEmpty {
-            collectionView.setEmptyView(title: "간식창고가 비어있습니다", message: "+ 버튼을 클릭하여 창고를 채워보세요!")
+            collectionView.setEmptyView(title: "간식 창고가 비어있습니다", message: "우측 상단의 + 버튼으로 추가할 수 있습니다.")
         } else {
             collectionView.restore()
         }

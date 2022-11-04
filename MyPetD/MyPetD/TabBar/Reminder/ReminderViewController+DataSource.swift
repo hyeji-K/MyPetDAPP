@@ -34,7 +34,6 @@ extension ReminderViewController {
         let stringToDate = reminder.dueDate.dateLong!
         contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
         contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
-        print(reminder.dueDate)
         
         if reminder.dueDate.dateLong!.stringFormatShort == Date.now.stringFormatShort {
             contentConfiguration.secondaryTextProperties.color = .appleBlossomColor
@@ -44,7 +43,7 @@ extension ReminderViewController {
         cell.contentConfiguration = contentConfiguration
         
         var doneButtonConfiguration = doneButtonConfiguration(for: reminder)
-        doneButtonConfiguration.tintColor = .ebonyClayColor
+        doneButtonConfiguration.tintColor = .fiordColor
         cell.accessories = [.customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always)]
         
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()

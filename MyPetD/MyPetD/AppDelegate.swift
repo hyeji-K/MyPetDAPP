@@ -28,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("UserDefaults \(UserDefaults.standard.string(forKey: "firebaseUid")!)")
         }
         
-        UINavigationBar.appearance().tintColor = .todayPrimaryTint
-        UINavigationBar.appearance().backgroundColor = .todayNavigationBackground
+        UINavigationBar.appearance().tintColor = .tintColor
+        UINavigationBar.appearance().backgroundColor = .secondarySystemBackground
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance

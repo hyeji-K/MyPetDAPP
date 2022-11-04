@@ -90,14 +90,11 @@ class MainTabBarViewController: UITabBarController {
                 let today = Date.now.stringFormat
                 let reminder = Reminder(title: "", dueDate: today, repeatCycle: "반복없음")
                 let viewController = ReminderDetailViewController(reminder: reminder) { reminder in
-                    print("add 에서 넘어왔어여 \(reminder)")
-//                    self.add(reminder)
-//                    self.updateSnapshot()
                     self.dismiss(animated: true, completion: nil)
                 }
                 viewController.isAddingNewReminder = true
                 viewController.setEditing(true, animated: false)
-                viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didCancelAdd))
+                viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.didCancelAdd))
                 viewController.navigationItem.title = NSLocalizedString("일정 추가하기", comment: "Add Reminder view controller title")
                 let navigationController = UINavigationController(rootViewController: viewController)
                 navigationController.navigationBar.tintColor = .black

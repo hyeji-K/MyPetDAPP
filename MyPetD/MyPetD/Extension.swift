@@ -20,27 +20,36 @@ extension Date {
     var dayAndTimeText: String {
         let timeText = formatted(date: .omitted, time: .shortened)
         if Locale.current.calendar.isDateInToday(self) {
-            let timeFormat = NSLocalizedString("Today, %@", comment: "Today at time format string")
+            let timeFormat = NSLocalizedString("오늘, %@", comment: "Today at time format string")
             return String(format: timeFormat, timeText) // 오늘 오후 ㅁ시
+        } else if Locale.current.calendar.isDateInYesterday(self) {
+            let dateText = formatted(.dateTime.month(.wide).day())
+            let dateAndTimeFormat = NSLocalizedString("어제, %@, %@", comment: "Today at time format string")
+            return String(format: dateAndTimeFormat, dateText, timeText) // 어제 10월 14일, ㅁ시, 오후 ㅁ시
+        } else if Locale.current.calendar.isDateInTomorrow(self) {
+            let dateText = formatted(.dateTime.month(.wide).day())
+            let dateAndTimeFormat = NSLocalizedString("내일, %@, %@", comment: "Today at time format string")
+            return String(format: dateAndTimeFormat, dateText, timeText) // 내일 10월 14일, ㅁ시, 오후 ㅁ시
         } else {
             // 현재년도 일때와 아닐때 구분
             let currentYear = Date.now
             if Locale.current.calendar.isDate(currentYear, equalTo: self, toGranularity: .year) {
                 let dateText = formatted(.dateTime.month(.wide).day())
                 let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
-                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시
+                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시, 오후 ㅁ시
             } else {
                 let dateText = formatted(.dateTime.year().month(.wide).day())
                 let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
-                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, 2022, ㅁ시
+                return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, 2022, ㅁ시, 오후 ㅁ시
             }
         }
     }
     var dayText: String {
         if Locale.current.calendar.isDateInToday(self) {
-            return NSLocalizedString("Today", comment: "Today due date description")
+//            return NSLocalizedString("Today", comment: "Today due date description")
+            return formatted(.dateTime.year().month(.wide).day().weekday(.wide))
         } else {
-            return formatted(.dateTime.month(.wide).day().weekday(.wide))
+            return formatted(.dateTime.year().month(.wide).day().weekday(.wide))
         }
     }
     var timeText: String {
@@ -186,58 +195,6 @@ extension UIColor {
     
     static var appleBlossomColor: UIColor {
         UIColor(named: "appleBlossomColor") ?? UIColor(hex: 0xAF4F41)
-    }
-    
-    static var todayDetailCellTint: UIColor {
-        UIColor(named: "TodayDetailCellTint") ?? .tintColor
-    }
-    
-    static var todayListCellBackground: UIColor {
-        UIColor(named: "TodayListCellBackground") ?? .secondarySystemBackground
-    }
-    
-    static var todayListCellDoneButtonTint: UIColor {
-        UIColor(named: "TodayListCellDoneButtonTint") ?? .tintColor
-    }
-    
-    static var todayGradientAllBegin: UIColor {
-        UIColor(named: "TodayGradientAllBegin") ?? .systemFill
-    }
-    
-    static var todayGradientAllEnd: UIColor {
-        UIColor(named: "TodayGradientAllEnd") ?? .quaternarySystemFill
-    }
-    
-    static var todayGradientFutureBegin: UIColor {
-        UIColor(named: "TodayGradientFutureBegin") ?? .systemFill
-    }
-    
-    static var todayGradientFutureEnd: UIColor {
-        UIColor(named: "TodayGradientFutureEnd") ?? .quaternarySystemFill
-    }
-    
-    static var todayGradientTodayBegin: UIColor {
-        UIColor(named: "TodayGradientTodayBegin") ?? .systemFill
-    }
-    
-    static var todayGradientTodayEnd: UIColor {
-        UIColor(named: "TodayGradientTodayEnd") ?? .quaternarySystemFill
-    }
-    
-    static var todayNavigationBackground: UIColor {
-        UIColor(named: "TodayNavigationBackground") ?? .secondarySystemBackground
-    }
-    
-    static var todayPrimaryTint: UIColor {
-        UIColor(named: "TodayPrimaryTint") ?? .tintColor
-    }
-    
-    static var todayProgressLowerBackground: UIColor {
-        UIColor(named: "TodayProgressLowerBackground") ?? .systemGray
-    }
-    
-    static var todayProgressUpperBackground: UIColor {
-        UIColor(named: "TodayProgressUpperBackground") ?? .systemGray6
     }
 }
 

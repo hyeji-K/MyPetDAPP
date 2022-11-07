@@ -51,14 +51,14 @@ class ReminderDetailViewController: UICollectionViewController {
         
         navigationItem.title = NSLocalizedString("상세한 일정", comment: "Reminder detail view controller title")
         navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem!.title = "편집"
         
         updateSnapshotForViewing()
-        
-        
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        self.editButtonItem.title = editing ? "저장" : "편집"
         if editing {
             prepareForEditing()
         } else {
@@ -66,7 +66,7 @@ class ReminderDetailViewController: UICollectionViewController {
                 prepareForViewing()
             } else {
                 onChange(workingReminder)
-                
+                LocalNotifications.shared.sendNotification(reminder: workingReminder)
                 NetworkService.shared.updateReminder(reminder: workingReminder, classification: .reminder)
             }
         }
@@ -80,6 +80,11 @@ class ReminderDetailViewController: UICollectionViewController {
             cell.layer.borderWidth = 0
         case (.view, _):
             cell.contentConfiguration = defaultConfiguration(for: cell, at: row)
+            cell.isHighlighted = false
+            cell.isSelected = false
+            var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+            backgroundConfiguration.backgroundColor = .white
+            cell.backgroundConfiguration = backgroundConfiguration
         case (.title, .editText(let title)):
             cell.contentConfiguration = titleConfiguration(for: cell, with: title)
             cell.layer.borderWidth = 0.8
@@ -96,7 +101,7 @@ class ReminderDetailViewController: UICollectionViewController {
             fatalError("Unexpected combination of section and row.")
         }
         
-        cell.tintColor = .todayPrimaryTint
+        cell.tintColor = .tintColor
     }
     
     @objc func didCancelEdit() {
@@ -105,7 +110,7 @@ class ReminderDetailViewController: UICollectionViewController {
     }
     
     private func prepareForEditing() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didCancelEdit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(didCancelEdit))
         updateSnapshotForEditing()
     }
     
@@ -123,6 +128,7 @@ class ReminderDetailViewController: UICollectionViewController {
         navigationItem.leftBarButtonItem = nil
         if workingReminder != reminder {
             reminder = workingReminder
+            LocalNotifications.shared.editNotification(reminder: reminder)
         }
         updateSnapshotForViewing()
     }

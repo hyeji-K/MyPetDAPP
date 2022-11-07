@@ -9,9 +9,10 @@ import UIKit
 
 class ScheduledViewController: UIViewController {
     
-    var sectionHeaderTitles: [String] = []
-    var completeReminder: [String: [Reminder]] = [:]
+    var completeReminderDic: [String: [Reminder]] = [:]
     var sortedReminderTuple: [(String, [Reminder])] = []
+    var sectionHeaderTitles: [String] = []
+    var completeReminders: [[Reminder]] = []
     
     var tableView = UITableView()
 
@@ -51,34 +52,53 @@ class ScheduledViewController: UIViewController {
     
     func fetch() {
         NetworkService.shared.getDataList(classification: .completeReminder) { snapshot in
-            guard let snapshot = snapshot.value as? [String: Any] else { return }
-            self.sectionHeaderTitles = snapshot.keys.map({ $0 }).sorted(by: { $0 < $1 })
-            
-            guard let snapshotValue = Array(snapshot.values) as? [[String: Any]] else { return }
-            for value in snapshotValue {
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: Array(value.values), options: [])
-                    let decoder = JSONDecoder()
-                    let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
-                    let date = reminders[0].dueDate.dateLong!.stringFormatShortline
-                    
-                    for headerTitle in self.sectionHeaderTitles {
-                        if headerTitle == date {
-                            self.completeReminder.updateValue(reminders, forKey: headerTitle)
+            if snapshot.exists() {
+                self.sortedReminderTuple = []
+                self.sectionHeaderTitles = []
+                self.completeReminderDic = [:]
+                self.completeReminders = []
+                
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                self.sectionHeaderTitles = snapshot.keys.map({ $0 }).sorted(by: { $0 < $1 })
+                
+                guard let snapshotValue = Array(snapshot.values) as? [[String: Any]] else { return }
+                for value in snapshotValue {
+                    do {
+                        let data = try JSONSerialization.data(withJSONObject: Array(value.values), options: [])
+                        let decoder = JSONDecoder()
+                        let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                        let date = reminders[0].dueDate.dateLong!.stringFormatShortline
+                        
+                        for headerTitle in self.sectionHeaderTitles {
+                            if headerTitle == date {
+                                self.completeReminderDic.updateValue(reminders, forKey: headerTitle)
+                            }
                         }
+                    } catch let error {
+                        print(error.localizedDescription)
                     }
-                } catch let error {
-                    print(error.localizedDescription)
                 }
+                
+                self.sortedReminderTuple = self.completeReminderDic.sorted { $0.key < $1.key }
+                
+                for (_, value) in self.sortedReminderTuple {
+                    self.completeReminders.append(value)
+                }
+                
+                self.tableView.reloadData()
+            } else {
+                self.sortedReminderTuple = []
+                self.sectionHeaderTitles = []
+                self.completeReminderDic = [:]
+                self.completeReminders = []
+                self.tableView.setEmptyView(title: "완료한 일정이 없습니다", message: "")
             }
-            self.sortedReminderTuple = self.completeReminder.sorted { $0.key < $1.key }
-            self.tableView.reloadData()
         }
     }
     
     func deleteReminder(indexPath: IndexPath) {
         let completeDate = self.sectionHeaderTitles[indexPath.section]
-        let reminderId = self.sortedReminderTuple[indexPath.section].1[indexPath.row].id
+        let reminderId = self.completeReminders[indexPath.section][indexPath.row].id
         
         NetworkService.shared.deleteData(with: reminderId, date: completeDate, classification: .completeReminder)
     }
@@ -90,20 +110,22 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedReminderTuple[section].1.count
+        return completeReminders[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         var contentConfiguration = cell.defaultContentConfiguration()
-        let symbolName = sortedReminderTuple[indexPath.section].1[indexPath.row].isComplete ? "checkmark.circle.fill" : "circle"
+        
+        let symbolName = completeReminders[indexPath.section][indexPath.row].isComplete ? "checkmark.circle.fill" : "circle"
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title2)
         contentConfiguration.image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
-        contentConfiguration.imageProperties.tintColor = .ebonyClayColor
+        contentConfiguration.imageProperties.tintColor = .fiordColor
         
-        contentConfiguration.text = sortedReminderTuple[indexPath.section].1[indexPath.row].title
+        contentConfiguration.text = completeReminders[indexPath.section][indexPath.row].title
         contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
-        contentConfiguration.secondaryText = "\(sortedReminderTuple[indexPath.section].1[indexPath.row].dueDate.dateLong!.timeText), \(sortedReminderTuple[indexPath.section].1[indexPath.row].repeatCycle)"
+        
+        contentConfiguration.secondaryText = "\(completeReminders[indexPath.section][indexPath.row].dueDate.dateLong!.timeText), \(completeReminders[indexPath.section][indexPath.row].repeatCycle)"
         contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
         contentConfiguration.secondaryTextProperties.color = .lightGray
         cell.contentConfiguration = contentConfiguration
@@ -148,11 +170,18 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-//            let indexSet = IndexSet(arrayLiteral: indexPath.section)
-//            sectionHeaderTitles.remove(at: indexPath.section)
-//            tableView.deleteSections(indexSet, with: .fade)
-            
             self.deleteReminder(indexPath: indexPath)
+            
+            if self.completeReminders[indexPath.section].count <= 1 {
+                sectionHeaderTitles.remove(at: indexPath.section)
+                completeReminders.remove(at: indexPath.section)
+            } else {
+                completeReminders[indexPath.section].remove(at: indexPath.row)
+            }
+            
+//            let indexSet = IndexSet(arrayLiteral: indexPath.section)
+//            tableView.deleteSections(indexSet, with: .fade)
+            self.tableView.reloadData()
         }
     }
 }

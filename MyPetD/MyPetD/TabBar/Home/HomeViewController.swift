@@ -90,7 +90,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
 //        viewModel.fetch()
-        
+        setupNavigationBar()
         setupView()
         configureCollectionView()
 //        bind()
@@ -104,6 +104,38 @@ class HomeViewController: UIViewController {
         
         print(" 화면이 다시 보일때 \(self.productInfo)")
         self.tableView.reloadData()
+    }
+    
+    private func setupNavigationBar() {
+        let titleConfig = CustomBarItemConfiguration(title: "MyPetBox", action: { print("title tapped") })
+        let titleItem = UIBarButtonItem.generate(with: titleConfig)
+        navigationItem.leftBarButtonItem = titleItem
+        
+        let settingsConfig = CustomBarItemConfiguration(image: UIImage(systemName: "gearshape")) {
+            let settingViewController = SettingViewController()
+            settingViewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(settingViewController, animated: true)
+        }
+        let settingsItem = UIBarButtonItem.generate(with: settingsConfig, width: 30)
+        let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+            let today = Date.now.stringFormat
+            let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today)
+            let viewController = PetViewController(petInfo) { [weak self] petInfo in
+            }
+            viewController.navigationItem.title = NSLocalizedString("반려동물 추가하기", comment: "Add Pet view controller title")
+            
+            viewController.isAddingNewPetInfo = true
+            let navigationContoller = UINavigationController(rootViewController: viewController)
+            navigationContoller.navigationBar.tintColor = .black
+            
+            self.present(navigationContoller, animated: true, completion: nil)
+        }
+        let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+        
+        navigationItem.rightBarButtonItems = [settingsItem, addItem]
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupView() {
@@ -296,20 +328,33 @@ class HomeViewController: UIViewController {
                 }
             } else {
                 // 스냅샷이 존재하지 않을때
+                self.todayReminders = []
             }
         }
 
-        NetworkService.shared.getCompleteRemindersList(classification: .completeReminder) { completeReminders in
-            // NOTE: 오늘 일정인 것만 표시되도록 구현
-            self.todayIsCompletedReminders = []
-            completeReminders.map { reminder in
-                let date = Date.now.stringFormatShort
-                if date == reminder.dueDate.dateLong!.stringFormatShort {
-                    self.todayIsCompletedReminders.append(reminder)
+        NetworkService.shared.getCompleteRemindersList(classification: .completeReminder) { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let decoder = JSONDecoder()
+                    let completeReminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
+                    
+                    // NOTE: 오늘 일정인 것만 표시되도록 구현
+                    self.todayIsCompletedReminders = []
+                    completeReminders.map { reminder in
+                        let date = Date.now.stringFormatShort
+                        if date == reminder.dueDate.dateLong!.stringFormatShort {
+                            self.todayIsCompletedReminders.append(reminder)
+                        }
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
                 }
+            } else {
+                self.todayIsCompletedReminders = []
             }
         }
-        self.tableView.reloadData()
     }
 }
 

@@ -13,6 +13,8 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showPage(_:)), name: Notification.Name("showPage"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,6 +135,14 @@ class MainTabBarViewController: UITabBarController {
     }
     @objc func didCancelAdd() {
         dismiss(animated: true)
+    }
+    
+    @objc func showPage(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let index = userInfo["index"] as? Int {
+                self.selectedIndex = index
+            }
+        }
     }
 }
 

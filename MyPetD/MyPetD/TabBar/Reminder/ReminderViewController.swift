@@ -86,6 +86,7 @@ class ReminderViewController: UICollectionViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
             self?.deleteReminder(with: id)
             self?.updateSnapshot()
+            LocalNotifications.shared.removeNotification(id: id)
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])

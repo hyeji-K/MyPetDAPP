@@ -13,7 +13,7 @@ extension ReminderDetailViewController {
         contentConfiguration.text = text(for: row)
         contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
         contentConfiguration.image = row.image
-        contentConfiguration.imageProperties.tintColor = .ebonyClayColor
+        contentConfiguration.imageProperties.tintColor = .fiordColor
         return contentConfiguration
     }
     

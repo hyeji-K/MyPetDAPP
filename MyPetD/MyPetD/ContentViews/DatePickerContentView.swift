@@ -32,6 +32,7 @@ class DatePickerContentView: UIView, UIContentView {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.minuteInterval = 5
         datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ko-KR")
     }
 
     required init?(coder: NSCoder) {

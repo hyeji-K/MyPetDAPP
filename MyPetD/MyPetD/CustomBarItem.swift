@@ -35,9 +35,9 @@ final class CustomBarItem: UIButton {
     
     private func setupStyle() {
         self.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
-        self.setTitleColor(.black, for: .normal)
+        self.setTitleColor(.label, for: .normal)
         self.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
-        self.imageView?.tintColor = .black
+        self.imageView?.tintColor = .label
     }
     
     private func updateConfig() {

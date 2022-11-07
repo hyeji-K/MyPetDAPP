@@ -33,6 +33,7 @@ class DateAndTimePickerContentView: UIView, UIContentView {
         datePicker.minuteInterval = 5
         datePicker.datePickerMode = .dateAndTime
         datePicker.tintColor = .shadyLadyColor
+        datePicker.locale = Locale(identifier: "ko-KR")
     }
 
     required init?(coder: NSCoder) {

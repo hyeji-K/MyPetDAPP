@@ -25,16 +25,50 @@ class ReminderViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
-        navigationItem.rightBarButtonItem = addButton
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
+//        navigationItem.rightBarButtonItem = addButton
         
-        
+        setupNavigationBar()
         
         fetch()
         
         updateSnapshot()
         
         collectionView.dataSource = dataSource
+    }
+    
+    private func setupNavigationBar() {
+        let titleConfig = CustomBarItemConfiguration(title: "전체 일정", action: { print("title tapped") })
+        let titleItem = UIBarButtonItem.generate(with: titleConfig)
+        navigationItem.leftBarButtonItem = titleItem
+        
+        let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+            let today = Date.now.stringFormat
+            let reminder = Reminder(title: "", dueDate: today, repeatCycle: "반복없음")
+            let viewController = ReminderDetailViewController(reminder: reminder) { [weak self] reminder in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            viewController.isAddingNewReminder = true
+            viewController.setEditing(true, animated: false)
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.didCancelAdd))
+            viewController.navigationItem.title = NSLocalizedString("일정 추가하기", comment: "Add Reminder view controller title")
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.tintColor = .black
+            self.present(navigationController, animated: true, completion: nil)
+        }
+        let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+        
+        let scheduledConfig = CustomBarItemConfiguration(image: UIImage(systemName: "checklist")) {
+            let viewController = ScheduledViewController()
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        let scheduledItem = UIBarButtonItem.generate(with: scheduledConfig, width: 30)
+        
+        navigationItem.rightBarButtonItems = [scheduledItem, addItem]
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        navigationController?.navigationBar.tintColor = .black
     }
     
     func fetch() {
@@ -86,6 +120,7 @@ class ReminderViewController: UICollectionViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
             self?.deleteReminder(with: id)
             self?.updateSnapshot()
+            LocalNotifications.shared.removeNotification(id: id)
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])

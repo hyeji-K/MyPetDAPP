@@ -34,6 +34,10 @@ class TextFieldContentView: UIView, UIContentView {
         addPinnedSubview(textField, insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         textField.addTarget(self, action: #selector(didChange(_:)), for: .editingChanged)
         textField.clearButtonMode = .whileEditing
+        
+        textField.autocorrectionType = .no
+        textField.returnKeyType = .done
+        textField.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -54,5 +58,12 @@ class TextFieldContentView: UIView, UIContentView {
 extension UICollectionViewListCell {
     func textFieldConfiguration() -> TextFieldContentView.Configuration {
         TextFieldContentView.Configuration()
+    }
+}
+
+extension TextFieldContentView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -19,7 +19,6 @@ extension ReminderDetailViewController {
         
         var imageName: String? {
             switch self {
-//            case .viewTitle: return "checkmark.circle.fill"
             case .viewDate: return "calendar.circle"
             case .viewTime: return "clock"
             case .viewRepeat: return "repeat.circle"
@@ -29,7 +28,7 @@ extension ReminderDetailViewController {
         
         var image: UIImage? {
             guard let imageName = imageName else { return nil }
-            let configuration = UIImage.SymbolConfiguration(textStyle: .headline)
+            let configuration = UIImage.SymbolConfiguration(textStyle: .title3)
             return UIImage(systemName: imageName, withConfiguration: configuration)
         }
         

@@ -74,7 +74,11 @@ class BoxCell: UICollectionViewCell {
     
     func configuration(_ productInfo: ProductInfo) {
         self.titleLabel.text = productInfo.name
-        self.thumbnailImageView.setImageURL(productInfo.image)
+        if productInfo.image != "" {
+            self.thumbnailImageView.setImageURL(productInfo.image)
+        } else {
+            self.thumbnailImageView.image = UIImage(systemName: "pawprint.fill")
+        }
         self.expirationLabel.text = productInfo.expirationDate.dateLong?.stringFormatShort
     }
     

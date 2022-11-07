@@ -18,27 +18,28 @@ extension Date {
     
     // Reminder - Format the date and time
     var dayAndTimeText: String {
-        let timeText = formatted(date: .omitted, time: .shortened)
+//        let timeText = formatted(date: .omitted, time: .shortened)
+        let timeText = Date.timeFormatterShort.string(from: self)
         if Locale.current.calendar.isDateInToday(self) {
             let timeFormat = NSLocalizedString("오늘, %@", comment: "Today at time format string")
             return String(format: timeFormat, timeText) // 오늘 오후 ㅁ시
         } else if Locale.current.calendar.isDateInYesterday(self) {
-            let dateText = formatted(.dateTime.month(.wide).day())
+            let dateText = formatted(.dateTime.month(.wide).day().locale(Locale(identifier: "ko_KR")))
             let dateAndTimeFormat = NSLocalizedString("어제, %@, %@", comment: "Today at time format string")
             return String(format: dateAndTimeFormat, dateText, timeText) // 어제 10월 14일, ㅁ시, 오후 ㅁ시
         } else if Locale.current.calendar.isDateInTomorrow(self) {
-            let dateText = formatted(.dateTime.month(.wide).day())
+            let dateText = formatted(.dateTime.month(.wide).day().locale(Locale(identifier: "ko_KR")))
             let dateAndTimeFormat = NSLocalizedString("내일, %@, %@", comment: "Today at time format string")
             return String(format: dateAndTimeFormat, dateText, timeText) // 내일 10월 14일, ㅁ시, 오후 ㅁ시
         } else {
             // 현재년도 일때와 아닐때 구분
             let currentYear = Date.now
             if Locale.current.calendar.isDate(currentYear, equalTo: self, toGranularity: .year) {
-                let dateText = formatted(.dateTime.month(.wide).day())
+                let dateText = formatted(.dateTime.month(.wide).day().locale(Locale(identifier: "ko_KR")))
                 let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
                 return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, ㅁ시, 오후 ㅁ시
             } else {
-                let dateText = formatted(.dateTime.year().month(.wide).day())
+                let dateText = formatted(.dateTime.year().month(.wide).day().locale(Locale(identifier: "ko_KR")))
                 let dateAndTimeFormat = NSLocalizedString("%@, %@", comment: "Date and time format string")
                 return String(format: dateAndTimeFormat, dateText, timeText) // 10월 14일, 2022, ㅁ시, 오후 ㅁ시
             }
@@ -47,14 +48,29 @@ extension Date {
     var dayText: String {
         if Locale.current.calendar.isDateInToday(self) {
 //            return NSLocalizedString("Today", comment: "Today due date description")
-            return formatted(.dateTime.year().month(.wide).day().weekday(.wide))
+            return formatted(.dateTime.year().month(.wide).day().weekday(.wide).locale(Locale(identifier: "ko_KR")))
         } else {
-            return formatted(.dateTime.year().month(.wide).day().weekday(.wide))
+            return formatted(.dateTime.year().month(.wide).day().weekday(.wide).locale(Locale(identifier: "ko_KR")))
         }
     }
     var timeText: String {
-        return formatted(date: .omitted, time: .shortened)
+//        return formatted(date: .omitted, time: .shortened)
+        return Date.timeFormatter.string(from: self)
     }
+    
+    static var timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h시 mm분"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
+    
+    static var timeFormatterShort: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
     
     static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

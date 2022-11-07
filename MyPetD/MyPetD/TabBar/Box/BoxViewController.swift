@@ -28,10 +28,37 @@ class BoxViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavigationBar()
         setupView()
 //        bind()
 //        viewModel.fetch()
         fetch()
+    }
+    
+    private func setupNavigationBar() {
+        let titleConfig = CustomBarItemConfiguration(title: "간식 창고", action: { print("title tapped") })
+        let titleItem = UIBarButtonItem.generate(with: titleConfig)
+        navigationItem.leftBarButtonItem = titleItem
+        
+        let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
+            let today = Date.now.stringFormat
+            let productInfo = ProductInfo(image: "", name: "", expirationDate: today, storedMethod: "", memo: "")
+            let viewController = ProductViewController(product: productInfo) { [weak self] productInfo in
+            }
+            viewController.isAddingNewProduct = true
+            viewController.setEditing(true, animated: false)
+            viewController.navigationItem.title = NSLocalizedString("상품 추가하기", comment: "Add Product view controller title")
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.tintColor = .black
+            self.present(navigationController, animated: true)
+        }
+        let addItem = UIBarButtonItem.generate(with: addConfig, width: 30)
+        
+        navigationItem.rightBarButtonItems = [addItem]
+        navigationItem.backButtonDisplayMode = .minimal
+        
+        navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupView() {

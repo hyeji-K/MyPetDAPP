@@ -13,8 +13,8 @@ class LocalNotifications {
     
     func sendNotification(reminder: Reminder) {
         let notiContent = UNMutableNotificationContent()
-        notiContent.title = "MyPetD"
-        notiContent.body = reminder.title
+        notiContent.title = "MyPetBox"
+        notiContent.body = "[일정] \(reminder.title)"
         notiContent.sound = UNNotificationSound.defaultCritical
 //        notiContent.userInfo = ["index": 2]
 //        notiContent.badge = NSNumber(value: UIApplication.shared.applicationIconBadgeNumber + 1)

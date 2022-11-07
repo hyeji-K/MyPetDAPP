@@ -128,8 +128,8 @@ class ReminderDetailViewController: UICollectionViewController {
         navigationItem.leftBarButtonItem = nil
         if workingReminder != reminder {
             reminder = workingReminder
+            LocalNotifications.shared.editNotification(reminder: reminder)
         }
-        LocalNotifications.shared.editNotification(reminder: reminder)
         updateSnapshotForViewing()
     }
     

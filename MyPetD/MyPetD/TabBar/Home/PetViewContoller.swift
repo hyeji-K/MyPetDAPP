@@ -67,18 +67,27 @@ class PetViewController: UICollectionViewController {
     @objc func didDoneEdit() {
         if self.petInfo.image != self.imageURL {
             NetworkService.shared.imageUpload(id: petInfo.id, storageName: .petImage, imageData: imageData) { url in
-                self.petInfo.image = url
+                if self.workingPetInfo.name != "" {
+                    self.petInfo.image = url
+                    self.updateSnapshot()
+                    self.petInfo = self.workingPetInfo
+                    self.updatePetInfo(self.petInfo)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.alert("반려동물 이름을 입력하세요.")
+                }
+            }
+        } else {
+            if self.workingPetInfo.name != "" {
+                self.petInfo.image = self.imageURL
                 self.updateSnapshot()
                 self.petInfo = self.workingPetInfo
                 self.updatePetInfo(self.petInfo)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.alert("반려동물 이름을 입력하세요.")
             }
-        } else {
-            self.petInfo.image = self.imageURL
-            self.updateSnapshot()
-            self.petInfo = self.workingPetInfo
-            self.updatePetInfo(self.petInfo)
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func didCancelEdit() {

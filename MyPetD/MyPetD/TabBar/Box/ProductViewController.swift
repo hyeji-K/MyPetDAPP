@@ -64,18 +64,27 @@ class ProductViewController: UICollectionViewController {
     @objc func didDoneEdit() {
         if self.product.image != self.imageURL {
             NetworkService.shared.imageUpload(id: product.id, storageName: .productImage, imageData: imageData) { url in
-                self.product = self.workingProduct
-                self.product.image = url
-                self.updateSnapshotForEditing()
-                self.updateProduct(self.product)
+                if self.workingProduct.name != "" {
+                    self.product = self.workingProduct
+                    self.product.image = url
+                    self.updateSnapshotForEditing()
+                    self.updateProduct(self.product)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.alert("상품명을 입력하세요.")
+                }
             }
         } else {
-            self.product = self.workingProduct
-            self.product.image = self.imageURL
-            self.updateSnapshotForEditing()
-            self.updateProduct(self.product)
+            if self.workingProduct.name != "" {
+                self.product = self.workingProduct
+                self.product.image = self.imageURL
+                self.updateSnapshotForEditing()
+                self.updateProduct(self.product)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.alert("상품명을 입력하세요.")
+            }
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
     func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) {

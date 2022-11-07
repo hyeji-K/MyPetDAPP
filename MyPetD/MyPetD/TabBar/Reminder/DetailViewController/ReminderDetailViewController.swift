@@ -66,7 +66,7 @@ class ReminderDetailViewController: UICollectionViewController {
                 prepareForViewing()
             } else {
                 onChange(workingReminder)
-                
+                LocalNotifications.shared.sendNotification(reminder: workingReminder)
                 NetworkService.shared.updateReminder(reminder: workingReminder, classification: .reminder)
             }
         }
@@ -129,6 +129,7 @@ class ReminderDetailViewController: UICollectionViewController {
         if workingReminder != reminder {
             reminder = workingReminder
         }
+        LocalNotifications.shared.editNotification(reminder: reminder)
         updateSnapshotForViewing()
     }
     

@@ -112,7 +112,11 @@ class PetInfoCell: UICollectionViewCell {
     
     func configure(_ petInfo: PetInfo) {
         self.petNameLabel.text = petInfo.name
-        self.profileImageView.setImageURL(petInfo.image)
+        if petInfo.image != "" {
+            self.profileImageView.setImageURL(petInfo.image)
+        } else {
+            self.profileImageView.image = UIImage()
+        }
         self.birthDayLabel.text = "생일. \(petInfo.birthDate.dateLong!.stringFormatShort)"
         let withDate = petInfo.withDate.dateLong!
         self.withDateLabel.text = "\(withDate.stringFormatShort) ~"

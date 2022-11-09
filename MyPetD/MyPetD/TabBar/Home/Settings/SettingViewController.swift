@@ -10,9 +10,12 @@ import MessageUI
 
 class SettingViewController: UIViewController {
     
-    // 버전 정보, 문의하기, 오픈소스, 언어, 알림 설정
     let notification: [String] = ["알림 설정"]
     let settingArray: [String] = ["문의하기", "오픈소스", "버전 정보"]
+    
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    
+    private var observer: NSObjectProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,20 +25,24 @@ class SettingViewController: UIViewController {
         self.navigationItem.title = "설정"
         
         setupView()
+        
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main, using: { _ in
+            let indexSet = IndexSet(arrayLiteral: 0)
+            self.tableView.reloadSections(indexSet, with: .none)
+        })
     }
     
-    @objc private func notiSwitchTapped(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey: "notiSwitch")
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func setupView() {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.left.right.bottom.equalToSuperview()
         }
-        tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.cellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.sectionHeaderTopPadding = .zero
@@ -57,23 +64,41 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.cellId, for: indexPath) as? SettingCell else { return UITableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
         cell.selectionStyle = .none
         if indexPath.section == 0 {
-            let notiSwitch = UISwitch()
-            notiSwitch.isOn = UserDefaults.standard.bool(forKey: "notiSwitch")
-            notiSwitch.addTarget(self, action: #selector(notiSwitchTapped), for: .touchUpInside)
-            cell.accessoryView = notiSwitch
-            cell.configure(title: notification[indexPath.row])
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = notification[indexPath.row]
+            cell.contentConfiguration = contentConfiguration
+            
+            let alarmLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 16))
+            UNUserNotificationCenter.current().requestAuthorization { didAllow, error in
+                if didAllow {
+                    DispatchQueue.main.async {
+                        alarmLabel.text = "ON"
+                        alarmLabel.textColor = .fiordColor
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        alarmLabel.text = "OFF"
+                        alarmLabel.textColor = .systemGray
+                    }
+                }
+            }
+            alarmLabel.textAlignment = .right
+            cell.accessoryView = alarmLabel
         } else {
-            cell.configure(title: settingArray[indexPath.row])
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = settingArray[indexPath.row]
+            cell.contentConfiguration = contentConfiguration
+            
             switch indexPath.row {
             case 0, 1:
                 cell.accessoryType = .disclosureIndicator
             case 2:
                 let detailLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 16))
-                detailLabel.text = "1.0.0"
-                detailLabel.textColor = .systemGray
+                detailLabel.text = getCurrentVersion()
+                detailLabel.textColor = .fiordColor
                 detailLabel.textAlignment = .right
                 cell.accessoryView = detailLabel
             default:
@@ -82,15 +107,28 @@ extension SettingViewController: UITableViewDataSource {
         }
         return cell
     }
-    
-    
-    
 }
 
 extension SettingViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            
+            UNUserNotificationCenter.current().requestAuthorization { didAllow, error in
+                if didAllow {
+                    print("알림이 허용되었습니다.")
+                    self.alert("알림 권한이 허용되어 있습니다.")
+                } else {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "푸시 알림 권한 요청", message: "알림 권한을 허용하면 일정 알림을 받을 수 있습니다.", preferredStyle: .alert)
+                        let alertAction = UIAlertAction(title: "확인", style: .default) { _ in
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                        }
+                        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                        alert.addAction(cancelAction)
+                        alert.addAction(alertAction)
+                        self.present(alert, animated: true)
+                    }
+                }
+            }
         } else {
             if indexPath.row == 0 {
                 if MFMailComposeViewController.canSendMail() {
@@ -109,7 +147,7 @@ extension SettingViewController: UITableViewDelegate, MFMailComposeViewControlle
                                     
                                     
                                     """
-                    composeViewController.setToRecipients(["@gmail.com"])
+                    composeViewController.setToRecipients(["khjji0502@gmail.com"])
                     composeViewController.setSubject("<MyPetD> 문의 및 의견")
                     composeViewController.setMessageBody(bodyString, isHTML: false)
                     
@@ -134,7 +172,9 @@ extension SettingViewController: UITableViewDelegate, MFMailComposeViewControlle
                     self.present(sendMailErrorAlert, animated: true, completion: nil)
                 }
             } else if indexPath.row == 1 {
-                print(indexPath.row)
+                let viewController = OpenSourceTableViewController()
+                navigationItem.backButtonDisplayMode = .minimal
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
     }
@@ -161,38 +201,5 @@ extension SettingViewController: UITableViewDelegate, MFMailComposeViewControlle
         guard let dictionary = Bundle.main.infoDictionary,
               let version = dictionary["CFBundleShortVersionString"] as? String else { return "" }
         return version
-    }
-}
-
-class SettingCell: UITableViewCell {
-    static let cellId: String = "SettingCell"
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 16)
-        return label
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupCell()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupCell()
-    }
-    
-    func configure(title: String) {
-        titleLabel.text = title
-    }
-    
-    private func setupCell() {
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().inset(16)
-        }
     }
 }

@@ -61,7 +61,7 @@ class HomeViewController: UIViewController {
     let indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
 //        indicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        indicator.color = .ebonyClayColor
+        indicator.color = .fiordColor
         indicator.style = .large
         indicator.hidesWhenStopped = true
         indicator.stopAnimating()

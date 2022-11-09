@@ -19,7 +19,7 @@ extension ReminderViewController {
             snapshot.reloadItems(ids)
         }
         if snapshot.itemIdentifiers.isEmpty {
-            collectionView.setEmptyView(title: "일정을 추가해보세요", message: "+ 버튼을 클릭하여 일정을 추가할 수 있습니다.")
+            collectionView.setEmptyView(title: "일정이 없습니다.", message: "우측 상단의 + 버튼으로 추가할 수 있습니다.")
         } else {
             collectionView.restore()
         }
@@ -124,6 +124,7 @@ extension ReminderViewController {
     func deleteReminder(with id: Reminder.ID) {
         let index = reminders.indexOfReminder(with: id)
         reminders.remove(at: index)
+        print(" >>> \(self.reminders)")
         
         NetworkService.shared.deleteData(with: id, classification: .reminder)
     }

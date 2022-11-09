@@ -13,6 +13,8 @@ class ReminderViewController: UICollectionViewController {
 //    var reminders: [Reminder] = Reminder.sampleData
     var reminders: [Reminder] = []
     
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,8 @@ class ReminderViewController: UICollectionViewController {
         updateSnapshot()
         
         collectionView.dataSource = dataSource
+        
+        initRefresh()
     }
     
     private func setupNavigationBar() {
@@ -88,7 +92,22 @@ class ReminderViewController: UICollectionViewController {
                 }
             } else {
                 // 스냅샷이 존재하지 않을때
+                self.reminders = []
+                self.updateSnapshot()
             }
+        }
+    }
+    
+    func initRefresh() {
+        refreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+        refreshControl.tintColor = .fiordColor
+        collectionView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshCollectionView(refresh: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.collectionView.reloadData()
+            refresh.endRefreshing()
         }
     }
     

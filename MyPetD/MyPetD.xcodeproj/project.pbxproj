@@ -67,6 +67,8 @@
 		106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467DB29018C3A006FF939 /* RepeatCycle.swift */; };
 		107C958229153C7500D336DC /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C958129153C7500D336DC /* LocalNotifications.swift */; };
 		107C959829190B6A00D336DC /* RepeatButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959729190B6A00D336DC /* RepeatButtonView.swift */; };
+		107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */; };
+		107C959C2919E90900D336DC /* OpenSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959B2919E90900D336DC /* OpenSource.swift */; };
 		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
 		10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766D29092C69001F95D4 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
@@ -129,6 +131,8 @@
 		106467DB29018C3A006FF939 /* RepeatCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCycle.swift; sourceTree = "<group>"; };
 		107C958129153C7500D336DC /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		107C959729190B6A00D336DC /* RepeatButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatButtonView.swift; sourceTree = "<group>"; };
+		107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceTableViewController.swift; sourceTree = "<group>"; };
+		107C959B2919E90900D336DC /* OpenSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
 		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -211,7 +215,7 @@
 				106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */,
 				106467D728FF9B81006FF939 /* PetEditButton.swift */,
 				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
-				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
+				107C959D291B6CB800D336DC /* Settings */,
 				1044415928EC5D46006950FB /* HomeViewModel.swift */,
 			);
 			path = Home;
@@ -284,6 +288,16 @@
 				104441D028FB76E3006950FB /* RepeatCell.swift */,
 			);
 			path = ContentViews;
+			sourceTree = "<group>";
+		};
+		107C959D291B6CB800D336DC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
+				107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */,
+				107C959B2919E90900D336DC /* OpenSource.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,6 +397,7 @@
 				1005C3F628AFA04C00A8AA7B /* PetInfo.swift in Sources */,
 				104441B528FA9AEB006950FB /* ReminderViewController+DataSource.swift in Sources */,
 				106467D228FF61F1006FF939 /* PetViewContoller+Section.swift in Sources */,
+				107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */,
 				104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */,
 				106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */,
 				104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */,
@@ -412,6 +427,7 @@
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
 				104441B728FAAC60006950FB /* ReminderDoneButton.swift in Sources */,
+				107C959C2919E90900D336DC /* OpenSource.swift in Sources */,
 				104441C728FAF0F0006950FB /* TextFieldContentView.swift in Sources */,
 				1044415E28EEB47B006950FB /* BoxViewModel.swift in Sources */,
 				1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */,
@@ -581,12 +597,13 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -613,12 +630,13 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

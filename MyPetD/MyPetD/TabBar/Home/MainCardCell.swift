@@ -82,7 +82,11 @@ class MainCardCell: UICollectionViewCell {
     
     func configure(_ info: PetInfo) {
         self.petNameLabel.text = info.name
-        self.profileImageView.setImageURL(info.image)
+        if info.image != "" {
+            self.profileImageView.setImageURL(info.image)
+        } else {
+            self.profileImageView.image = UIImage()
+        }
         let withDate = info.withDate.dateLong!
         let dDay = Calendar.current.dateComponents([.day], from: withDate, to: Date()).day! + 1
         self.withDayLabel.text = "\(dDay)"

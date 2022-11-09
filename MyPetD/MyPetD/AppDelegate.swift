@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notiCenter.requestAuthorization(options: [.alert, .badge, .sound]) { didAllow, error in
             if didAllow {
                 print("알림이 허용되었습니다.")
-//                UserDefaults.standard.set(didAllow, forKey: "notiSwitch")
+//                UserDefaults.standard.set(didAllow, forKey: "notiAuthorization")
 //                print(UserDefaults.standard.bool(forKey: "notiSwitch"))
             } else {
                 print("알림이 허용되지 않았습니다.")

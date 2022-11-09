@@ -36,7 +36,7 @@ class ProductCell: UITableViewCell {
     lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.text = "상품명"
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .left
         return label
     }()
@@ -44,7 +44,7 @@ class ProductCell: UITableViewCell {
     lazy var storedLabel: UILabel = {
         let label = UILabel()
         label.text = "보관장소"
-        label.font = .preferredFont(forTextStyle: .callout)
+        label.font = .systemFont(ofSize: 13)
         label.textColor = .systemGray
         label.textAlignment = .left
         return label
@@ -80,9 +80,17 @@ class ProductCell: UITableViewCell {
     }
     
     func configure(_ productInfo: ProductInfo) {
-        self.productImageView.setImageURL(productInfo.image)
+        if productInfo.image != "" {
+            self.productImageView.setImageURL(productInfo.image)
+        } else {
+            self.productImageView.image = UIImage(systemName: "pawprint.fill")
+        }
         self.productNameLabel.text = productInfo.name
-        self.storedLabel.text = productInfo.storedMethod
+        if productInfo.storedMethod != "" {
+            self.storedLabel.text = "\(productInfo.storedMethod)에 보관중"
+        } else {
+            self.storedLabel.text = productInfo.storedMethod
+        }
         let dDay = productInfo.expirationDate.dDayFunction(productInfo.expirationDate)
         self.dDayLabel.text = dDay
     }

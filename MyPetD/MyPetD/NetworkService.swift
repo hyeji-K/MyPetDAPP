@@ -72,7 +72,7 @@ class NetworkService {
     func updatePetInfo(petInfo: PetInfo, classification: Classification) {
         guard let uid = self.uid else { return }
         self.ref = Database.database().reference(withPath: uid)
-        let object = PetInfo(id: petInfo.id, image: petInfo.image, name: petInfo.name, birthDate: petInfo.birthDate, withDate: petInfo.withDate)
+        let object = PetInfo(id: petInfo.id, image: petInfo.image, name: petInfo.name, birthDate: petInfo.birthDate, withDate: petInfo.withDate, createdDate: petInfo.createdDate)
         self.ref.child(classification.rawValue).child(petInfo.id).updateChildValues(object.toDictionary) { (error:Error?, ref:DatabaseReference) in
             if let error = error {
                 print("Data could not be saved: \(error).")

@@ -119,7 +119,7 @@ class HomeViewController: UIViewController {
         let settingsItem = UIBarButtonItem.generate(with: settingsConfig, width: 30)
         let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
             let today = Date.now.stringFormat
-            let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today)
+            let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today, createdDate: Date.now.stringFormat)
             let viewController = PetViewController(petInfo) { [weak self] petInfo in
             }
             viewController.navigationItem.title = NSLocalizedString("반려동물 추가하기", comment: "Add Pet view controller title")

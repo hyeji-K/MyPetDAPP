@@ -18,6 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        window?.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
+        window?.makeKeyAndVisible()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        }
+        
         // 탭바가 세번쨰 탭에서 투명해짐 (iOS 15부터 해줘야할 것)
         if #available(iOS 15.0, *) {
             let tabBarAppearance = UITabBarAppearance()

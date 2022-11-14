@@ -55,7 +55,7 @@ class PetDetailViewController: UIViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.bottom.left.right.equalToSuperview()
         }
-        self.collectionView.backgroundColor = .apricotColor.withAlphaComponent(0.2)
+        self.collectionView.backgroundColor = .shadyLadyColor.withAlphaComponent(0.2)
         
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetInfoCell.cellId, for: indexPath) as? PetInfoCell else { return nil }

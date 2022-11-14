@@ -61,9 +61,9 @@ class PetDetailViewController: UIViewController {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetInfoCell.cellId, for: indexPath) as? PetInfoCell else { return nil }
             cell.configure(itemIdentifier)
             cell.deleteButton.addTarget(self, action: #selector(self.deleteButtonTapped), for: .touchUpInside)
-            cell.deleteButton.id = self.petInfo[indexPath.item].id
+            cell.deleteButton.id = itemIdentifier.id
             cell.editButton.addTarget(self, action: #selector(self.editButtonTapped), for: .touchUpInside)
-            cell.editButton.id = self.petInfo[indexPath.item].id
+            cell.editButton.id = itemIdentifier.id
             return cell
         })
         

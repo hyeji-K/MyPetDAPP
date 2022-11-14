@@ -13,7 +13,7 @@ struct PetInfo: Hashable, Identifiable, Codable {
     var name: String
     var birthDate: String
     var withDate: String
-    var createdDate: String = Date.now.stringFormat
+    var createdDate: String
     
     var toDictionary: [String: Any] {
         let dict: [String: Any] = ["id": id, "name": name, "image": image, "birthDate": birthDate, "withDate": withDate, "createdDate": createdDate]

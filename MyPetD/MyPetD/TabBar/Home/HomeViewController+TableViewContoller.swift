@@ -31,10 +31,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .none
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = reminder.title
-            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
+//            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
+            contentConfiguration.textProperties.font = UIFont.boldSystemFont(ofSize: 14)
             let stringToDate = reminder.dueDate.dateLong!
             contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
-            contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
+//            contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
+            contentConfiguration.secondaryTextProperties.font = UIFont.systemFont(ofSize: 13)
             contentConfiguration.secondaryTextProperties.color = .systemGray
             let symbolName = reminder.isComplete ? "checkmark.circle.fill" : "circle"
             let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title2)

@@ -68,6 +68,7 @@
 		107C959829190B6A00D336DC /* RepeatButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959729190B6A00D336DC /* RepeatButtonView.swift */; };
 		107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */; };
 		107C959C2919E90900D336DC /* OpenSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959B2919E90900D336DC /* OpenSource.swift */; };
+		107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */; };
 		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
 		10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766D29092C69001F95D4 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
@@ -132,6 +133,7 @@
 		107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceTableViewController.swift; sourceTree = "<group>"; };
 		107C959B2919E90900D336DC /* OpenSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
 		107C95AA291CF14900D336DC /* MyPetD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPetD.entitlements; sourceTree = "<group>"; };
+		107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchScreenImage@3x.png"; sourceTree = "<group>"; };
 		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 				107C958129153C7500D336DC /* LocalNotifications.swift */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
+				107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
 				1048DF2028D37214009C87AD /* GoogleService-Info.plist */,
 			);
@@ -371,6 +374,7 @@
 				1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */,
 				1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */,
 				1005C3D928AF1CB200A8AA7B /* Assets.xcassets in Resources */,
+				107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */,
 				1005C3D728AF1CB000A8AA7B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

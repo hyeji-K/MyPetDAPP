@@ -131,6 +131,7 @@
 		107C959729190B6A00D336DC /* RepeatButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatButtonView.swift; sourceTree = "<group>"; };
 		107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceTableViewController.swift; sourceTree = "<group>"; };
 		107C959B2919E90900D336DC /* OpenSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
+		107C95AA291CF14900D336DC /* MyPetD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPetD.entitlements; sourceTree = "<group>"; };
 		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +171,7 @@
 		1005C3CE28AF1CB000A8AA7B /* MyPetD */ = {
 			isa = PBXGroup;
 			children = (
+				107C95AA291CF14900D336DC /* MyPetD.entitlements */,
 				1005C3EB28AF220E00A8AA7B /* TabBar */,
 				1005C3E328AF1F5A00A8AA7B /* Model */,
 				104441C328FAEFB6006950FB /* ContentViews */,
@@ -580,11 +582,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPetBox;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -613,11 +617,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPetBox;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

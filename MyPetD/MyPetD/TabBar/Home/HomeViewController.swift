@@ -218,6 +218,7 @@ class HomeViewController: UIViewController {
         let petDetailViewController = PetDetailViewController(petInfo: petInfo) { petInfo in
             self.updateSnapshot(reloading: petInfo)
         }
+        petDetailViewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(petDetailViewController, animated: true)
     }
     

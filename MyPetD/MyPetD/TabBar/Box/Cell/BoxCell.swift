@@ -29,22 +29,6 @@ class BoxCell: UICollectionViewCell {
         return imageView
     }()
     
-//    var dDayView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .systemMint
-//        view.layer.borderColor = UIColor.systemMint.cgColor
-//        view.layer.borderWidth = 0.8
-//        view.layer.cornerRadius = 4
-//        return view
-//    }()
-//
-//    let dDayLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "D-3"
-//        label.font = UIFont.systemFont(ofSize: 12)
-//        return label
-//    }()
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)

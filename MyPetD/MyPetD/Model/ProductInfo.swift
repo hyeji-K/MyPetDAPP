@@ -20,6 +20,14 @@ struct ProductInfo: Equatable, Hashable, Identifiable, Codable {
         let dict: [String: Any] = ["id": id, "image": image, "name": name, "expirationDate": expirationDate, "storedMethod": storedMethod, "memo": memo]
         return dict
     }
+    
+    mutating func update(image: String, name: String, expirationDate: String, storedMethod: String, memo: String) {
+        self.image = image
+        self.name = name
+        self.expirationDate = expirationDate
+        self.storedMethod = storedMethod
+        self.memo = memo
+    }
 }
 
 extension Array where Element == ProductInfo {
@@ -39,4 +47,28 @@ extension ProductInfo {
         ProductInfo(id: "4", image: "Ellipse2", name: "네모북어", expirationDate: "2022-10-18 23:00:00", storedMethod: "냉장고", memo: "우리 고양이가 짱 좋아하는 트릿!"),
         ProductInfo(id: "5", image: "Ellipse1", name: "닭가슴살", expirationDate: "2022-10-18 23:00:00", storedMethod: "서랍", memo: "우리 고양이가 짱 좋아하는 간식!"),
     ]
+}
+
+class ProductManager {
+    var products: [ProductInfo] = []
+    
+    func createProduct() -> ProductInfo {
+        let today = Date.now.stringFormat
+        return ProductInfo(image: "", name: "", expirationDate: today, storedMethod: "", memo: "")
+    }
+    
+    func addProduct(_ productInfo: ProductInfo) {
+        products.append(productInfo)
+    }
+    
+    func deleteProduct(with id: ProductInfo.ID) {
+        products = products.filter({
+            $0.id != id
+        })
+    }
+    
+    func updateProduct(_ productInfo: ProductInfo) {
+        guard let index = products.firstIndex(of: productInfo) else { return }
+        products[index].update(image: productInfo.image, name: productInfo.name, expirationDate: productInfo.expirationDate, storedMethod: productInfo.storedMethod, memo: productInfo.memo)
+    }
 }

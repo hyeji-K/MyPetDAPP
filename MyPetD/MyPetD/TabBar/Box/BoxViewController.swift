@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import Combine
 
-class BoxViewController: UIViewController {
+final class BoxViewController: UIViewController {
 
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
@@ -20,19 +19,14 @@ class BoxViewController: UIViewController {
         case main
     }
     
-    var dataSource: DataSource!
-    
-    let viewModel: BoxViewModel = BoxViewModel()
-    var subscriptions = Set<AnyCancellable>()
-    var products: [ProductInfo] = []
+    private var dataSource: DataSource!
+    private var productManager = ProductManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
         setupView()
-//        bind()
-//        viewModel.fetch()
         fetch()
     }
     
@@ -42,9 +36,9 @@ class BoxViewController: UIViewController {
         navigationItem.leftBarButtonItem = titleItem
         
         let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
-            let today = Date.now.stringFormat
-            let productInfo = ProductInfo(image: "", name: "", expirationDate: today, storedMethod: "", memo: "")
+            let productInfo = self.productManager.createProduct()
             let viewController = ProductViewController(product: productInfo) { [weak self] productInfo in
+                self?.productManager.addProduct(productInfo)
             }
             viewController.isAddingNewProduct = true
             viewController.setEditing(true, animated: false)
@@ -89,26 +83,7 @@ class BoxViewController: UIViewController {
         return layout
     }
     
-    func add(_ product: ProductInfo) {
-        products.append(product)
-    }
-    
-    func deleteProduct(with id: ProductInfo.ID) {
-        let index = products.indexOfProduct(with: id)
-        products.remove(at: index)
-    }
-    
-    func productInfo(for id: ProductInfo.ID) -> ProductInfo {
-        let index = products.indexOfProduct(with: id)
-        return products[index]
-    }
-    
-    func update(_ product: ProductInfo, with id: ProductInfo.ID) {
-        let index = products.indexOfProduct(with: id)
-        products[index] = product
-    }
-    
-    func updateSnapshot(reloading product: [ProductInfo] = []) {
+    private func updateSnapshot(reloading product: [ProductInfo] = []) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(product, toSection: .main)
@@ -123,10 +98,9 @@ class BoxViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    func showDetail(for productInfo: ProductInfo) {
-        print("Show productInfo: \(productInfo)")
+    private func showDetail(for productInfo: ProductInfo) {
         let viewController = ItemDetailViewController(productInfo: productInfo) { [weak self] productInfo in
-            self?.update(productInfo, with: productInfo.id)
+            self?.productManager.updateProduct(productInfo)
             self?.updateSnapshot(reloading: [productInfo])
         }
         viewController.modalTransitionStyle = .crossDissolve
@@ -134,7 +108,7 @@ class BoxViewController: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
     
-    func fetch() {
+    private func fetch() {
         NetworkService.shared.getDataList(classification: .productInfo) { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
@@ -142,8 +116,8 @@ class BoxViewController: UIViewController {
                     let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
                     let decoder = JSONDecoder()
                     let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                    self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
-                    self.updateSnapshot(reloading: self.products)
+                    self.productManager.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
+                    self.updateSnapshot(reloading: self.productManager.products)
                 } catch let error {
                     print(error.localizedDescription)
                 }
@@ -151,50 +125,12 @@ class BoxViewController: UIViewController {
                 self.updateSnapshot()
             }
         }
-//
-//        let uid = UserDefaults.standard.string(forKey: "firebaseUid")!
-//        self.ref = Database.database().reference(withPath: uid)
-//
-//        self.ref.child("ProductInfo").observe(.value) { snapshot in
-//            if snapshot.exists() {
-//                guard let snapshot = snapshot.value as? [String: Any] else { return }
-//                do {
-//                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
-//                    let decoder = JSONDecoder()
-//                    let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-//                    self.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
-//                    self.updateSnapshot(reloading: self.products)
-//                } catch let error {
-//                    print(error.localizedDescription)
-//                }
-//            } else {
-//                self.updateSnapshot()
-//            }
-//        }
     }
-    
-//    private func applyItems(_ productInfos: [ProductInfo]) {
-//        var snapshot = dataSource.snapshot()
-//        snapshot.appendItems(productInfos, toSection: .main)
-//        self.dataSource.apply(snapshot)
-//    }
-//
-//    private func bind() {
-//        viewModel.$productInfos
-//            .receive(on: RunLoop.main)
-//            .sink { productInfo in
-//                print("--> update collection view \(productInfo)")
-//                print("--> 업데이트! \(productInfo.count)")
-//                self.applyItems(productInfo)
-//            }.store(in: &subscriptions)
-//    }
 }
-// 
 
 extension BoxViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let item = viewModel.productInfos[indexPath.item]
-        let item = products[indexPath.item]
+        let item = productManager.products[indexPath.item]
         showDetail(for: item)
     }
 }

@@ -7,19 +7,16 @@
 
 import UIKit
 
-class ReminderViewController: UICollectionViewController {
+final class ReminderViewController: UICollectionViewController {
         
     var dataSource: DataSource!
-//    var reminders: [Reminder] = Reminder.sampleData
-    var reminders: [Reminder] = []
-    
-    let refreshControl = UIRefreshControl()
+    var reminderManager = ReminderManager()
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let listLayout = listLayout()
-        collectionView.collectionViewLayout = listLayout
+        collectionView.collectionViewLayout = listLayout()
         
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         
@@ -27,17 +24,10 @@ class ReminderViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
         
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
-//        navigationItem.rightBarButtonItem = addButton
-        
         setupNavigationBar()
-        
         fetch()
-        
         updateSnapshot()
-        
         collectionView.dataSource = dataSource
-        
         initRefresh()
     }
     
@@ -47,10 +37,10 @@ class ReminderViewController: UICollectionViewController {
         navigationItem.leftBarButtonItem = titleItem
         
         let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
-            let today = Date.now.stringFormat
-            let reminder = Reminder(title: "", dueDate: today, repeatCycle: "반복없음")
+            let reminder = self.reminderManager.createReminder()
             let viewController = ReminderDetailViewController(reminder: reminder) { [weak self] reminder in
                 self?.dismiss(animated: true, completion: nil)
+                self?.reminderManager.addReminder(reminder)
             }
             viewController.isAddingNewReminder = true
             viewController.setEditing(true, animated: false)
@@ -75,7 +65,7 @@ class ReminderViewController: UICollectionViewController {
         navigationController?.navigationBar.tintColor = .black
     }
     
-    func fetch() {
+    private func fetch() {
         NetworkService.shared.getDataList(classification: .reminder) { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
@@ -84,7 +74,7 @@ class ReminderViewController: UICollectionViewController {
                     let decoder = JSONDecoder()
                     let reminders: [Reminder] = try decoder.decode([Reminder].self, from: data)
                     
-                    self.reminders = reminders.sorted(by: { $0.dueDate < $1.dueDate })
+                    self.reminderManager.reminders = reminders.sorted(by: { $0.dueDate < $1.dueDate })
                     self.updateSnapshot()
                     
                 } catch let error {
@@ -92,19 +82,19 @@ class ReminderViewController: UICollectionViewController {
                 }
             } else {
                 // 스냅샷이 존재하지 않을때
-                self.reminders = []
+                self.reminderManager.reminders = []
                 self.updateSnapshot()
             }
         }
     }
     
-    func initRefresh() {
+    private func initRefresh() {
         refreshControl.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
         refreshControl.tintColor = .fiordColor
         collectionView.refreshControl = refreshControl
     }
     
-    @objc func refreshCollectionView(refresh: UIRefreshControl) {
+    @objc private func refreshCollectionView(refresh: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.collectionView.reloadData()
             refresh.endRefreshing()
@@ -112,15 +102,15 @@ class ReminderViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let id = reminders[indexPath.item].id
+        let id = reminderManager.reminders[indexPath.item].id
         showDetail(for: id)
         return false
     }
     
-    func showDetail(for id: Reminder.ID) {
-        let reminder = reminder(for: id)
+    private func showDetail(for id: Reminder.ID) {
+        let reminder = self.reminderManager.reminder(for: id)
         let viewController = ReminderDetailViewController(reminder: reminder, onChange: { [weak self] reminder in
-            self?.update(reminder, with: reminder.id)
+            self?.reminderManager.updateReminder(reminder, with: reminder.id)
             self?.updateSnapshot(reloading: [reminder.id])
         })
         navigationController?.pushViewController(viewController, animated: true)
@@ -137,7 +127,7 @@ class ReminderViewController: UICollectionViewController {
         guard let indexPath = indexPath, let id = dataSource.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("삭제", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
-            self?.deleteReminder(with: id)
+            self?.reminderManager.deleteReminder(with: id)
             self?.updateSnapshot()
             LocalNotifications.shared.removeNotification(id: id)
             completion(false)

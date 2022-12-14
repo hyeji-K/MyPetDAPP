@@ -69,6 +69,14 @@ class NetworkService {
         }
     }
     
+    func postReminder(reminder: Reminder) {
+        guard let uid = self.uid else { return }
+        self.ref = Database.database().reference(withPath: uid)
+        let date = reminder.dueDate.dateLong!.stringFormat
+        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: "\(date)", repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
+        self.ref.child("Reminder").child(reminder.id).setValue(object.toDictionary)
+    }
+    
     func updatePetInfo(petInfo: PetInfo, classification: Classification) {
         guard let uid = self.uid else { return }
         self.ref = Database.database().reference(withPath: uid)

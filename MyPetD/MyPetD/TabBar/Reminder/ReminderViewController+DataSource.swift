@@ -14,7 +14,7 @@ extension ReminderViewController {
     func updateSnapshot(reloading ids: [Reminder.ID] = []) {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(reminders.map { $0.id })
+        snapshot.appendItems(self.reminderManager.reminders.map { $0.id })
         if !ids.isEmpty {
             snapshot.reloadItems(ids)
         }
@@ -27,7 +27,7 @@ extension ReminderViewController {
     }
     
     func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) {
-        let reminder = reminder(for: id)
+        let reminder = self.reminderManager.reminder(for: id)
         var contentConfiguration = cell.defaultContentConfiguration()
         contentConfiguration.text = reminder.title
         contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -52,17 +52,17 @@ extension ReminderViewController {
     }
     
     func completeReminder(with id: Reminder.ID) {
-        var reminder = reminder(for: id)
+        var reminder = self.reminderManager.reminder(for: id)
         if reminder.isComplete == false {
             switch reminder.repeatCycle {
             case RepectCycle.none.name:
                 reminder.isComplete.toggle()
-                update(reminder, with: id)
+                self.reminderManager.updateReminder(reminder, with: id)
                 updateSnapshot(reloading: [id])
                 
                 NetworkService.shared.updateCompleteReminder(id: reminder.id, reminder: reminder, classification: .completeReminder)
                 
-                deleteReminder(with: id)
+                self.reminderManager.deleteReminder(with: id)
                 updateSnapshot()
             
             case RepectCycle.everyDay.name:
@@ -86,19 +86,19 @@ extension ReminderViewController {
     }
     
     private func completeReminderHandler(with id: Reminder.ID, for repectCycle: RepectCycle) {
-        var reminder = reminder(for: id)
+        var reminder = self.reminderManager.reminder(for: id)
         reminder.isComplete.toggle()
         
         NetworkService.shared.updateCompleteReminder(id: reminder.id, reminder: reminder, classification: .completeReminder)
         
-        self.update(reminder, with: id)
+        self.reminderManager.updateReminder(reminder, with: id)
         self.updateSnapshot(reloading: [id])
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             let date = reminder.dueDate.dateLong!
             let changeDate = Calendar.current.date(byAdding: repectCycle.adding, value: repectCycle.repeatValue, to: date)!.stringFormat
             reminder.dueDate = changeDate
             reminder.isComplete.toggle()
-            self.update(reminder, with: id)
+            self.reminderManager.updateReminder(reminder, with: id)
             self.updateSnapshot(reloading: [id])
         }
     }
@@ -112,31 +112,5 @@ extension ReminderViewController {
         button.id = reminder.id
         button.setImage(image, for: .normal)
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
-    }
-    
-    func add(_ reminder: Reminder) {
-//        reminders.append(reminder)
-//        let date = reminder.dueDate.dateLong!.stringFormat
-//        let object = Reminder(id: reminder.id, title: reminder.title, dueDate: "\(date)", repeatCycle: reminder.repeatCycle, isComplete: reminder.isComplete)
-//        self.ref.child("Reminder").child(reminder.id).setValue(object.toDictionary)
-    }
-    
-    func deleteReminder(with id: Reminder.ID) {
-        let index = reminders.indexOfReminder(with: id)
-        reminders.remove(at: index)
-        print(" >>> \(self.reminders)")
-        
-        NetworkService.shared.deleteData(with: id, classification: .reminder)
-    }
-    
-    func reminder(for id: Reminder.ID) -> Reminder {
-        let index = reminders.indexOfReminder(with: id)
-        return reminders[index]
-    }
-    
-    func update(_ reminder: Reminder, with id: Reminder.ID) {
-        let index = reminders.indexOfReminder(with: id)
-        reminders[index] = reminder
-        NetworkService.shared.updateReminder(reminder: reminder, classification: .reminder)
     }
 }

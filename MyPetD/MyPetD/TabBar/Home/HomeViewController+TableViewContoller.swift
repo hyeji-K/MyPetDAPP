@@ -10,7 +10,7 @@ import UIKit
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if toggleTableView == false {
-            return productInfo.count
+            return self.productManager.products.count
         } else {
             return todayReminders.count + todayIsCompletedReminders.count
         }
@@ -21,21 +21,19 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         if toggleTableView == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
             cell.selectionStyle = .none
-            cell.configure(productInfo[indexPath.row])
+            cell.configure(self.productManager.products[indexPath.row])
             
             return cell
         } else {
-            self.reminders = self.todayReminders + self.todayIsCompletedReminders
-            let reminder = self.reminders[indexPath.row]
+            self.reminderMamager.reminders = self.todayReminders + self.todayIsCompletedReminders
+            let reminder = self.reminderMamager.reminders[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
             cell.selectionStyle = .none
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = reminder.title
-//            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: .headline)
             contentConfiguration.textProperties.font = UIFont.boldSystemFont(ofSize: 14)
             let stringToDate = reminder.dueDate.dateLong!
             contentConfiguration.secondaryText = "\(stringToDate.dayAndTimeText), \(reminder.repeatCycle)"
-//            contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .callout)
             contentConfiguration.secondaryTextProperties.font = UIFont.systemFont(ofSize: 13)
             contentConfiguration.secondaryTextProperties.color = .systemGray
             let symbolName = reminder.isComplete ? "checkmark.circle.fill" : "circle"
@@ -72,10 +70,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = .white
-//        headerView.layer.cornerRadius = 10
-//        headerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
-//        headerView.layer.borderWidth = 1
-//        headerView.layer.borderColor = UIColor.systemGray3.cgColor
 
         headerView.addSubview(productButton)
         productButton.snp.makeConstraints { make in
@@ -108,7 +102,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.addSubview(selectProductView)
         selectProductView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
-//            make.left.equalToSuperview().inset(50)
             make.centerX.equalToSuperview().dividedBy(2)
             make.height.equalTo(4)
             make.width.equalTo(productButton.snp.width).dividedBy(2)
@@ -118,7 +111,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         selectTodoView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.right.equalToSuperview().inset(50)
-//            make.centerX.equalTo(todoButton.snp.view.widthAnchor)
             make.height.equalTo(4)
             make.width.equalTo(todoButton.snp.width).dividedBy(2)
         }

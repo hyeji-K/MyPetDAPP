@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProductViewController: UICollectionViewController {
+final class ProductViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
@@ -25,7 +25,6 @@ class ProductViewController: UICollectionViewController {
     private var dataSource: DataSource!
     
     init(product: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
-        print("편집 페이지 입니다. \(product)")
         self.product = product
         self.workingProduct = product
         self.onChange = onChange
@@ -61,7 +60,7 @@ class ProductViewController: UICollectionViewController {
         updateSnapshotForEditing()
     }
     
-    @objc func didDoneEdit() {
+    @objc private func didDoneEdit() {
         if self.product.image != self.imageURL {
             NetworkService.shared.imageUpload(id: product.id, storageName: .productImage, imageData: imageData) { url in
                 if self.workingProduct.name != "" {
@@ -87,7 +86,7 @@ class ProductViewController: UICollectionViewController {
         }
     }
     
-    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) {
+    private func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) {
         let section = section(for: indexPath)
         switch (section, row) {
         case (_, .header(let title)):
@@ -115,7 +114,7 @@ class ProductViewController: UICollectionViewController {
         }
     }
     
-    @objc func didCancelEdit() {
+    @objc private func didCancelEdit() {
         self.product.image = self.imageURL
         workingProduct = product
         self.dismiss(animated: true, completion: nil)
@@ -137,7 +136,7 @@ class ProductViewController: UICollectionViewController {
         dataSource.apply(snapshot)
     }
     
-    func updateProduct(_ productInfo: ProductInfo) {
+    private func updateProduct(_ productInfo: ProductInfo) {
         NetworkService.shared.updateProductInfo(productInfo: productInfo, classification: .productInfo)
     }
     
@@ -172,7 +171,6 @@ extension ProductViewController: UINavigationControllerDelegate, UIImagePickerCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let rawVal = UIImagePickerController.InfoKey.originalImage.rawValue
         if let image = info[UIImagePickerController.InfoKey(rawValue: rawVal)] as? UIImage {
-            print("이미지를 받아옵니다")
             let imageData = image.jpegData(compressionQuality: 0.1)!
             self.imageData = imageData
             

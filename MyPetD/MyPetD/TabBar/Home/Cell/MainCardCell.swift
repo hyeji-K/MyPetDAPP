@@ -96,35 +96,42 @@ class MainCardCell: UICollectionViewCell {
         self.contentView.backgroundColor = .white
         
         contentView.addSubview(profileImageView)
+        profileImageView.addSubview(meLabel)
+        profileImageView.addSubview(heartImageView)
+        profileImageView.addSubview(petNameLabel)
+        profileImageView.addSubview(dayLabel)
+        profileImageView.addSubview(withDayLabel)
+        profileImageView.addSubview(withLabel)
+        
         profileImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        profileImageView.addSubview(meLabel)
+        
         meLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.right.equalToSuperview().inset(16)
         }
-        profileImageView.addSubview(heartImageView)
+        
         heartImageView.snp.makeConstraints { make in
             make.centerY.equalTo(meLabel.snp.centerY)
             make.right.equalTo(meLabel.snp.left).inset(-4)
         }
-        profileImageView.addSubview(petNameLabel)
+        
         petNameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(meLabel.snp.centerY)
             make.right.equalTo(heartImageView.snp.left).inset(-4)
         }
-        profileImageView.addSubview(dayLabel)
+        
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(meLabel.snp.bottom).inset(-6)
             make.right.equalToSuperview().inset(16)
         }
-        profileImageView.addSubview(withDayLabel)
+        
         withDayLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel.snp.centerY)
             make.right.equalTo(dayLabel.snp.left).inset(-4)
         }
-        profileImageView.addSubview(withLabel)
+        
         withLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel.snp.centerY)
             make.right.equalTo(withDayLabel.snp.left).inset(-4)

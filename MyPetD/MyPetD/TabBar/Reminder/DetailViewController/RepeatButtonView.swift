@@ -10,7 +10,7 @@ import UIKit
 final class RepeatButtonView: UIView {
     
     var collectionView: UICollectionView!
-    let repeatArray: [String] = ["없음", "매일", "매주", "매월", "매년"]
+    let repeatArray: [String] = [RepectCycle.none.name, RepectCycle.everyDay.name, RepectCycle.everyWeek.name, RepectCycle.everyMonth.name, RepectCycle.everyYear.name]
     enum Section {
         case main
     }

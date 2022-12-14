@@ -43,3 +43,37 @@ extension Reminder {
     ]
 }
 #endif
+
+class ReminderManager {
+    var reminders: [Reminder] = []
+    
+    func createReminder() -> Reminder {
+        let today = Date.now.stringFormat
+        return Reminder(title: "", dueDate: today, repeatCycle: RepectCycle.none.name)
+    }
+    
+    func addReminder(_ reminder: Reminder) {
+        reminders.append(reminder)
+        
+        NetworkService.shared.postReminder(reminder: reminder)
+    }
+    
+    func deleteReminder(with id: Reminder.ID) {
+        let index = reminders.indexOfReminder(with: id)
+        reminders.remove(at: index)
+        
+        NetworkService.shared.deleteData(with: id, classification: .reminder)
+    }
+    
+    func reminder(for id: Reminder.ID) -> Reminder {
+        let index = reminders.indexOfReminder(with: id)
+        return reminders[index]
+    }
+    
+    func updateReminder(_ reminder: Reminder, with id: Reminder.ID) {
+        let index = reminders.indexOfReminder(with: id)
+        reminders[index] = reminder
+        
+        NetworkService.shared.updateReminder(reminder: reminder, classification: .reminder)
+    }
+}

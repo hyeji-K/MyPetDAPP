@@ -55,6 +55,7 @@
 		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
 		1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1048DF2028D37214009C87AD /* GoogleService-Info.plist */; };
 		105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CBF294781940037F6C7 /* ProductDetailView.swift */; };
+		105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CC22948B6290037F6C7 /* CompletedReminder.swift */; };
 		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
 		106467CC28FEEA6E006FF939 /* DateAndTimePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */; };
 		106467CE28FF5F07006FF939 /* PetViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CD28FF5F07006FF939 /* PetViewContoller.swift */; };
@@ -119,6 +120,7 @@
 		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1048DF2028D37214009C87AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		105C9CBF294781940037F6C7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		105C9CC22948B6290037F6C7 /* CompletedReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedReminder.swift; sourceTree = "<group>"; };
 		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimePickerContentView.swift; sourceTree = "<group>"; };
 		106467CD28FF5F07006FF939 /* PetViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewContoller.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				104441B828FAACF8006950FB /* ReminderListViewController+Actions.swift */,
 				106467DB29018C3A006FF939 /* RepeatCycle.swift */,
 				104441D228FBB76C006950FB /* ScheduledViewController.swift */,
+				105C9CC22948B6290037F6C7 /* CompletedReminder.swift */,
 				104441BC28FABAC9006950FB /* DetailViewController */,
 			);
 			path = Reminder;
@@ -421,6 +424,7 @@
 				106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */,
 				104441BB28FAB9B6006950FB /* ReminderDetailViewController.swift in Sources */,
 				104441AF28F95849006950FB /* ReminderViewController.swift in Sources */,
+				105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */,
 				104441D328FBB76C006950FB /* ScheduledViewController.swift in Sources */,
 				106467A828FD6829006FF939 /* ImageContentView.swift in Sources */,
 				1044415C28EEA45F006950FB /* ImageCacheManager.swift in Sources */,

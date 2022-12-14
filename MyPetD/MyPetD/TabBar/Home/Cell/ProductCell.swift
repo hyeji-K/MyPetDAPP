@@ -58,12 +58,6 @@ class ProductCell: UITableViewCell {
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
-    
-//    let likeButton: UIButton = {
-//        let button = UIButton()
-//        button.setImage(UIImage(systemName: "heart"), for: .normal)
-//        return button
-//    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

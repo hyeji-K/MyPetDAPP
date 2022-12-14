@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import Combine
 
 class HomeViewController: UIViewController {
 
@@ -50,17 +49,15 @@ class HomeViewController: UIViewController {
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.allowsContinuousInteraction = false
-//        pageControl.pageIndicatorTintColor = .systemGray6
         pageControl.tintColor = .darkGray
         pageControl.currentPageIndicatorTintColor = .ebonyClayColor
-        pageControl.numberOfPages = petInfos.count
+        pageControl.numberOfPages = self.petManager.petInfos.count
         pageControl.currentPage = .zero
         return pageControl
     }()
     
     let indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-//        indicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         indicator.color = .fiordColor
         indicator.style = .large
         indicator.hidesWhenStopped = true
@@ -77,23 +74,21 @@ class HomeViewController: UIViewController {
     typealias Item = PetInfo
     var dataSource: DataSource!
     
-    let viewModel: HomeViewModel = HomeViewModel()
-    var subscriptions = Set<AnyCancellable>()
-    
-    var petInfos: [PetInfo] = []
-    var productInfo: [ProductInfo] = []
-    var reminders: [Reminder] = []
+//    var petInfos: [PetInfo] = []
+    var petManager = PetManager()
+//    var productInfo: [ProductInfo] = []
+    var productManager = ProductManager()
+//    var reminders: [Reminder] = []
+    var reminderMamager = ReminderManager()
     var todayReminders: [Reminder] = []
     var todayIsCompletedReminders: [Reminder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        viewModel.fetch()
         setupNavigationBar()
         setupView()
         configureCollectionView()
-//        bind()
         fetch()
         productFetch()
         reminderFetch()
@@ -102,7 +97,6 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print(" 화면이 다시 보일때 \(self.productInfo)")
         self.tableView.reloadData()
     }
     
@@ -121,6 +115,7 @@ class HomeViewController: UIViewController {
             let today = Date.now.stringFormat
             let petInfo = PetInfo(image: "", name: "", birthDate: today, withDate: today, createdDate: Date.now.stringFormat)
             let viewController = PetViewController(petInfo) { [weak self] petInfo in
+                
             }
             viewController.navigationItem.title = NSLocalizedString("반려동물 추가하기", comment: "Add Pet view controller title")
             
@@ -202,7 +197,6 @@ class HomeViewController: UIViewController {
     }
     
     func updateSnapshot(reloading petInfo: [PetInfo] = []) {
-        print("updateSnapshot = \(petInfo)")
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(petInfo, toSection: .main)
@@ -214,7 +208,6 @@ class HomeViewController: UIViewController {
     }
     
     func showDetail(for petInfo: [PetInfo]) {
-        print("Show productInfo: \(petInfo)")
         let petDetailViewController = PetDetailViewController(petInfo: petInfo) { petInfo in
             self.updateSnapshot(reloading: petInfo)
         }
@@ -232,7 +225,7 @@ class HomeViewController: UIViewController {
                     let decoder = JSONDecoder()
                     let petInfos: [PetInfo] = try decoder.decode([PetInfo].self, from: data)
                     // NOTE: 생성된 날짜순으로 정렬
-                    self.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
+                    self.petManager.petInfos = petInfos.sorted { $0.createdDate < $1.createdDate }
                     self.updateSnapshot(reloading: petInfos)
                     self.indicatorView.stopAnimating()
                 } catch let error {
@@ -244,22 +237,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
-//    private func applyItems(_ petInfos: [PetInfo]) {
-//        var snapshot = dataSource.snapshot()
-//        snapshot.appendItems(petInfos, toSection: .main)
-//        self.dataSource.apply(snapshot)
-//    }
-//
-//    private func bind() {
-//        viewModel.$profileInfos
-//            .receive(on: RunLoop.main)
-//            .sink { profileInfos in
-//                print("--> update collection view \(profileInfos)")
-//                self.applyItems(profileInfos)
-//                self.pageControl.numberOfPages = profileInfos.count
-//            }.store(in: &subscriptions)
-//    }
     
     @objc func productButtonTapped(_ sender: UIButton) {
         toggleTableView = false
@@ -295,15 +272,13 @@ class HomeViewController: UIViewController {
                             filterProduct.append(product)
                         }
                     }
-                    self.productInfo = filterProduct.sorted(by: { $0.expirationDate < $1.expirationDate })
+                    self.productManager.products = filterProduct.sorted(by: { $0.expirationDate < $1.expirationDate })
                     self.tableView.reloadData()
                 } catch let error {
                     print(error.localizedDescription)
                 }
             } else {
-                self.productInfo = []
-//                self.tableView.reloadData()
-//                self.updateSnapshot()
+                self.productManager.products = []
             }
         }
     }
@@ -328,7 +303,6 @@ class HomeViewController: UIViewController {
                     print(error.localizedDescription)
                 }
             } else {
-                // 스냅샷이 존재하지 않을때
                 self.todayReminders = []
             }
         }
@@ -361,7 +335,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = petInfos
+        let item = self.petManager.petInfos
         showDetail(for: item)
     }
 }

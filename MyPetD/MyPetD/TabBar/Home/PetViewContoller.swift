@@ -167,7 +167,6 @@ extension PetViewController: UINavigationControllerDelegate, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let rawVal = UIImagePickerController.InfoKey.originalImage.rawValue
         if let image = info[UIImagePickerController.InfoKey(rawValue: rawVal)] as? UIImage {
-            print("이미지를 받아옵니다")
             let imageData = image.jpegData(compressionQuality: 0.1)!
             self.imageData = imageData
             

@@ -36,3 +36,8 @@ extension PetInfo {
         PetInfo(id: "1", image: "testImage2", name: "삐용", birthDate: "2018.09.25", withDate: "2018.12.20", createdDate: Date.now.stringFormat),
     ]
 }
+
+class PetManager {
+    var petInfos: [PetInfo] = []
+    
+}

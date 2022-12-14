@@ -128,67 +128,70 @@ class PetInfoCell: UICollectionViewCell {
         self.contentView.backgroundColor = .clear
         
         self.contentView.addSubview(mainView)
+        self.contentView.addSubview(deleteButton)
+        self.contentView.addSubview(editButton)
+        mainView.addSubview(profileView)
+        mainView.addSubview(profileImageView)
+        profileImageView.addSubview(dayLabel)
+        profileImageView.addSubview(withDayLabel)
+        profileImageView.addSubview(withLabel)
+        profileImageView.addSubview(withDateLabel)
+        profileView.addSubview(petNameLabel)
+        profileView.addSubview(birthDayLabel)
+        
         mainView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.bottom.equalTo(-50)
         }
         
-        mainView.addSubview(profileView)
         profileView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(70)
         }
         
-        mainView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview().inset(20)
             make.bottom.equalTo(-70)
         }
         
-        profileImageView.addSubview(dayLabel)
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.top).offset(16)
             make.right.equalToSuperview().inset(16)
         }
-        profileImageView.addSubview(withDayLabel)
+        
         withDayLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel.snp.centerY)
             make.right.equalTo(dayLabel.snp.left).inset(-4)
         }
-        profileImageView.addSubview(withLabel)
+        
         withLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel.snp.centerY)
             make.right.equalTo(withDayLabel.snp.left).inset(-4)
         }
         
-        profileImageView.addSubview(withDateLabel)
         withDateLabel.snp.makeConstraints { make in
             make.top.equalTo(withLabel.snp.bottom).offset(4)
             make.right.equalToSuperview().inset(16)
         }
         
-        profileView.addSubview(petNameLabel)
         petNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(26)
             make.width.equalTo(150)
         }
         
-        profileView.addSubview(birthDayLabel)
         birthDayLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(20)
             make.left.lessThanOrEqualTo(petNameLabel.snp.right)
         }
         
-        self.contentView.addSubview(deleteButton)
         deleteButton.snp.makeConstraints { make in
             make.right.equalToSuperview()
             make.top.equalTo(mainView.snp.bottom).offset(10)
             make.width.equalTo(25)
         }
         
-        self.contentView.addSubview(editButton)
         editButton.snp.makeConstraints { make in
             make.right.equalTo(deleteButton.snp.left).inset(-20)
             make.top.equalTo(deleteButton.snp.top)

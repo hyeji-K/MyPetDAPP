@@ -40,7 +40,6 @@ class PetDetailViewController: UIViewController {
         
         setupView()
         updateSnapshot(reloading: petInfo)
-        print(">A>>SD>>SAD>ASD> \(self.petInfo)")
     }
     
     private func setupView() {
@@ -81,8 +80,6 @@ class PetDetailViewController: UIViewController {
     
     func deletePetInfo(with id: PetInfo.ID) {
         let index = petInfo.indexOfPet(with: id)
-        print("삭제할 셀은? \(petInfo[index])")
-        
         let alert = UIAlertController(title: "삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             NetworkService.shared.deleteImageAndData(with: id, storageName: .petImage, classification: .petInfo)

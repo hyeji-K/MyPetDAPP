@@ -14,6 +14,63 @@
 		1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */; };
 		1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E728AF216900A8AA7B /* HomeViewController.swift */; };
 		1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */; };
+		1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */; };
+		1005C3F028AF771200A8AA7B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1005C3EF28AF771200A8AA7B /* SnapKit */; };
+		1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F128AF7DB000A8AA7B /* ProductCell.swift */; };
+		1005C3F428AF9A2200A8AA7B /* MainCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */; };
+		1005C3F628AFA04C00A8AA7B /* PetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F528AFA04C00A8AA7B /* PetInfo.swift */; };
+		1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */; };
+		1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */; };
+		1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40528B73E1300A8AA7B /* BoxViewController.swift */; };
+		1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40728B741AB00A8AA7B /* BoxCell.swift */; };
+		1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40928B778B300A8AA7B /* ProductInfo.swift */; };
+		1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */; };
+		1044415028E9CF6E006950FB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1044414F28E9CF6E006950FB /* FirebaseAnalytics */; };
+		1044415228E9CF6E006950FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1044415128E9CF6E006950FB /* FirebaseAuth */; };
+		1044415428E9CF6E006950FB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1044415328E9CF6E006950FB /* FirebaseDatabase */; };
+		1044415628E9CF6E006950FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1044415528E9CF6E006950FB /* FirebaseStorage */; };
+		1044415C28EEA45F006950FB /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044415B28EEA45F006950FB /* ImageCacheManager.swift */; };
+		104441AF28F95849006950FB /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441AE28F95849006950FB /* ReminderViewController.swift */; };
+		104441B328F9906E006950FB /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441B228F9906E006950FB /* Reminder.swift */; };
+		104441B528FA9AEB006950FB /* ReminderViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441B428FA9AEB006950FB /* ReminderViewController+DataSource.swift */; };
+		104441B728FAAC60006950FB /* ReminderDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441B628FAAC60006950FB /* ReminderDoneButton.swift */; };
+		104441B928FAACF8006950FB /* ReminderListViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441B828FAACF8006950FB /* ReminderListViewController+Actions.swift */; };
+		104441BB28FAB9B6006950FB /* ReminderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441BA28FAB9B6006950FB /* ReminderDetailViewController.swift */; };
+		104441BE28FABAEE006950FB /* ReminderDetailViewController+Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441BD28FABAEE006950FB /* ReminderDetailViewController+Row.swift */; };
+		104441C028FADF6A006950FB /* ReminderDetailViewController+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441BF28FADF6A006950FB /* ReminderDetailViewController+Section.swift */; };
+		104441C228FAEEA8006950FB /* ReminderDetailViewController+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441C128FAEEA8006950FB /* ReminderDetailViewController+CellConfiguration.swift */; };
+		104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441C428FAEFE7006950FB /* UIView+PinnedSubview.swift */; };
+		104441C728FAF0F0006950FB /* TextFieldContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441C628FAF0F0006950FB /* TextFieldContentView.swift */; };
+		104441C928FAF184006950FB /* UIContentConfiguration+Stateless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441C828FAF184006950FB /* UIContentConfiguration+Stateless.swift */; };
+		104441CB28FAF420006950FB /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441CA28FAF420006950FB /* DatePickerContentView.swift */; };
+		104441CF28FB009D006950FB /* CollectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441CE28FB009D006950FB /* CollectionContentView.swift */; };
+		104441D128FB76E3006950FB /* RepeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441D028FB76E3006950FB /* RepeatCell.swift */; };
+		104441D328FBB76C006950FB /* ScheduledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441D228FBB76C006950FB /* ScheduledViewController.swift */; };
+		104441D528FD27E1006950FB /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441D428FD27E1006950FB /* ProductViewController.swift */; };
+		104441D728FD2A09006950FB /* ProductViewController+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441D628FD2A09006950FB /* ProductViewController+Section.swift */; };
+		104441D928FD2CED006950FB /* ProductViewController+Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441D828FD2CED006950FB /* ProductViewController+Row.swift */; };
+		104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */; };
+		1048DF1328D0A597009C87AD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1228D0A597009C87AD /* Extension.swift */; };
+		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
+		1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1048DF2028D37214009C87AD /* GoogleService-Info.plist */; };
+		105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CBF294781940037F6C7 /* ProductDetailView.swift */; };
+		105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CC22948B6290037F6C7 /* CompletedReminder.swift */; };
+		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
+		106467CC28FEEA6E006FF939 /* DateAndTimePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */; };
+		106467CE28FF5F07006FF939 /* PetViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CD28FF5F07006FF939 /* PetViewContoller.swift */; };
+		106467D028FF609E006FF939 /* PetViewContoller+Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */; };
+		106467D228FF61F1006FF939 /* PetViewContoller+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */; };
+		106467D428FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */; };
+		106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */; };
+		106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467D728FF9B81006FF939 /* PetEditButton.swift */; };
+		106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467DB29018C3A006FF939 /* RepeatCycle.swift */; };
+		107C958229153C7500D336DC /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C958129153C7500D336DC /* LocalNotifications.swift */; };
+		107C959829190B6A00D336DC /* RepeatButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959729190B6A00D336DC /* RepeatButtonView.swift */; };
+		107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */; };
+		107C959C2919E90900D336DC /* OpenSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C959B2919E90900D336DC /* OpenSource.swift */; };
+		107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */; };
+		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
+		10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766D29092C69001F95D4 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +83,59 @@
 		1005C3DD28AF1CB200A8AA7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005C3E728AF216900A8AA7B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarItem.swift; sourceTree = "<group>"; };
+		1005C3F128AF7DB000A8AA7B /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardCell.swift; sourceTree = "<group>"; };
+		1005C3F528AFA04C00A8AA7B /* PetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfo.swift; sourceTree = "<group>"; };
+		1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailViewController.swift; sourceTree = "<group>"; };
+		1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfoCell.swift; sourceTree = "<group>"; };
+		1005C40528B73E1300A8AA7B /* BoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
+		1005C40728B741AB00A8AA7B /* BoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxCell.swift; sourceTree = "<group>"; };
+		1005C40928B778B300A8AA7B /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
+		1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		1044415B28EEA45F006950FB /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		104441AE28F95849006950FB /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
+		104441B228F9906E006950FB /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		104441B428FA9AEB006950FB /* ReminderViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderViewController+DataSource.swift"; sourceTree = "<group>"; };
+		104441B628FAAC60006950FB /* ReminderDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDoneButton.swift; sourceTree = "<group>"; };
+		104441B828FAACF8006950FB /* ReminderListViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderListViewController+Actions.swift"; sourceTree = "<group>"; };
+		104441BA28FAB9B6006950FB /* ReminderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailViewController.swift; sourceTree = "<group>"; };
+		104441BD28FABAEE006950FB /* ReminderDetailViewController+Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderDetailViewController+Row.swift"; sourceTree = "<group>"; };
+		104441BF28FADF6A006950FB /* ReminderDetailViewController+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderDetailViewController+Section.swift"; sourceTree = "<group>"; };
+		104441C128FAEEA8006950FB /* ReminderDetailViewController+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderDetailViewController+CellConfiguration.swift"; sourceTree = "<group>"; };
+		104441C428FAEFE7006950FB /* UIView+PinnedSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PinnedSubview.swift"; sourceTree = "<group>"; };
+		104441C628FAF0F0006950FB /* TextFieldContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldContentView.swift; sourceTree = "<group>"; };
+		104441C828FAF184006950FB /* UIContentConfiguration+Stateless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIContentConfiguration+Stateless.swift"; sourceTree = "<group>"; };
+		104441CA28FAF420006950FB /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
+		104441CE28FB009D006950FB /* CollectionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionContentView.swift; sourceTree = "<group>"; };
+		104441D028FB76E3006950FB /* RepeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCell.swift; sourceTree = "<group>"; };
+		104441D228FBB76C006950FB /* ScheduledViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledViewController.swift; sourceTree = "<group>"; };
+		104441D428FD27E1006950FB /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		104441D628FD2A09006950FB /* ProductViewController+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductViewController+Section.swift"; sourceTree = "<group>"; };
+		104441D828FD2CED006950FB /* ProductViewController+Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductViewController+Row.swift"; sourceTree = "<group>"; };
+		104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductViewController+CellConfiguration.swift"; sourceTree = "<group>"; };
+		1048DF1228D0A597009C87AD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		1048DF2028D37214009C87AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		105C9CBF294781940037F6C7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		105C9CC22948B6290037F6C7 /* CompletedReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedReminder.swift; sourceTree = "<group>"; };
+		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
+		106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimePickerContentView.swift; sourceTree = "<group>"; };
+		106467CD28FF5F07006FF939 /* PetViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewContoller.swift; sourceTree = "<group>"; };
+		106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+Row.swift"; sourceTree = "<group>"; };
+		106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+Section.swift"; sourceTree = "<group>"; };
+		106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PetViewContoller+CellConfiguration.swift"; sourceTree = "<group>"; };
+		106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewContoller.swift"; sourceTree = "<group>"; };
+		106467D728FF9B81006FF939 /* PetEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetEditButton.swift; sourceTree = "<group>"; };
+		106467DB29018C3A006FF939 /* RepeatCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCycle.swift; sourceTree = "<group>"; };
+		107C958129153C7500D336DC /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
+		107C959729190B6A00D336DC /* RepeatButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatButtonView.swift; sourceTree = "<group>"; };
+		107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceTableViewController.swift; sourceTree = "<group>"; };
+		107C959B2919E90900D336DC /* OpenSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
+		107C95AA291CF14900D336DC /* MyPetD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPetD.entitlements; sourceTree = "<group>"; };
+		107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchScreenImage@3x.png"; sourceTree = "<group>"; };
+		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
+		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +143,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1044415028E9CF6E006950FB /* FirebaseAnalytics in Frameworks */,
+				1044415228E9CF6E006950FB /* FirebaseAuth in Frameworks */,
+				1044415428E9CF6E006950FB /* FirebaseDatabase in Frameworks */,
+				1044415628E9CF6E006950FB /* FirebaseStorage in Frameworks */,
+				1005C3F028AF771200A8AA7B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +173,23 @@
 		1005C3CE28AF1CB000A8AA7B /* MyPetD */ = {
 			isa = PBXGroup;
 			children = (
+				107C95AA291CF14900D336DC /* MyPetD.entitlements */,
 				1005C3EB28AF220E00A8AA7B /* TabBar */,
 				1005C3E328AF1F5A00A8AA7B /* Model */,
+				104441C328FAEFB6006950FB /* ContentViews */,
 				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
 				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
+				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
+				1048DF1228D0A597009C87AD /* Extension.swift */,
+				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
+				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
+				10B6766D29092C69001F95D4 /* NetworkService.swift */,
+				107C958129153C7500D336DC /* LocalNotifications.swift */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
 				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
+				107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
+				1048DF2028D37214009C87AD /* GoogleService-Info.plist */,
 			);
 			path = MyPetD;
 			sourceTree = "<group>";
@@ -72,6 +197,9 @@
 		1005C3E328AF1F5A00A8AA7B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1005C3F528AFA04C00A8AA7B /* PetInfo.swift */,
+				1005C40928B778B300A8AA7B /* ProductInfo.swift */,
+				104441B228F9906E006950FB /* Reminder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -79,7 +207,16 @@
 		1005C3E428AF1F6800A8AA7B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				105C9CC42949BC590037F6C7 /* Cell */,
 				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
+				106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */,
+				1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */,
+				106467CD28FF5F07006FF939 /* PetViewContoller.swift */,
+				106467CF28FF609E006FF939 /* PetViewContoller+Row.swift */,
+				106467D128FF61F1006FF939 /* PetViewContoller+Section.swift */,
+				106467D328FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift */,
+				106467D728FF9B81006FF939 /* PetEditButton.swift */,
+				107C959D291B6CB800D336DC /* Settings */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -87,15 +224,16 @@
 		1005C3E528AF1F6F00A8AA7B /* Box */ = {
 			isa = PBXGroup;
 			children = (
+				105C9CC1294856C70037F6C7 /* Cell */,
+				1005C40528B73E1300A8AA7B /* BoxViewController.swift */,
+				1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */,
+				105C9CBF294781940037F6C7 /* ProductDetailView.swift */,
+				104441D428FD27E1006950FB /* ProductViewController.swift */,
+				104441D828FD2CED006950FB /* ProductViewController+Row.swift */,
+				104441D628FD2A09006950FB /* ProductViewController+Section.swift */,
+				104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */,
 			);
 			path = Box;
-			sourceTree = "<group>";
-		};
-		1005C3E628AF209C00A8AA7B /* Todo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Todo;
 			sourceTree = "<group>";
 		};
 		1005C3EB28AF220E00A8AA7B /* TabBar */ = {
@@ -105,9 +243,79 @@
 				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
 				1005C3E428AF1F6800A8AA7B /* Home */,
 				1005C3E528AF1F6F00A8AA7B /* Box */,
-				1005C3E628AF209C00A8AA7B /* Todo */,
+				104441AD28F95761006950FB /* Reminder */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		104441AD28F95761006950FB /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				104441AE28F95849006950FB /* ReminderViewController.swift */,
+				104441B428FA9AEB006950FB /* ReminderViewController+DataSource.swift */,
+				104441B628FAAC60006950FB /* ReminderDoneButton.swift */,
+				104441B828FAACF8006950FB /* ReminderListViewController+Actions.swift */,
+				106467DB29018C3A006FF939 /* RepeatCycle.swift */,
+				104441D228FBB76C006950FB /* ScheduledViewController.swift */,
+				105C9CC22948B6290037F6C7 /* CompletedReminder.swift */,
+				104441BC28FABAC9006950FB /* DetailViewController */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
+		104441BC28FABAC9006950FB /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				104441BA28FAB9B6006950FB /* ReminderDetailViewController.swift */,
+				104441BD28FABAEE006950FB /* ReminderDetailViewController+Row.swift */,
+				104441BF28FADF6A006950FB /* ReminderDetailViewController+Section.swift */,
+				104441C128FAEEA8006950FB /* ReminderDetailViewController+CellConfiguration.swift */,
+				107C959729190B6A00D336DC /* RepeatButtonView.swift */,
+			);
+			path = DetailViewController;
+			sourceTree = "<group>";
+		};
+		104441C328FAEFB6006950FB /* ContentViews */ = {
+			isa = PBXGroup;
+			children = (
+				104441C428FAEFE7006950FB /* UIView+PinnedSubview.swift */,
+				104441C828FAF184006950FB /* UIContentConfiguration+Stateless.swift */,
+				104441C628FAF0F0006950FB /* TextFieldContentView.swift */,
+				104441CA28FAF420006950FB /* DatePickerContentView.swift */,
+				106467CB28FEEA6E006FF939 /* DateAndTimePickerContentView.swift */,
+				104441CE28FB009D006950FB /* CollectionContentView.swift */,
+				106467A728FD6829006FF939 /* ImageContentView.swift */,
+				104441D028FB76E3006950FB /* RepeatCell.swift */,
+			);
+			path = ContentViews;
+			sourceTree = "<group>";
+		};
+		105C9CC1294856C70037F6C7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		105C9CC42949BC590037F6C7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */,
+				1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */,
+				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		107C959D291B6CB800D336DC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
+				107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */,
+				107C959B2919E90900D336DC /* OpenSource.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +334,13 @@
 			dependencies = (
 			);
 			name = MyPetD;
+			packageProductDependencies = (
+				1005C3EF28AF771200A8AA7B /* SnapKit */,
+				1044414F28E9CF6E006950FB /* FirebaseAnalytics */,
+				1044415128E9CF6E006950FB /* FirebaseAuth */,
+				1044415328E9CF6E006950FB /* FirebaseDatabase */,
+				1044415528E9CF6E006950FB /* FirebaseStorage */,
+			);
 			productName = MyPetD;
 			productReference = 1005C3CC28AF1CB000A8AA7B /* MyPetD.app */;
 			productType = "com.apple.product-type.application";
@@ -154,6 +369,10 @@
 				Base,
 			);
 			mainGroup = 1005C3C328AF1CB000A8AA7B;
+			packageReferences = (
+				1005C3EE28AF771200A8AA7B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1005C3CD28AF1CB000A8AA7B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -169,7 +388,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */,
+				1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */,
 				1005C3D928AF1CB200A8AA7B /* Assets.xcassets in Resources */,
+				107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */,
 				1005C3D728AF1CB000A8AA7B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,10 +402,60 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				104441CF28FB009D006950FB /* CollectionContentView.swift in Sources */,
+				104441D528FD27E1006950FB /* ProductViewController.swift in Sources */,
+				104441BE28FABAEE006950FB /* ReminderDetailViewController+Row.swift in Sources */,
+				106467D028FF609E006FF939 /* PetViewContoller+Row.swift in Sources */,
+				107C958229153C7500D336DC /* LocalNotifications.swift in Sources */,
+				1005C3FC28B0920B00A8AA7B /* PetInfoCell.swift in Sources */,
 				1005C3D028AF1CB000A8AA7B /* AppDelegate.swift in Sources */,
+				106467CC28FEEA6E006FF939 /* DateAndTimePickerContentView.swift in Sources */,
+				104441B928FAACF8006950FB /* ReminderListViewController+Actions.swift in Sources */,
+				104441CB28FAF420006950FB /* DatePickerContentView.swift in Sources */,
+				1005C3F628AFA04C00A8AA7B /* PetInfo.swift in Sources */,
+				104441B528FA9AEB006950FB /* ReminderViewController+DataSource.swift in Sources */,
+				106467D228FF61F1006FF939 /* PetViewContoller+Section.swift in Sources */,
+				107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */,
+				104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */,
+				106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */,
+				104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
+				10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */,
+				104441D128FB76E3006950FB /* RepeatCell.swift in Sources */,
+				10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */,
+				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
+				106467D828FF9B81006FF939 /* PetEditButton.swift in Sources */,
+				1005C3ED28AF523600A8AA7B /* CustomBarItem.swift in Sources */,
+				106467DC29018C3A006FF939 /* RepeatCycle.swift in Sources */,
+				104441BB28FAB9B6006950FB /* ReminderDetailViewController.swift in Sources */,
+				104441AF28F95849006950FB /* ReminderViewController.swift in Sources */,
+				105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */,
+				104441D328FBB76C006950FB /* ScheduledViewController.swift in Sources */,
+				106467A828FD6829006FF939 /* ImageContentView.swift in Sources */,
+				1044415C28EEA45F006950FB /* ImageCacheManager.swift in Sources */,
+				104441C228FAEEA8006950FB /* ReminderDetailViewController+CellConfiguration.swift in Sources */,
+				1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */,
+				1005C40A28B778B300A8AA7B /* ProductInfo.swift in Sources */,
+				106467CE28FF5F07006FF939 /* PetViewContoller.swift in Sources */,
+				104441D728FD2A09006950FB /* ProductViewController+Section.swift in Sources */,
+				1048DF1328D0A597009C87AD /* Extension.swift in Sources */,
+				104441D928FD2CED006950FB /* ProductViewController+Row.swift in Sources */,
+				104441C928FAF184006950FB /* UIContentConfiguration+Stateless.swift in Sources */,
+				1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */,
+				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
+				104441B728FAAC60006950FB /* ReminderDoneButton.swift in Sources */,
+				107C959C2919E90900D336DC /* OpenSource.swift in Sources */,
+				104441C728FAF0F0006950FB /* TextFieldContentView.swift in Sources */,
+				1005C41028B8FD6C00A8AA7B /* ItemDetailViewController.swift in Sources */,
 				1005C3E828AF216900A8AA7B /* HomeViewController.swift in Sources */,
+				104441C028FADF6A006950FB /* ReminderDetailViewController+Section.swift in Sources */,
+				1005C40628B73E1300A8AA7B /* BoxViewController.swift in Sources */,
+				106467D428FF65A7006FF939 /* PetViewContoller+CellConfiguration.swift in Sources */,
+				1005C3F428AF9A2200A8AA7B /* MainCardCell.swift in Sources */,
+				104441B328F9906E006950FB /* Reminder.swift in Sources */,
+				107C959829190B6A00D336DC /* RepeatButtonView.swift in Sources */,
+				105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +532,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -316,7 +587,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -331,21 +602,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPetBox;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -359,21 +637,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPetBox;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -404,6 +689,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1005C3EE28AF771200A8AA7B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1005C3EF28AF771200A8AA7B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1005C3EE28AF771200A8AA7B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		1044414F28E9CF6E006950FB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		1044415128E9CF6E006950FB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1044415328E9CF6E006950FB /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		1044415528E9CF6E006950FB /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1044414E28E9CF6E006950FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1005C3C428AF1CB000A8AA7B /* Project object */;
 }

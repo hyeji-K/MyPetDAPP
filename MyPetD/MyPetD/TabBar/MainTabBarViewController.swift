@@ -11,7 +11,17 @@ class MainTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showPage(_:)), name: Notification.Name("showPage"), object: nil)
+        
+        UITabBar.appearance().tintColor = .fiordColor
+    }
+    
+    @objc func showPage(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let index = userInfo["index"] as? Int {
+                self.selectedIndex = index
+            }
+        }
     }
 }

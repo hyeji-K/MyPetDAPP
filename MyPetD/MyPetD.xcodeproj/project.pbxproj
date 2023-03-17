@@ -174,19 +174,13 @@
 			isa = PBXGroup;
 			children = (
 				107C95AA291CF14900D336DC /* MyPetD.entitlements */,
-				1005C3EB28AF220E00A8AA7B /* TabBar */,
+				1095C9F329C465840067842E /* View */,
+				1095C9F229C4657C0067842E /* Controller */,
 				1005C3E328AF1F5A00A8AA7B /* Model */,
-				104441C328FAEFB6006950FB /* ContentViews */,
-				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
-				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
-				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
-				1048DF1228D0A597009C87AD /* Extension.swift */,
-				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
-				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
-				10B6766D29092C69001F95D4 /* NetworkService.swift */,
-				107C958129153C7500D336DC /* LocalNotifications.swift */,
+				1095C9F629C4660A0067842E /* Application Delegate */,
+				1095C9F729C4666D0067842E /* Network */,
+				1095C9F429C465CA0067842E /* Extension */,
 				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
-				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
 				107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
 				1048DF2028D37214009C87AD /* GoogleService-Info.plist */,
@@ -207,7 +201,6 @@
 		1005C3E428AF1F6800A8AA7B /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				105C9CC42949BC590037F6C7 /* Cell */,
 				1005C3E728AF216900A8AA7B /* HomeViewController.swift */,
 				106467D528FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift */,
 				1005C3F928B08D7600A8AA7B /* PetDetailViewController.swift */,
@@ -224,7 +217,6 @@
 		1005C3E528AF1F6F00A8AA7B /* Box */ = {
 			isa = PBXGroup;
 			children = (
-				105C9CC1294856C70037F6C7 /* Cell */,
 				1005C40528B73E1300A8AA7B /* BoxViewController.swift */,
 				1005C40F28B8FD6C00A8AA7B /* ItemDetailViewController.swift */,
 				105C9CBF294781940037F6C7 /* ProductDetailView.swift */,
@@ -234,18 +226,6 @@
 				104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */,
 			);
 			path = Box;
-			sourceTree = "<group>";
-		};
-		1005C3EB28AF220E00A8AA7B /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
-				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
-				1005C3E428AF1F6800A8AA7B /* Home */,
-				1005C3E528AF1F6F00A8AA7B /* Box */,
-				104441AD28F95761006950FB /* Reminder */,
-			);
-			path = TabBar;
 			sourceTree = "<group>";
 		};
 		104441AD28F95761006950FB /* Reminder */ = {
@@ -290,22 +270,15 @@
 			path = ContentViews;
 			sourceTree = "<group>";
 		};
-		105C9CC1294856C70037F6C7 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		105C9CC42949BC590037F6C7 /* Cell */ = {
+		105C9CC42949BC590037F6C7 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
 				1005C3F328AF9A2200A8AA7B /* MainCardCell.swift */,
 				1005C3FB28B0920B00A8AA7B /* PetInfoCell.swift */,
 				1005C3F128AF7DB000A8AA7B /* ProductCell.swift */,
+				1005C40728B741AB00A8AA7B /* BoxCell.swift */,
 			);
-			path = Cell;
+			path = CustomCells;
 			sourceTree = "<group>";
 		};
 		107C959D291B6CB800D336DC /* Settings */ = {
@@ -316,6 +289,65 @@
 				107C959B2919E90900D336DC /* OpenSource.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		1095C9F229C4657C0067842E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
+				1005C3E428AF1F6800A8AA7B /* Home */,
+				1005C3E528AF1F6F00A8AA7B /* Box */,
+				104441AD28F95761006950FB /* Reminder */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1095C9F329C465840067842E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
+				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
+				104441C328FAEFB6006950FB /* ContentViews */,
+				1095C9F829C466C10067842E /* CustomViews */,
+				105C9CC42949BC590037F6C7 /* CustomCells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1095C9F429C465CA0067842E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1048DF1228D0A597009C87AD /* Extension.swift */,
+				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		1095C9F629C4660A0067842E /* Application Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
+				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
+			);
+			path = "Application Delegate";
+			sourceTree = "<group>";
+		};
+		1095C9F729C4666D0067842E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				10B6766D29092C69001F95D4 /* NetworkService.swift */,
+				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
+				107C958129153C7500D336DC /* LocalNotifications.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		1095C9F829C466C10067842E /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

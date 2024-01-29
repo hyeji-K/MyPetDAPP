@@ -52,7 +52,6 @@
 		104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */; };
 		1048DF1328D0A597009C87AD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1228D0A597009C87AD /* Extension.swift */; };
 		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
-		1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1048DF2028D37214009C87AD /* GoogleService-Info.plist */; };
 		105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CBF294781940037F6C7 /* ProductDetailView.swift */; };
 		105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CC22948B6290037F6C7 /* CompletedReminder.swift */; };
 		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
@@ -71,6 +70,7 @@
 		107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */; };
 		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
 		10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766D29092C69001F95D4 /* NetworkService.swift */; };
+		10EACF222B67CDCF008DD202 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,7 +116,6 @@
 		104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductViewController+CellConfiguration.swift"; sourceTree = "<group>"; };
 		1048DF1228D0A597009C87AD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		1048DF2028D37214009C87AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		105C9CBF294781940037F6C7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		105C9CC22948B6290037F6C7 /* CompletedReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedReminder.swift; sourceTree = "<group>"; };
 		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +135,7 @@
 		107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchScreenImage@3x.png"; sourceTree = "<group>"; };
 		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,22 +174,15 @@
 			isa = PBXGroup;
 			children = (
 				107C95AA291CF14900D336DC /* MyPetD.entitlements */,
-				1005C3EB28AF220E00A8AA7B /* TabBar */,
+				10EACF1B2B67CB90008DD202 /* Application Delegate */,
 				1005C3E328AF1F5A00A8AA7B /* Model */,
-				104441C328FAEFB6006950FB /* ContentViews */,
-				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
-				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
-				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
-				1048DF1228D0A597009C87AD /* Extension.swift */,
-				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
-				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
-				10B6766D29092C69001F95D4 /* NetworkService.swift */,
-				107C958129153C7500D336DC /* LocalNotifications.swift */,
-				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
-				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
-				107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */,
+				10EACF182B67CA68008DD202 /* View */,
+				10EACF1A2B67CB49008DD202 /* Controller */,
+				10EACF1C2B67CBB7008DD202 /* Network */,
+				10EACF1D2B67CBE3008DD202 /* Extension */,
+				10EACF1E2B67CC56008DD202 /* Resource */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
-				1048DF2028D37214009C87AD /* GoogleService-Info.plist */,
+				10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */,
 			);
 			path = MyPetD;
 			sourceTree = "<group>";
@@ -234,18 +227,6 @@
 				104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */,
 			);
 			path = Box;
-			sourceTree = "<group>";
-		};
-		1005C3EB28AF220E00A8AA7B /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
-				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
-				1005C3E428AF1F6800A8AA7B /* Home */,
-				1005C3E528AF1F6F00A8AA7B /* Box */,
-				104441AD28F95761006950FB /* Reminder */,
-			);
-			path = TabBar;
 			sourceTree = "<group>";
 		};
 		104441AD28F95761006950FB /* Reminder */ = {
@@ -318,6 +299,73 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		10EACF182B67CA68008DD202 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3D528AF1CB000A8AA7B /* Main.storyboard */,
+				1005C3DA28AF1CB200A8AA7B /* LaunchScreen.storyboard */,
+				104441C328FAEFB6006950FB /* ContentViews */,
+				10EACF192B67CA98008DD202 /* CustomCells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		10EACF192B67CA98008DD202 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		10EACF1A2B67CB49008DD202 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3E928AF21FD00A8AA7B /* MainTabBarViewController.swift */,
+				1005C3E428AF1F6800A8AA7B /* Home */,
+				1005C3E528AF1F6F00A8AA7B /* Box */,
+				104441AD28F95761006950FB /* Reminder */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		10EACF1B2B67CB90008DD202 /* Application Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3CF28AF1CB000A8AA7B /* AppDelegate.swift */,
+				1005C3D128AF1CB000A8AA7B /* SceneDelegate.swift */,
+			);
+			path = "Application Delegate";
+			sourceTree = "<group>";
+		};
+		10EACF1C2B67CBB7008DD202 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				10B6766D29092C69001F95D4 /* NetworkService.swift */,
+				1044415B28EEA45F006950FB /* ImageCacheManager.swift */,
+				107C958129153C7500D336DC /* LocalNotifications.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		10EACF1D2B67CBE3008DD202 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3EC28AF523600A8AA7B /* CustomBarItem.swift */,
+				1048DF1228D0A597009C87AD /* Extension.swift */,
+				10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		10EACF1E2B67CC56008DD202 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1005C3D828AF1CB200A8AA7B /* Assets.xcassets */,
+				107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -388,8 +436,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */,
-				1048DF2128D37214009C87AD /* GoogleService-Info.plist in Resources */,
 				1005C3D928AF1CB200A8AA7B /* Assets.xcassets in Resources */,
+				10EACF222B67CDCF008DD202 /* GoogleService-Info.plist in Resources */,
 				107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */,
 				1005C3D728AF1CB000A8AA7B /* Main.storyboard in Resources */,
 			);

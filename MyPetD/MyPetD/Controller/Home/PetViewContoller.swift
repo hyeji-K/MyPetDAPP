@@ -67,8 +67,25 @@ class PetViewController: UICollectionViewController {
     @objc func didDoneEdit() {
         if self.petInfo.image != self.imageURL {
             NetworkService.shared.imageUpload(id: petInfo.id, storageName: .petImage, imageData: imageData) { url in
+                if self.workingPetInfo.birthDate <= self.workingPetInfo.withDate {
+                    if self.workingPetInfo.name != "" {
+                        self.petInfo.image = url
+                        self.updateSnapshot()
+                        self.petInfo = self.workingPetInfo
+                        self.updatePetInfo(self.petInfo)
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.alert("반려동물 이름을 입력하세요.")
+                    }
+                } else {
+                    self.alert("생일과 만난날을 제대로 입력했는지 확인하세요.")
+                }
+            }
+        } else {
+            if self.workingPetInfo.birthDate <= self.workingPetInfo.withDate {
+                print("well")
                 if self.workingPetInfo.name != "" {
-                    self.petInfo.image = url
+                    self.petInfo.image = self.imageURL
                     self.updateSnapshot()
                     self.petInfo = self.workingPetInfo
                     self.updatePetInfo(self.petInfo)
@@ -76,16 +93,8 @@ class PetViewController: UICollectionViewController {
                 } else {
                     self.alert("반려동물 이름을 입력하세요.")
                 }
-            }
-        } else {
-            if self.workingPetInfo.name != "" {
-                self.petInfo.image = self.imageURL
-                self.updateSnapshot()
-                self.petInfo = self.workingPetInfo
-                self.updatePetInfo(self.petInfo)
-                self.dismiss(animated: true, completion: nil)
             } else {
-                self.alert("반려동물 이름을 입력하세요.")
+                self.alert("생일과 만난날을 제대로 입력했는지 확인하세요.")
             }
         }
     }

@@ -10,8 +10,7 @@ import MessageUI
 
 class SettingViewController: UIViewController {
     
-    let notification: [String] = ["알림 설정"]
-    let settingArray: [String] = ["문의하기", "오픈소스", "버전 정보"]
+    let notice: [[String]] = [["알림 설정"], ["2024 박람회 일정"], ["문의하기", "오픈소스", "버전 정보"]]
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
@@ -53,14 +52,10 @@ class SettingViewController: UIViewController {
 extension SettingViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return notice.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return notification.count
-        } else {
-            return settingArray.count
-        }
+        return notice[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,7 +63,7 @@ extension SettingViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         if indexPath.section == 0 {
             var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = notification[indexPath.row]
+            contentConfiguration.text = notice[indexPath.section][indexPath.row]
             cell.contentConfiguration = contentConfiguration
             
             let alarmLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 16))
@@ -87,9 +82,15 @@ extension SettingViewController: UITableViewDataSource {
             }
             alarmLabel.textAlignment = .right
             cell.accessoryView = alarmLabel
+        } else if indexPath.section == 1 {
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = notice[indexPath.section][indexPath.row]
+            cell.contentConfiguration = contentConfiguration
+            cell.accessoryType = .disclosureIndicator
+            
         } else {
             var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = settingArray[indexPath.row]
+            contentConfiguration.text = notice[indexPath.section][indexPath.row]
             cell.contentConfiguration = contentConfiguration
             
             switch indexPath.row {
@@ -129,6 +130,11 @@ extension SettingViewController: UITableViewDelegate, MFMailComposeViewControlle
                     }
                 }
             }
+        } else if indexPath.section == 1 {
+            let viewController = ScheduleViewController()
+            viewController.navigationBarTitle = notice[indexPath.section][indexPath.row]
+            navigationItem.backButtonDisplayMode = .minimal
+            self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             if indexPath.row == 0 {
                 if MFMailComposeViewController.canSendMail() {

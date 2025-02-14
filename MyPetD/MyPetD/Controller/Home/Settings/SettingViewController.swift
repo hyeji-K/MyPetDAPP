@@ -10,7 +10,7 @@ import MessageUI
 
 class SettingViewController: UIViewController {
     
-    let notice: [[String]] = [["알림 설정"], ["2024 박람회 일정"], ["문의하기", "오픈소스", "버전 정보"]]
+    let notice: [[String]] = [["알림 설정"], ["2025 박람회 일정"], ["문의하기", "오픈소스", "버전 정보"]]
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     

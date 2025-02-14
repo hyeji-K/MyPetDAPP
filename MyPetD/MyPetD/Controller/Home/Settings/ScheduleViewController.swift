@@ -14,7 +14,7 @@ final class ScheduleViewController: UIViewController {
         return tableView
     }()
     
-    private let fairScheduleList = FairSchedule.scheduleList
+    private let fairScheduleList = FairSchedule.scheduleList2025
     
     var navigationBarTitle: String?
 

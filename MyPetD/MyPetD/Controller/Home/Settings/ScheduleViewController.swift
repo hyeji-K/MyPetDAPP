@@ -50,6 +50,7 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.identifier, for: indexPath) as! ScheduleCell
         cell.configure(fairScheduleList[indexPath.row])
         cell.selectionStyle = .none
+        cell.updateCoverView(date: fairScheduleList[indexPath.row].date)
         return cell
     }
     

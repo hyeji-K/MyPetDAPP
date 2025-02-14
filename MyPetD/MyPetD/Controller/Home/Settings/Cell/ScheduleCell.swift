@@ -101,6 +101,14 @@ final class ScheduleCell: UITableViewCell {
         return label
     }()
     
+    let coverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6.withAlphaComponent(0.5)
+        view.layer.cornerRadius = 10
+        view.isHidden = true
+        return view
+    }()
+    
     func configure(_ info: FairSchedule) {
         monthLabel.text = info.month
         titleLabel.text = info.title
@@ -113,6 +121,28 @@ final class ScheduleCell: UITableViewCell {
             tagLabel.backgroundColor = .fiordColor
         }
         tagLabel.text = info.tagName
+    }
+    
+    func updateCoverView(date: String) {
+        let now = Date()
+        let dateList = date.split(separator: "~")
+        var dayList = dateList.last?.split(separator: " ")
+        dayList?.removeLast()
+        if let dayList = dayList {
+            let dateString = dayList.reduce("2025년") { $0 + $1 }
+            
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            formatter.dateFormat = "YYYY년M월d일"
+
+            if let date = formatter.date(from: dateString) {
+                if date < now {
+                    coverView.isHidden = false
+                } else {
+                    coverView.isHidden = true
+                }
+            }
+        }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -129,6 +159,7 @@ final class ScheduleCell: UITableViewCell {
         cellView.addSubview(monthLabel)
         cellView.addSubview(stackView)
         cellView.addSubview(tagLabel)
+        cellView.addSubview(coverView)
         
         cellView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
@@ -158,6 +189,10 @@ final class ScheduleCell: UITableViewCell {
         
         locationImageView.snp.makeConstraints { make in
             make.height.width.equalTo(18)
+        }
+        
+        coverView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

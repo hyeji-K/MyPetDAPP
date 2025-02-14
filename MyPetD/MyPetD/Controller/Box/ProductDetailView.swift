@@ -111,9 +111,9 @@ final class ProductDetailView: UIView {
     
     private func setupDetailView() {
         addSubview(mainView)
+        addSubview(productImageView)
         addSubview(closeButton)
         addSubview(editButton)
-        addSubview(productImageView)
         addSubview(productNameLabel)
         addSubview(dDayLabel)
         addSubview(storedLocationLabel)

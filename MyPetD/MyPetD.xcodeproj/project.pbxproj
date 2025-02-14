@@ -53,6 +53,9 @@
 		1048DF1328D0A597009C87AD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1228D0A597009C87AD /* Extension.swift */; };
 		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
 		104FEC452D5EEE28009E197E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 104FEC442D5EEE28009E197E /* GoogleService-Info.plist */; };
+		104FEC472D5F6BBE009E197E /* FairSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104FEC462D5F6BBE009E197E /* FairSchedule.swift */; };
+		104FEC492D5F6BE1009E197E /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104FEC482D5F6BE1009E197E /* ScheduleViewController.swift */; };
+		104FEC4C2D5F6BE8009E197E /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104FEC4A2D5F6BE8009E197E /* ScheduleCell.swift */; };
 		105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CBF294781940037F6C7 /* ProductDetailView.swift */; };
 		105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CC22948B6290037F6C7 /* CompletedReminder.swift */; };
 		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
@@ -117,6 +120,9 @@
 		1048DF1228D0A597009C87AD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		104FEC442D5EEE28009E197E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		104FEC462D5F6BBE009E197E /* FairSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FairSchedule.swift; sourceTree = "<group>"; };
+		104FEC482D5F6BE1009E197E /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		104FEC4A2D5F6BE8009E197E /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		105C9CBF294781940037F6C7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		105C9CC22948B6290037F6C7 /* CompletedReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedReminder.swift; sourceTree = "<group>"; };
 		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
@@ -193,6 +199,7 @@
 				1005C3F528AFA04C00A8AA7B /* PetInfo.swift */,
 				1005C40928B778B300A8AA7B /* ProductInfo.swift */,
 				104441B228F9906E006950FB /* Reminder.swift */,
+				104FEC462D5F6BBE009E197E /* FairSchedule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +278,14 @@
 			path = ContentViews;
 			sourceTree = "<group>";
 		};
+		104FEC4B2D5F6BE8009E197E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				104FEC4A2D5F6BE8009E197E /* ScheduleCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		105C9CC1294856C70037F6C7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,9 +307,11 @@
 		107C959D291B6CB800D336DC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				104FEC4B2D5F6BE8009E197E /* Cell */,
 				1048DF1C28D1EE48009C87AD /* SettingViewController.swift */,
 				107C95992919E6EE00D336DC /* OpenSourceTableViewController.swift */,
 				107C959B2919E90900D336DC /* OpenSource.swift */,
+				104FEC482D5F6BE1009E197E /* ScheduleViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -466,9 +483,11 @@
 				107C959A2919E6EE00D336DC /* OpenSourceTableViewController.swift in Sources */,
 				104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */,
 				106467D628FF8B8F006FF939 /* HomeViewController+TableViewContoller.swift in Sources */,
+				104FEC4C2D5F6BE8009E197E /* ScheduleCell.swift in Sources */,
 				104441C528FAEFE7006950FB /* UIView+PinnedSubview.swift in Sources */,
 				1005C3EA28AF21FD00A8AA7B /* MainTabBarViewController.swift in Sources */,
 				10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */,
+				104FEC492D5F6BE1009E197E /* ScheduleViewController.swift in Sources */,
 				104441D128FB76E3006950FB /* RepeatCell.swift in Sources */,
 				10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */,
 				1005C3FA28B08D7600A8AA7B /* PetDetailViewController.swift in Sources */,
@@ -492,6 +511,7 @@
 				1005C40828B741AB00A8AA7B /* BoxCell.swift in Sources */,
 				1005C3F228AF7DB000A8AA7B /* ProductCell.swift in Sources */,
 				1005C3D228AF1CB000A8AA7B /* SceneDelegate.swift in Sources */,
+				104FEC472D5F6BBE009E197E /* FairSchedule.swift in Sources */,
 				104441B728FAAC60006950FB /* ReminderDoneButton.swift in Sources */,
 				107C959C2919E90900D336DC /* OpenSource.swift in Sources */,
 				104441C728FAF0F0006950FB /* TextFieldContentView.swift in Sources */,

@@ -52,6 +52,7 @@
 		104441DB28FD320D006950FB /* ProductViewController+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */; };
 		1048DF1328D0A597009C87AD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1228D0A597009C87AD /* Extension.swift */; };
 		1048DF1D28D1EE48009C87AD /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048DF1C28D1EE48009C87AD /* SettingViewController.swift */; };
+		104FEC452D5EEE28009E197E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 104FEC442D5EEE28009E197E /* GoogleService-Info.plist */; };
 		105C9CC0294781940037F6C7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CBF294781940037F6C7 /* ProductDetailView.swift */; };
 		105C9CC32948B6290037F6C7 /* CompletedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105C9CC22948B6290037F6C7 /* CompletedReminder.swift */; };
 		106467A828FD6829006FF939 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106467A728FD6829006FF939 /* ImageContentView.swift */; };
@@ -70,7 +71,6 @@
 		107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */; };
 		10B6766C2909126A001F95D4 /* Extension+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */; };
 		10B6766E29092C69001F95D4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6766D29092C69001F95D4 /* NetworkService.swift */; };
-		10EACF222B67CDCF008DD202 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +116,7 @@
 		104441DA28FD320D006950FB /* ProductViewController+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductViewController+CellConfiguration.swift"; sourceTree = "<group>"; };
 		1048DF1228D0A597009C87AD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1048DF1C28D1EE48009C87AD /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		104FEC442D5EEE28009E197E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		105C9CBF294781940037F6C7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		105C9CC22948B6290037F6C7 /* CompletedReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedReminder.swift; sourceTree = "<group>"; };
 		106467A728FD6829006FF939 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 		107C95CA2921DF6800D336DC /* LaunchScreenImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchScreenImage@3x.png"; sourceTree = "<group>"; };
 		10B6766B2909126A001F95D4 /* Extension+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+EmptyView.swift"; sourceTree = "<group>"; };
 		10B6766D29092C69001F95D4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +182,7 @@
 				10EACF1D2B67CBE3008DD202 /* Extension */,
 				10EACF1E2B67CC56008DD202 /* Resource */,
 				1005C3DD28AF1CB200A8AA7B /* Info.plist */,
-				10EACF212B67CDCF008DD202 /* GoogleService-Info.plist */,
+				104FEC442D5EEE28009E197E /* GoogleService-Info.plist */,
 			);
 			path = MyPetD;
 			sourceTree = "<group>";
@@ -437,7 +437,7 @@
 			files = (
 				1005C3DC28AF1CB200A8AA7B /* LaunchScreen.storyboard in Resources */,
 				1005C3D928AF1CB200A8AA7B /* Assets.xcassets in Resources */,
-				10EACF222B67CDCF008DD202 /* GoogleService-Info.plist in Resources */,
+				104FEC452D5EEE28009E197E /* GoogleService-Info.plist in Resources */,
 				107C95CB2921DF6800D336DC /* LaunchScreenImage@3x.png in Resources */,
 				1005C3D728AF1CB000A8AA7B /* Main.storyboard in Resources */,
 			);
@@ -652,7 +652,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
@@ -663,15 +663,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -687,7 +686,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyPetD/MyPetD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPetD/Info.plist;
@@ -698,15 +697,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.MyPetD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

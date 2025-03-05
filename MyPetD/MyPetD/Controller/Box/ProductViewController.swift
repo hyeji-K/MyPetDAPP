@@ -11,24 +11,24 @@ final class ProductViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
-    var product: ProductInfo {
+    var product: Product {
         didSet {
             onChange(product)
         }
     }
-    var workingProduct: ProductInfo
+    var workingProduct: Product
     var isAddingNewProduct = false
-    var onChange: (ProductInfo) -> Void
+    var onChange: (Product) -> Void
     let imageURL: String
     var imageData: Data = Data()
 
     private var dataSource: DataSource!
     
-    init(product: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
+    init(product: Product, onChange: @escaping (Product) -> Void) {
         self.product = product
         self.workingProduct = product
         self.onChange = onChange
-        self.imageURL = product.image
+        self.imageURL = product.imageUrl
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
@@ -61,11 +61,11 @@ final class ProductViewController: UICollectionViewController {
     }
     
     @objc private func didDoneEdit() {
-        if self.product.image != self.imageURL {
+        if self.product.imageUrl != self.imageURL {
             NetworkService.shared.imageUpload(id: product.id, storageName: .productImage, imageData: imageData) { url in
                 if self.workingProduct.name != "" {
                     self.product = self.workingProduct
-                    self.product.image = url
+                    self.product.imageUrl = url
                     self.updateSnapshotForEditing()
                     self.updateProduct(self.product)
                     self.dismiss(animated: true, completion: nil)
@@ -76,7 +76,7 @@ final class ProductViewController: UICollectionViewController {
         } else {
             if self.workingProduct.name != "" {
                 self.product = self.workingProduct
-                self.product.image = self.imageURL
+                self.product.imageUrl = self.imageURL
                 self.updateSnapshotForEditing()
                 self.updateProduct(self.product)
                 self.dismiss(animated: true, completion: nil)
@@ -115,7 +115,7 @@ final class ProductViewController: UICollectionViewController {
     }
     
     @objc private func didCancelEdit() {
-        self.product.image = self.imageURL
+        self.product.imageUrl = self.imageURL
         workingProduct = product
         self.dismiss(animated: true, completion: nil)
     }
@@ -127,7 +127,7 @@ final class ProductViewController: UICollectionViewController {
     private func updateSnapshotForEditing() {
         var snapshot = Snapshot()
         snapshot.appendSections([.image, .name, .location, .notes, .date])
-        snapshot.appendItems([.header(Section.image.name), .editImage(product.image)], toSection: .image)
+        snapshot.appendItems([.header(Section.image.name), .editImage(product.imageUrl)], toSection: .image)
         snapshot.appendItems([.header(Section.name.name), .editName(product.name)], toSection: .name)
         snapshot.appendItems([.header(Section.location.name), .editLocation(product.storedMethod)], toSection: .location)
         snapshot.appendItems([.header(Section.notes.name), .editNote(product.memo)], toSection: .notes)
@@ -136,8 +136,9 @@ final class ProductViewController: UICollectionViewController {
         dataSource.apply(snapshot)
     }
     
-    private func updateProduct(_ productInfo: ProductInfo) {
-        NetworkService.shared.updateProductInfo(productInfo: productInfo, classification: .productInfo)
+    private func updateProduct(_ productData: Product) {
+//        NetworkService.shared.updateProductInfo(productInfo: productInfo, classification: .productInfo)
+        Networking.shared.updateProduct(productData: productData, classification: .products)
     }
     
     private func section(for indexPath: IndexPath) -> Section {
@@ -183,7 +184,7 @@ extension ProductViewController: UINavigationControllerDelegate, UIImagePickerCo
             let data = image.pngData()! as NSData
             data.write(toFile: localPath!, atomically: true)
             
-            self.product.image = localPath!
+            self.product.imageUrl = localPath!
             self.updateSnapshotForEditing()
         }
         self.dismiss(animated: true)

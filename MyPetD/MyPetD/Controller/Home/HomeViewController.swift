@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
 //    var petInfos: [PetInfo] = []
     var petManager = PetManager()
 //    var productInfo: [ProductInfo] = []
-    var productManager = ProductManager()
+    var productManager = ProductInfoManager()
 //    var reminders: [Reminder] = []
     var reminderMamager = ReminderManager()
     var todayReminders: [Reminder] = []

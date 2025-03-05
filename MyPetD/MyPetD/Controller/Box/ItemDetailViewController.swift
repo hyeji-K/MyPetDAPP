@@ -10,17 +10,17 @@ import UIKit
 final class ItemDetailViewController: UIViewController {
     
     private let productDetailView = ProductDetailView()
-    var productInfo: ProductInfo {
+    var product: Product {
         didSet {
-            onChange(productInfo)
+            onChange(product)
         }
     }
-    var workingProductInfo: ProductInfo
-    var onChange: (ProductInfo) -> Void
+    var workingProductInfo: Product
+    var onChange: (Product) -> Void
     
-    init(productInfo: ProductInfo, onChange: @escaping (ProductInfo) -> Void) {
-        self.productInfo = productInfo
-        self.workingProductInfo = productInfo
+    init(product: Product, onChange: @escaping (Product) -> Void) {
+        self.product = product
+        self.workingProductInfo = product
         self.onChange = onChange
         super.init(nibName: nil, bundle: nil)
         self.setupDetailView()
@@ -47,7 +47,7 @@ final class ItemDetailViewController: UIViewController {
     @objc private func deleteButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "삭제하시겠습니까?", message: "삭제하면 되돌릴 수 없습니다.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            NetworkService.shared.deleteImageAndData(with: self.productInfo.id, storageName: .productImage, classification: .productInfo)
+            NetworkService.shared.deleteImageAndData(with: self.product.id, storageName: .productImage, classification: .productInfo)
             
             self.dismiss(animated: true, completion: nil)
         }
@@ -71,13 +71,13 @@ final class ItemDetailViewController: UIViewController {
         self.present(navigationContoller, animated: true)
     }
     
-    private func update(_ productInfo: ProductInfo) {
-        self.productDetailView.productNameLabel.text = productInfo.name
-        self.productDetailView.productImageView.setImageURL(productInfo.image)
-        self.productDetailView.dDayLabel.text = productInfo.expirationDate.dDayFunction(productInfo.expirationDate)
-        self.productDetailView.storedLocationLabel.text = productInfo.storedMethod
-        self.productDetailView.expirationLabel.text = "\(productInfo.expirationDate.dateLong!.stringFormatShort)"
-        self.productDetailView.memoLabel.text = productInfo.memo
+    private func update(_ productData: Product) {
+        self.productDetailView.productNameLabel.text = productData.name
+        self.productDetailView.productImageView.setImageURL(productData.imageUrl)
+        self.productDetailView.dDayLabel.text = productData.expirationDate.dDayFunction(productData.expirationDate)
+        self.productDetailView.storedLocationLabel.text = productData.storedMethod
+        self.productDetailView.expirationLabel.text = "\(productData.expirationDate.dateLong!.stringFormatShort)"
+        self.productDetailView.memoLabel.text = productData.memo
     }
     
     private func setupDetailView() {
@@ -99,6 +99,6 @@ final class ItemDetailViewController: UIViewController {
 
         productDetailView.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         
-        self.update(productInfo)
+        self.update(product)
     }
 }

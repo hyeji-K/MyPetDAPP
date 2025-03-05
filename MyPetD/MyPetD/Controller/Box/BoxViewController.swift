@@ -13,7 +13,7 @@ final class BoxViewController: UIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
-    typealias Item = ProductInfo
+    typealias Item = Product
     
     enum Section {
         case main
@@ -36,8 +36,8 @@ final class BoxViewController: UIViewController {
         navigationItem.leftBarButtonItem = titleItem
         
         let addConfig = CustomBarItemConfiguration(image: UIImage(systemName: "plus")) {
-            let productInfo = self.productManager.createProduct()
-            let viewController = ProductViewController(product: productInfo) { [weak self] productInfo in
+            let productData = self.productManager.createProduct()
+            let viewController = ProductViewController(product: productData) { [weak self] productInfo in
                 self?.productManager.addProduct(productInfo)
             }
             viewController.isAddingNewProduct = true
@@ -83,7 +83,7 @@ final class BoxViewController: UIViewController {
         return layout
     }
     
-    private func updateSnapshot(reloading product: [ProductInfo] = []) {
+    private func updateSnapshot(reloading product: [Product] = []) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(product, toSection: .main)
@@ -98,10 +98,10 @@ final class BoxViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    private func showDetail(for productInfo: ProductInfo) {
-        let viewController = ItemDetailViewController(productInfo: productInfo) { [weak self] productInfo in
-            self?.productManager.updateProduct(productInfo)
-            self?.updateSnapshot(reloading: [productInfo])
+    private func showDetail(for productData: Product) {
+        let viewController = ItemDetailViewController(product: productData) { [weak self] product in
+            self?.productManager.updateProduct(product)
+            self?.updateSnapshot(reloading: [product])
         }
         viewController.modalTransitionStyle = .crossDissolve
         viewController.modalPresentationStyle = .overFullScreen
@@ -109,14 +109,15 @@ final class BoxViewController: UIViewController {
     }
     
     private func fetch() {
-        NetworkService.shared.getDataList(classification: .productInfo) { snapshot in
+        Networking.shared.readDataList(classification: .products) { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
                 do {
-                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values), options: [])
+                    let data = try JSONSerialization.data(withJSONObject: Array(snapshot.values),
+                                                          options: [])
                     let decoder = JSONDecoder()
-                    let productInfo: [ProductInfo] = try decoder.decode([ProductInfo].self, from: data)
-                    self.productManager.products = productInfo.sorted(by: { $0.expirationDate < $1.expirationDate })
+                    let products: [Product] = try decoder.decode([Product].self, from: data)
+                    self.productManager.products = products.sorted(by: { $0.expirationDate < $1.expirationDate })
                     self.updateSnapshot(reloading: self.productManager.products)
                 } catch let error {
                     print(error.localizedDescription)

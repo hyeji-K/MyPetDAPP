@@ -49,7 +49,7 @@ extension ProductInfo {
     ]
 }
 
-class ProductManager {
+class ProductInfoManager {
     var products: [ProductInfo] = []
     
     func createProduct() -> ProductInfo {

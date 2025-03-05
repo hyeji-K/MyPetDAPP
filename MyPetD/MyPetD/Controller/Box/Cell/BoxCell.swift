@@ -56,14 +56,14 @@ class BoxCell: UICollectionViewCell {
         setupCell()
     }
     
-    func configuration(_ productInfo: ProductInfo) {
-        self.titleLabel.text = productInfo.name
-        if productInfo.image != "" {
-            self.thumbnailImageView.setImageURL(productInfo.image)
+    func configuration(_ productData: Product) {
+        self.titleLabel.text = productData.name
+        if productData.imageUrl != "" {
+            self.thumbnailImageView.setImageURL(productData.imageUrl)
         } else {
             self.thumbnailImageView.image = UIImage(systemName: "pawprint.fill")
         }
-        self.expirationLabel.text = productInfo.expirationDate.dateLong?.stringFormatShort
+        self.expirationLabel.text = productData.expirationDate.dateLong?.stringFormatShort
     }
     
     private func setupCell() {

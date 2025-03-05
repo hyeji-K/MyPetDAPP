@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.set(uid, forKey: "firebaseUid")
                 print("FirebaseAuth: \(uid)")
                 print("UserDefaults \(UserDefaults.standard.string(forKey: "firebaseUid")!)")
+                checkAndMigrateIfNeeded()
+                setupNewUserIfNeeded()
             }
         }
         

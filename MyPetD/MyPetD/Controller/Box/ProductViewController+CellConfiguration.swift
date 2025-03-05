@@ -22,7 +22,7 @@ extension ProductViewController {
         var contentConfiguration = cell.imageConfiguration()
         contentConfiguration.image = image
         contentConfiguration.onChange = { [weak self] image in
-            self?.workingProduct.image = image
+            self?.workingProduct.imageUrl = image
         }
         return contentConfiguration
     }
